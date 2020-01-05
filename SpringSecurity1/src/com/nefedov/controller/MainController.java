@@ -25,6 +25,8 @@ public class MainController {
 
         User loginedUser = (User) ((Authentication) principal).getPrincipal();
 
+        System.out.println(principal.getName());
+
         String userInfo = WebUtils.toString(loginedUser);
         model.addAttribute("userInfo", userInfo);
 

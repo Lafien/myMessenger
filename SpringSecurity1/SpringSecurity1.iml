@@ -9,6 +9,7 @@
         <webroots />
         <sourceRoots>
           <root url="file://$MODULE_DIR$/resources" />
+          <root url="file://$MODULE_DIR$/src" />
           <root url="file://$MODULE_DIR$/src/main" />
           <root url="file://$MODULE_DIR$/src/main/java" />
         </sourceRoots>
