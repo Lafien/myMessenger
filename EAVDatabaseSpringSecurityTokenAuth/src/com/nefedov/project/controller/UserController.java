@@ -1,9 +1,12 @@
-package com.nefedov.controller;
+package com.nefedov.project.controller;
 
-import com.nefedov.DAO.UserDAO;
-import com.nefedov.model.CreateUser;
-import com.nefedov.model.UserInfo;
-import com.nefedov.model.UserSecurity;
+
+import com.nefedov.project.DAO.RoleDAO;
+import com.nefedov.project.DAO.UserDAO;
+import com.nefedov.project.model.CreateUser;
+import com.nefedov.project.model.Role;
+import com.nefedov.project.model.UserInfo;
+import com.nefedov.project.model.UserSecurity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-import static com.nefedov.utils.EncrytedPasswordUtils.encrytePassword;
+import static com.nefedov.project.utils.EncrytedPasswordUtils.encrytePassword;
 
 @Controller
 public class UserController {
@@ -22,29 +25,38 @@ public class UserController {
     @Autowired
     UserDAO userDAO;
 
+    @Autowired
+    RoleDAO roleDAO;
+
 
     @PostMapping("/info/about/user")
     @ResponseBody
     public String aboutUser(@RequestParam(name = "login") String login) {
-        List<UserInfo> list = userDAO.findInfoAboutUser(login);
+        UserInfo user = userDAO.findInfoAboutUser(login);
+
+        return user.toString();
+    }
+
+    @GetMapping("/info/about/role")
+    @ResponseBody
+    public String getRole() {
+        List<Role> list = roleDAO.getRoleDAO();
         for(int i =0; i < list.size();i++) {
             System.out.println(list.get(i));
         }
         return list.toString();
     }
 
-    @Secured(value = {"ROLE_ADMIN"})
+
     @PostMapping("/info/about/user/security")
     @ResponseBody
     public String userSecurity(@RequestParam(name = "login") String login) {
-        List<UserSecurity> list = userDAO.userForSecurity(login);
-        for(int i =0; i < list.size();i++) {
-            System.out.println(list.get(i));
-        }
-        return list.toString();
+        UserSecurity userSecurity = userDAO.userForSecurity(login);
+        System.out.println(userSecurity.toString());
+        return userSecurity.toString();
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+
     @PostMapping("/create/user")
     @ResponseBody
     public String createUser(@RequestParam(name = "username") String username, @RequestParam(name = "password") String password, @RequestParam(name = "role") String role) {
@@ -66,8 +78,8 @@ public class UserController {
         String encrytedPassword = encrytePassword(createUser.getPassword());
         userDAO.createUser(createUser.getUsername(), encrytedPassword, createUser.getRole());
             return "redirect:/createUser";
+
+
     }
-
-
 
 }
