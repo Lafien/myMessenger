@@ -54,5 +54,10 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
+    @Override
+    public void addContact(String username, String usernameContact) {
+        userDAO.addContact(username, usernameContact);
+    }
+
 
 }

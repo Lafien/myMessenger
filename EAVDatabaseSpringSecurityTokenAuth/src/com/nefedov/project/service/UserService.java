@@ -19,4 +19,6 @@ public interface UserService {
 
     List<UserInfo> findFriendContact(String username);
 
+    void addContact(String username, String usernameContact);
+
 }

@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -30,7 +27,7 @@ public class UserRestController {
         return new ResponseEntity<>(username,HttpStatus.OK);
     }
 
-    @GetMapping(value = "users/getfriends")
+    @GetMapping(value = "getfriends")
     public ResponseEntity<List<UserInfo>> getFriendsContact(Authentication authentication) {
         List<UserInfo> user = userService.findFriendContact(authentication.getName());
 
@@ -39,6 +36,35 @@ public class UserRestController {
         }
 
         return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "myprofile")
+    public ResponseEntity<UserInfo> getMyProfile(Authentication authentication) {
+        UserInfo user = userService.findByUsernameInfo(authentication.getName());
+
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "infoaboutcontact")
+    public ResponseEntity<UserInfo> getInfoAboutFriend(@RequestParam(name = "username") String username) {
+        UserInfo user = userService.findByUsernameInfo(username);
+
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @PostMapping("addcontact")
+    @ResponseBody
+    public String createUser(Authentication authentication, @RequestParam(name = "usernameContact") String usernameContact) {
+        userService.addContact(authentication.getName(), usernameContact);
+        return "success";
     }
 
 

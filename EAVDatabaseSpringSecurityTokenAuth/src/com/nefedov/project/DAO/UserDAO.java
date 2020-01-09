@@ -98,7 +98,13 @@ public class UserDAO extends JdbcDaoSupport {
     }
 
 
-
+    public void addContact(String username, String usernameContact) {
+        String sql = UserMapper.ADD_CONTACT;
+        Object[] params = new Object[]{username, usernameContact};
+        assert this.getJdbcTemplate() != null;
+        int rows = this.getJdbcTemplate().update(sql, params);
+        System.out.println("Contact added");
+    }
 
 
 

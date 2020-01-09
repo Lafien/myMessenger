@@ -1,28 +1,28 @@
 package com.nefedov.project.mapper;
 
 public class UserMapper {
-    public static String FIND_INFO_ABOUT_USER = "select username.username, firstname.firstname, secondname.secondname\n" +
+    public static String FIND_INFO_ABOUT_USER = "select username.username, surname.surname, firstname.firstname\n" +
             "from\n" +
             "(select value as username, id_object from\n" +
             "(select id_value, id_object, id_attribute, value from value\n" +
             "where id_object in (select id_object from value\n" +
-            "where value = ?)\n" +  //username
+            "where value = ?)\n" +
             "and id_attribute in (1,2,3)) attrs\n" +
             "where attrs.id_attribute = 3) username,\n" +
+            "(select value as surname, id_object from\n" +
+            "(select id_value, id_object, id_attribute, value from value\n" +
+            "where id_object in (select id_object from value\n" +
+            "where value = ?)\n" +
+            "and id_attribute in (1,2,3)) attrs\n" +
+            "where attrs.id_attribute = 1) surname,\n" +
             "(select value as firstname, id_object from\n" +
             "(select id_value, id_object, id_attribute, value from value\n" +
             "where id_object in (select id_object from value\n" +
-            "where value = ?)\n" +   //username
+            "where value = ?)\n" +
             "and id_attribute in (1,2,3)) attrs\n" +
-            "where attrs.id_attribute = 1) firstname,\n" +
-            "(select value as secondname, id_object from\n" +
-            "(select id_value, id_object, id_attribute, value from value\n" +
-            "where id_object in (select id_object from value\n" +
-            "where value = ?)\n" +   //username
-            "and id_attribute in (1,2,3)) attrs\n" +
-            "where attrs.id_attribute = 2) secondname\n" +
-            "where username.id_object = firstname.id_object\n" +
-            "and username.id_object = secondname.id_object";
+            "where attrs.id_attribute = 2) firstname\n" +
+            "where surname.id_object = firstname.id_object\n" +
+            "and username.id_object = surname.id_object";
 
     public static String USER_FOR_SPRING_SECURITY = "select login.login, passwords.password, roles.role from\n" +
             "(select test.value as login, id_object from\n" +
@@ -110,5 +110,43 @@ public class UserMapper {
             "where id_attribute = 3 ) username\n" +
             "where surname.id_object = firstname.id_object\n" +
             "and surname.id_object = username.id_object";
+
+    public static String ADD_CONTACT = "insert into value (id_object, id_attribute, value)\n" +
+            "values ((select id_object from value\n" +
+            "where value = ?),9, (select cast(id_object as text) -- username пользователя, которому добавляется контакт\n" +
+            "from value\n" +
+            "where value = ?)) -- логин добавляемого пользователя";
+
+    public static String USER_CHATS = "select username.username, firstname.firstname, secondname.secondname\n" +
+            "from\n" +
+            "(select value as firstname, id_object from\n" +
+            "(select id_object, id_attribute, value from value where id_object in (\n" +
+            "select cast(value as integer) from value where id_object in (\n" +
+            "select id_object from mesowner\n" +
+            "where cast(value as integer) in (select id_object from value\n" +
+            "where value = ?))  -- чаты 6-го пользователя\n" +
+            "and id_attribute = 8 )\n" +
+            "and (id_attribute = 1 or id_attribute = 2 or id_attribute = 3)) main\n" +
+            "where id_attribute = 1) firstname,\n" +
+            "(select value as secondname, id_object from\n" +
+            "(select id_object, id_attribute, value from value where id_object in (\n" +
+            "select cast(value as integer) from value where id_object in (\n" +
+            "select id_object from mesowner\n" +
+            "where cast(value as integer) in (select id_object from value\n" +
+            "where value = ?))  -- чаты 6-го пользователя\n" +
+            "and id_attribute = 8 )\n" +
+            "and (id_attribute = 1 or id_attribute = 2 or id_attribute = 3)) main\n" +
+            "where id_attribute = 2) secondname,\n" +
+            "(select value as username, id_object from\n" +
+            "(select id_object, id_attribute, value from value where id_object in (\n" +
+            "select cast(value as integer) from value where id_object in (\n" +
+            "select id_object from mesowner\n" +
+            "where cast(value as integer) in (select id_object from value\n" +
+            "where value = ?))  -- чаты 6-го пользователя\n" +
+            "and id_attribute = 8 )\n" +
+            "and (id_attribute = 1 or id_attribute = 2 or id_attribute = 3)) main\n" +
+            "where id_attribute = 3) username\n" +
+            "where firstname.id_object = secondname.id_object\n" +
+            "and firstname.id_object = username.id_object";
 }
 
