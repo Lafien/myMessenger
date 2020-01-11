@@ -1,6 +1,6 @@
 # myProject
 Project for courses
-Added:
+</br>Added:
 1. Spring Security, token authorization
 2. Work with database.
 3. REST (on development stage)
