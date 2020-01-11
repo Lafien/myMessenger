@@ -19,6 +19,8 @@ import java.util.List;
 
 import static com.nefedov.project.utils.EncrytedPasswordUtils.encrytePassword;
 
+
+//not used
 @Controller
 public class UserController {
 
