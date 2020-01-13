@@ -21,4 +21,17 @@ public interface UserService {
 
     void addContact(String username, String usernameContact);
 
+    List<UserInfo> getChats(String username);
+
+    void changeSurname(String surname, String username);
+
+    void changeFisrtname(String firstname, String username);
+
+    void addSurname(String surname, String username);
+
+    void addFirstname(String firstname, String username);
+
+    void createUser(String username, String password, String role);
+
+
 }

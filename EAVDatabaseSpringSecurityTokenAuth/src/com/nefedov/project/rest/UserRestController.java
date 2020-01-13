@@ -1,6 +1,8 @@
 package com.nefedov.project.rest;
 
+import com.nefedov.project.model.Message;
 import com.nefedov.project.model.UserInfo;
+import com.nefedov.project.service.MessageService;
 import com.nefedov.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,12 +16,18 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/users/")
 public class UserRestController {
+
     private final UserService userService;
+    private final MessageService messageService;
 
     @Autowired
-    public UserRestController(UserService userService) {
+    public UserRestController(UserService userService, MessageService messageService) {
         this.userService = userService;
+        this.messageService = messageService;
     }
+
+
+
 
     @GetMapping(value = "getusername")
     public ResponseEntity<String> getUserById(Authentication authentication){
@@ -67,5 +75,32 @@ public class UserRestController {
         return "success";
     }
 
+    @GetMapping(value = "chats")
+    public ResponseEntity<List<UserInfo>> getChats(Authentication authentication) {
+        List<UserInfo> user = userService.getChats(authentication.getName());
+
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+
+    @GetMapping(value = "chats/{username}")
+    public ResponseEntity<List<Message>> getMessagesInChat(Authentication authentication, @PathVariable(name = "username") String username) {
+        List<Message> user = messageService.getMessagesInChat(authentication.getName(), username);
+
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "chats/new-message")
+    public void createMessage(@RequestBody Message message, Authentication authentication) {
+        messageService.createMessage(message.getText(), authentication.getName(), message.getMsgTo());
+    }
 
 }

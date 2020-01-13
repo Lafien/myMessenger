@@ -59,5 +59,35 @@ public class UserServiceImpl implements UserService {
         userDAO.addContact(username, usernameContact);
     }
 
+    @Override
+    public List<UserInfo> getChats(String username) {
+        return userDAO.getChats(username);
+    }
+
+    @Override
+    public void changeSurname(String surname, String username) {
+        userDAO.changeSurname(surname, username);
+    }
+
+    @Override
+    public void changeFisrtname(String firstname, String username) {
+        userDAO.changeFirstname(firstname, username);
+    }
+
+    @Override
+    public void addSurname(String surname, String username) {
+        userDAO.addSurname(surname, username);
+    }
+
+    @Override
+    public void addFirstname(String firstname, String username) {
+        userDAO.addFirstname(firstname, username);
+    }
+
+    @Override
+    public void createUser(String username, String password, String role) {
+        userDAO.createUser(username, password, role);
+    }
+
 
 }

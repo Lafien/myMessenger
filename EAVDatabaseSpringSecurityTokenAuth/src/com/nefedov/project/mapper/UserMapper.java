@@ -117,8 +117,19 @@ public class UserMapper {
             "from value\n" +
             "where value = ?)) -- логин добавляемого пользователя";
 
-    public static String USER_CHATS = "select username.username, firstname.firstname, secondname.secondname\n" +
+
+
+    public static String GET_CHATS = "select username.username, surname.surname, firstname.firstname\n" +
             "from\n" +
+            "(select value as surname, id_object from\n" +
+            "(select id_object, id_attribute, value from value where id_object in (\n" +
+            "select cast(value as integer) from value where id_object in (\n" +
+            "select id_object from mesowner\n" +
+            "where cast(value as integer) in (select id_object from value\n" +
+            "where value = ?))  -- чаты 6-го пользователя\n" +
+            "and id_attribute = 8 )\n" +
+            "and (id_attribute = 1 or id_attribute = 2 or id_attribute = 3)) main\n" +
+            "where id_attribute = 1) surname,\n" +
             "(select value as firstname, id_object from\n" +
             "(select id_object, id_attribute, value from value where id_object in (\n" +
             "select cast(value as integer) from value where id_object in (\n" +
@@ -127,16 +138,7 @@ public class UserMapper {
             "where value = ?))  -- чаты 6-го пользователя\n" +
             "and id_attribute = 8 )\n" +
             "and (id_attribute = 1 or id_attribute = 2 or id_attribute = 3)) main\n" +
-            "where id_attribute = 1) firstname,\n" +
-            "(select value as secondname, id_object from\n" +
-            "(select id_object, id_attribute, value from value where id_object in (\n" +
-            "select cast(value as integer) from value where id_object in (\n" +
-            "select id_object from mesowner\n" +
-            "where cast(value as integer) in (select id_object from value\n" +
-            "where value = ?))  -- чаты 6-го пользователя\n" +
-            "and id_attribute = 8 )\n" +
-            "and (id_attribute = 1 or id_attribute = 2 or id_attribute = 3)) main\n" +
-            "where id_attribute = 2) secondname,\n" +
+            "where id_attribute = 2) firstname,\n" +
             "(select value as username, id_object from\n" +
             "(select id_object, id_attribute, value from value where id_object in (\n" +
             "select cast(value as integer) from value where id_object in (\n" +
@@ -146,7 +148,21 @@ public class UserMapper {
             "and id_attribute = 8 )\n" +
             "and (id_attribute = 1 or id_attribute = 2 or id_attribute = 3)) main\n" +
             "where id_attribute = 3) username\n" +
-            "where firstname.id_object = secondname.id_object\n" +
+            "where surname.id_object = firstname.id_object\n" +
             "and firstname.id_object = username.id_object";
+
+    public static String CHANGE_SURNAME = "UPDATE value SET value = ? WHERE id_object in (select id_object from value\n" +
+            "where value = ?) and id_attribute = 1;";
+
+    public static String CHANGE_FIRSTNAME = "UPDATE value SET value = ? WHERE id_object in (select id_object from value\n" +
+            "where value = ?) and id_attribute = 2;";
+
+    public static String ADD_SURNAME = "insert into value (id_object, id_attribute, value)\n" +
+            "values ((select id_object from value\n" +
+            "where value = ?),1, ?)";
+
+    public static String ADD_FIRSTNAME = "insert into value (id_object, id_attribute, value)\n" +
+            "values ((select id_object from value\n" +
+            "where value = ?),2, ?)";
 }
 

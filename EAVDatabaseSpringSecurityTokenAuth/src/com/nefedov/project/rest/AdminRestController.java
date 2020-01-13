@@ -42,9 +42,10 @@ public class AdminRestController {
 
     @PostMapping("create/user")
     @ResponseBody
-    public String createUser(@RequestParam(name = "username") String username, @RequestParam(name = "password") String password, @RequestParam(name = "role") String role) {
-        String encrytedPassword = encrytePassword(password);
-        userDAO.createUser(username, encrytedPassword, role);
+    public String createUser(@RequestBody UserSecurity userSecurity) {
+        String encrytedPassword = encrytePassword(userSecurity.getPassword());
+        userService.createUser(
+                userSecurity.getUsername(), encrytedPassword, userSecurity.getRoles().toString());
         return "success";
     }
 }

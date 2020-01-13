@@ -107,6 +107,51 @@ public class UserDAO extends JdbcDaoSupport {
     }
 
 
+    public List<UserInfo> getChats(String username){
+        String sql = UserMapper.GET_CHATS;
+        Object[] params = new Object[]{username, username, username};
+        assert this.getJdbcTemplate() != null;
+        return this.getJdbcTemplate().query(sql,params,(resultSet, i) -> {
+            String username1 = resultSet.getString("username");
+            String surname = resultSet.getString("surname");
+            String firstname = resultSet.getString("firstname");
+            return new UserInfo(username1,surname,firstname);
+        });
+    }
+
+    public void changeSurname(String surname, String username) {
+        String sql = UserMapper.CHANGE_SURNAME;
+        Object[] params = new Object[]{surname, username};
+        assert this.getJdbcTemplate() != null;
+        int rows = this.getJdbcTemplate().update(sql, params);
+        System.out.println("Surname was changed");
+    }
+
+    public void changeFirstname(String firstname, String username) {
+        String sql = UserMapper.CHANGE_FIRSTNAME;
+        Object[] params = new Object[]{firstname, username};
+        assert this.getJdbcTemplate() != null;
+        int rows = this.getJdbcTemplate().update(sql, params);
+        System.out.println("Firstname was changed");
+    }
+
+
+    public void addSurname(String surname, String username) {
+        String sql = UserMapper.ADD_SURNAME;
+        Object[] params = new Object[]{username, surname};
+        assert this.getJdbcTemplate() != null;
+        int rows = this.getJdbcTemplate().update(sql, params);
+        System.out.println("Surname was added");
+    }
+
+    public void addFirstname(String firstname, String username) {
+        String sql = UserMapper.ADD_FIRSTNAME;
+        Object[] params = new Object[]{username, firstname};
+        assert this.getJdbcTemplate() != null;
+        int rows = this.getJdbcTemplate().update(sql, params);
+        System.out.println("Firstname was added");
+    }
+
 
 
 }
