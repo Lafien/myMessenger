@@ -1,8 +1,6 @@
 package com.nefedov.project.rest;
 
 import com.nefedov.project.DAO.UserDAO;
-import com.nefedov.project.dto.AdminUserDto;
-import com.nefedov.project.model.UserInfo;
 import com.nefedov.project.model.UserSecurity;
 import com.nefedov.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +28,8 @@ public class AdminRestController {
 
 
     @GetMapping(value = "users/{username}")
-    public ResponseEntity<UserInfo> getUserByUsername(@PathVariable(name = "username") String username) {
-        UserInfo user = userService.findByUsernameInfo(username);
+    public ResponseEntity<UserSecurity> getUserByUsername(@PathVariable(name = "username") String username) {
+        UserSecurity user = userService.findByUsername(username);
 
         if (user == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

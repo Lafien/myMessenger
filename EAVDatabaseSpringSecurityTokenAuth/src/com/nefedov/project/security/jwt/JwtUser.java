@@ -1,7 +1,6 @@
 package com.nefedov.project.security.jwt;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.nefedov.project.model.UserSecurity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

@@ -2,8 +2,6 @@ package com.nefedov.project.service;
 
 
 import com.nefedov.project.model.Message;
-import com.nefedov.project.model.UserInfo;
-import com.nefedov.project.model.UserSecurity;
 
 import java.util.List;
 

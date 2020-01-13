@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -27,15 +26,7 @@ public class UserRestController {
     }
 
 
-
-
-    @GetMapping(value = "getusername")
-    public ResponseEntity<String> getUserById(Authentication authentication){
-        String username = authentication.getName();
-        return new ResponseEntity<>(username,HttpStatus.OK);
-    }
-
-    @GetMapping(value = "getfriends")
+    @GetMapping(value = "contacts")
     public ResponseEntity<List<UserInfo>> getFriendsContact(Authentication authentication) {
         List<UserInfo> user = userService.findFriendContact(authentication.getName());
 
@@ -57,8 +48,8 @@ public class UserRestController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @PostMapping(value = "infoaboutcontact")
-    public ResponseEntity<UserInfo> getInfoAboutFriend(@RequestParam(name = "username") String username) {
+    @GetMapping(value = "contacts/{username}")
+    public ResponseEntity<UserInfo> getInfoAboutContact(@PathVariable(name = "username") String username) {
         UserInfo user = userService.findByUsernameInfo(username);
 
         if (user == null) {
@@ -68,12 +59,14 @@ public class UserRestController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @PostMapping("addcontact")
+
+    @PostMapping("contacts/new")
     @ResponseBody
-    public String createUser(Authentication authentication, @RequestParam(name = "usernameContact") String usernameContact) {
-        userService.addContact(authentication.getName(), usernameContact);
+    public String createUser(Authentication authentication, @RequestBody UserInfo userInfo) {
+        userService.addContact(authentication.getName(), userInfo.getUsername());
         return "success";
     }
+
 
     @GetMapping(value = "chats")
     public ResponseEntity<List<UserInfo>> getChats(Authentication authentication) {
@@ -101,6 +94,26 @@ public class UserRestController {
     @PostMapping(value = "chats/new-message")
     public void createMessage(@RequestBody Message message, Authentication authentication) {
         messageService.createMessage(message.getText(), authentication.getName(), message.getMsgTo());
+    }
+
+    @PutMapping(value = "myprofile/change-surname")
+    public void changeSurname(@RequestBody UserInfo userInfo, Authentication authentication) {
+        userService.changeSurname(userInfo.getSurname(), authentication.getName());
+    }
+
+    @PutMapping(value = "myprofile/change-firstname")
+    public void changeFirstname(@RequestBody UserInfo userInfo, Authentication authentication) {
+        userService.changeFisrtname(userInfo.getFirstname(), authentication.getName());
+    }
+
+    @PostMapping(value = "myprofile/add-surname")
+    public void addSurname(@RequestBody UserInfo userInfo, Authentication authentication) {
+        userService.addSurname(userInfo.getSurname(), authentication.getName());
+    }
+
+    @PostMapping(value = "myprofile/add-firstname")
+    public void addFirstname(@RequestBody UserInfo userInfo, Authentication authentication) {
+        userService.addFirstname(userInfo.getFirstname(), authentication.getName());
     }
 
 }

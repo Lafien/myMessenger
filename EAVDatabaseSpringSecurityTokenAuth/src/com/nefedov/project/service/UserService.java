@@ -1,7 +1,5 @@
 package com.nefedov.project.service;
 
-
-import com.nefedov.project.DAO.UserDAO;
 import com.nefedov.project.model.UserInfo;
 import com.nefedov.project.model.UserSecurity;
 

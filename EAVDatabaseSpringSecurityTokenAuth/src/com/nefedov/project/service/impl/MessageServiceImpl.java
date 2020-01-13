@@ -1,16 +1,10 @@
 package com.nefedov.project.service.impl;
 
 import com.nefedov.project.DAO.MessageDAO;
-import com.nefedov.project.DAO.RoleDAO;
-import com.nefedov.project.DAO.UserDAO;
 import com.nefedov.project.model.Message;
-import com.nefedov.project.model.UserInfo;
-import com.nefedov.project.model.UserSecurity;
 import com.nefedov.project.service.MessageService;
-import com.nefedov.project.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
