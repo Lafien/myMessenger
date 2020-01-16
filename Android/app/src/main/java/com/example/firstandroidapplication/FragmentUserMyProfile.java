@@ -31,6 +31,7 @@ public class FragmentUserMyProfile extends Fragment {
         final TextView textView =  view.findViewById(R.id.username);
         final TextView textView1 =  view.findViewById(R.id.surname);
         final TextView textView2 =  view.findViewById(R.id.firstname);
+        final TextView problem = view.findViewById(R.id.problem);
 
         NetworkService.getInstance()
                 .MyProfile()
@@ -47,9 +48,10 @@ public class FragmentUserMyProfile extends Fragment {
                             textView2.setText(post.getFirstname());
                         }
                         else {
-                            textView.setText("Данные не верны");
+                            textView.setText("");
                             textView1.setText("");
                             textView2.setText("");
+                            problem.setText("Проблемы с авторизацией");
                         }
                     }
 

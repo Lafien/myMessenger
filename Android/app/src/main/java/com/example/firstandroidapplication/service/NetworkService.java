@@ -45,4 +45,8 @@ public class NetworkService {
         return mRetrofit.create(UserApi.class);
     }
 
+    public UserApi sendMessage(){
+        return mRetrofit.create(UserApi.class);
+    }
+
 }

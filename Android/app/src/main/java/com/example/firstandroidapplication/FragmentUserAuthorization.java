@@ -40,10 +40,6 @@ public class FragmentUserAuthorization extends Fragment {
         final EditText editText = view.findViewById(R.id.login);
         final EditText editText1 = view.findViewById(R.id.password);
         final TextView textView = view.findViewById(R.id.textView2);
-        final TextView textView1 = view.findViewById(R.id.textView3);
-
-        textView1.setText("");
-
 
 
         authorization.setOnClickListener(new View.OnClickListener() {
@@ -73,20 +69,16 @@ public class FragmentUserAuthorization extends Fragment {
                                     UserSecurity post = response.body();
 
                                     textView.setText("Авторизация успешна");
-                                    //textView1.setText(post.getToken());
                                     token = "Bearer_" + post.getToken();
                                 }
                                 else {
                                     textView.setText("Неверный логин или пароль");
-                                    //textView1.setText("");
                                 }
                             }
 
                             @Override
                             public void onFailure(Call<UserSecurity> call, Throwable t) {
-
                                 textView.setText("Error occurred while getting request!");
-                                textView1.setText("");
                                 t.printStackTrace();
                             }
                         });
@@ -142,20 +134,6 @@ public class FragmentUserAuthorization extends Fragment {
             }
         });
 
-
-        /*myDialog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction fTrans;
-
-                FragmentMessages fragmentMessages = new FragmentMessages();
-
-                fTrans = getFragmentManager().beginTransaction();
-                fTrans.replace(R.id.main, fragmentMessages);
-                fTrans.addToBackStack(null);
-                fTrans.commit();
-            }
-        });*/
 
         return  view;
     }
