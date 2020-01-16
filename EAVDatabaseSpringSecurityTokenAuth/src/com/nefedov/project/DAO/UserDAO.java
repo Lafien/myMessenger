@@ -109,7 +109,7 @@ public class UserDAO extends JdbcDaoSupport {
 
     public List<UserInfo> getChats(String username){
         String sql = UserMapper.GET_CHATS;
-        Object[] params = new Object[]{username, username, username};
+        Object[] params = new Object[]{username, username, username, username};
         assert this.getJdbcTemplate() != null;
         return this.getJdbcTemplate().query(sql,params,(resultSet, i) -> {
             String username1 = resultSet.getString("username");

@@ -1,71 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal" >
+    android:orientation="vertical"
+    android:id="@+id/main">
 
-<TableRow>
-    <TextView android:id="@+id/message1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:fontFamily="sans-serif"
-        android:textSize="26sp"
-        android:textColor="#f44336"
-
-        android:layout_weight="1"
-
-        android:hint="Кнопка не нажата" />
+    <!--<fragment
+        android:id="@+id/listFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:name="com.example.firstandroidapplication.FragmentUserAuthorization"/>-->
 
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="click1"
-        android:text="Нажать" />
-</TableRow>
 
-    <TableRow>
-        <TextView android:id="@+id/message2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:fontFamily="sans-serif"
-            android:textSize="26sp"
-            android:textColor="#f44336"
-
-            android:layout_weight="1"
-
-            android:hint="Кнопка не нажата" />
-
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="click2"
-            android:text="Нажать" />
-    </TableRow>
-
-    <TableRow>
-        <TextView android:id="@+id/message3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:fontFamily="sans-serif"
-            android:textSize="26sp"
-            android:textColor="#f44336"
-
-            android:layout_weight="1"
-
-            android:hint="Кнопка не нажата" />
-
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="click3"
-            android:text="Нажать" />
-    </TableRow>
-
-
-</TableLayout>
+</LinearLayout>

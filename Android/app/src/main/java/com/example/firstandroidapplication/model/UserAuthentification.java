@@ -1,7 +1,13 @@
-package com.nefedov.project.dto;
+package com.example.firstandroidapplication.model;
 
-public class AuthenticationRequestDto {
+import com.google.gson.annotations.SerializedName;
+
+public class UserAuthentification {
+
+    @SerializedName("username")
     private String username;
+
+    @SerializedName("password")
     private String password;
 
     public String getUsername() {

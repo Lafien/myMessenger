@@ -149,7 +149,7 @@ public class UserMapper {
             "and (id_attribute = 1 or id_attribute = 2 or id_attribute = 3)) main\n" +
             "where id_attribute = 3) username\n" +
             "where surname.id_object = firstname.id_object\n" +
-            "and firstname.id_object = username.id_object";
+            "and firstname.id_object = username.id_object and username.username != ?";
 
     public static String CHANGE_SURNAME = "UPDATE value SET value = ? WHERE id_object in (select id_object from value\n" +
             "where value = ?) and id_attribute = 1;";

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <EditText android:id="@+id/login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:fontFamily="sans-serif"
+        android:textSize="26sp"
+        android:textColor="#f44336"
+        android:hint="Введите логин" />
+
+
+    <EditText android:id="@+id/password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:fontFamily="sans-serif"
+        android:textSize="26sp"
+        android:textColor="#f44336"
+
+        android:hint="Введите пароль" />
+
+    <Button
+        android:id="@+id/send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Войти" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="26sp"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="26sp"
+        android:text="" />
+
+    <Button
+        android:id="@+id/openMyProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="61dp"
+        android:text="Мой профиль" />
+
+    <Button
+        android:id="@+id/openMyContacts"
+        android:layout_width="wrap_content"
+        android:layout_height="61dp"
+        android:text="Мои контакты" />
+
+    <Button
+        android:id="@+id/openMyChats"
+        android:layout_width="wrap_content"
+        android:layout_height="61dp"
+        android:text="Мои чаты" />
+
+    <!--<Button
+        android:id="@+id/openDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="61dp"
+        android:text="Мои диалог" />-->
+
+
+</LinearLayout>
