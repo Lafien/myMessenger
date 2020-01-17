@@ -32,10 +32,6 @@ public class FragmentUserAuthorization extends Fragment {
         View view = inflater.inflate(R.layout.authorization_content, container, false);
 
         Button authorization = view.findViewById(R.id.send);
-        Button myProfile = view.findViewById(R.id.openMyProfile);
-        Button myContacts = view.findViewById(R.id.openMyContacts);
-        Button myChats = view.findViewById(R.id.openMyChats);
-        //Button myDialog = view.findViewById(R.id.openDialog);
 
         final EditText editText = view.findViewById(R.id.login);
         final EditText editText1 = view.findViewById(R.id.password);
@@ -68,8 +64,18 @@ public class FragmentUserAuthorization extends Fragment {
                                 if(response.isSuccessful()) {
                                     UserSecurity post = response.body();
 
-                                    textView.setText("Авторизация успешна");
+                                    //textView.setText("Авторизация успешна");
                                     token = "Bearer_" + post.getToken();
+
+                                    FragmentTransaction fTrans;
+
+                                    FragmentMainPage fragmentMainPage = new FragmentMainPage();
+
+                                    fTrans = getFragmentManager().beginTransaction();
+                                    fTrans.replace(R.id.main, fragmentMainPage);
+                                    fTrans.addToBackStack(null);
+                                    fTrans.commit();
+
                                 }
                                 else {
                                     textView.setText("Неверный логин или пароль");
@@ -82,57 +88,16 @@ public class FragmentUserAuthorization extends Fragment {
                                 t.printStackTrace();
                             }
                         });
+
+
+
             }
+
+
+
         });
 
 
-        myProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                FragmentTransaction fTrans;
-
-                FragmentUserMyProfile fragmentUserMyProfile = new FragmentUserMyProfile();
-
-                fTrans = getFragmentManager().beginTransaction();
-                fTrans.replace(R.id.main, fragmentUserMyProfile);
-                fTrans.addToBackStack(null);
-                fTrans.commit();
-            }
-        });
-
-
-
-        myContacts.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                FragmentTransaction fTrans;
-
-                FragmentContacts fragmentContacts = new FragmentContacts();
-
-                fTrans = getFragmentManager().beginTransaction();
-                fTrans.replace(R.id.main, fragmentContacts);
-                fTrans.addToBackStack(null);
-                fTrans.commit();
-
-            }
-        });
-
-
-        myChats.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction fTrans;
-
-                FragmentChats fragmentChats = new FragmentChats();
-
-                fTrans = getFragmentManager().beginTransaction();
-                fTrans.replace(R.id.main, fragmentChats);
-                fTrans.addToBackStack(null);
-                fTrans.commit();
-            }
-        });
 
 
         return  view;

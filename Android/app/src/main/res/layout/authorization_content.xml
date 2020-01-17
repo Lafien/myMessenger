@@ -11,7 +11,8 @@
         android:fontFamily="sans-serif"
         android:textSize="26sp"
         android:textColor="#f44336"
-        android:hint="Введите логин" />
+        android:hint="Введите логин"
+        android:layout_gravity="center_horizontal"/>
 
 
     <EditText android:id="@+id/password"
@@ -21,40 +22,25 @@
         android:fontFamily="sans-serif"
         android:textSize="26sp"
         android:textColor="#f44336"
-
+        android:layout_gravity="center_horizontal"
         android:hint="Введите пароль" />
 
     <Button
         android:id="@+id/send"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:text="Войти" />
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="26sp"
+        android:layout_gravity="center_horizontal"
         android:text="" />
 
 
-    <Button
-        android:id="@+id/openMyProfile"
-        android:layout_width="wrap_content"
-        android:layout_height="61dp"
-        android:text="Мой профиль" />
-
-    <Button
-        android:id="@+id/openMyContacts"
-        android:layout_width="wrap_content"
-        android:layout_height="61dp"
-        android:text="Мои контакты" />
-
-    <Button
-        android:id="@+id/openMyChats"
-        android:layout_width="wrap_content"
-        android:layout_height="61dp"
-        android:text="Мои чаты" />
 
     <!--<Button
         android:id="@+id/openDialog"
