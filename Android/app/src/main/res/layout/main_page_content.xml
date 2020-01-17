@@ -10,27 +10,31 @@
         android:layout_height="wrap_content"
         android:text="Главная страница"
         android:textSize="25dp"
+        android:layout_marginBottom="50dp"
         android:layout_gravity="center_horizontal" />
 
     <Button
         android:id="@+id/openMyProfile"
-        android:layout_width="wrap_content"
+        android:layout_width="140dp"
         android:layout_height="61dp"
         android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="5dp"
         android:text="Мой профиль" />
 
     <Button
         android:id="@+id/openMyContacts"
-        android:layout_width="wrap_content"
+        android:layout_width="140dp"
         android:layout_height="61dp"
         android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="5dp"
         android:text="Мои контакты" />
 
     <Button
         android:id="@+id/openMyChats"
-        android:layout_width="wrap_content"
+        android:layout_width="140dp"
         android:layout_height="61dp"
         android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="5dp"
         android:text="Мои чаты" />
 
     <!--<Button

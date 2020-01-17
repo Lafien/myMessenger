@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 
 import com.example.firstandroidapplication.model.UserInfo;
 import com.example.firstandroidapplication.service.NetworkService;
+import com.example.firstandroidapplication.service.UserApi;
 
 import java.util.List;
 
@@ -28,6 +29,7 @@ import static com.example.firstandroidapplication.FragmentUserAuthorization.toke
 public class FragmentChats extends Fragment {
 
     public static String usernameChat = "";
+    public static UserInfo userChat;
 
     @Nullable
     @Override
@@ -50,17 +52,17 @@ public class FragmentChats extends Fragment {
                             final List<UserInfo> post = response.body();
 
 
-                            ListView countriesList = view.findViewById(R.id.contactsList);
+                            ListView contactsList = view.findViewById(R.id.contactsList);
                             ArrayAdapter<String> adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, post);
-                            countriesList.setAdapter(adapter);
-                            countriesList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+                            contactsList.setAdapter(adapter);
+                            contactsList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View v, int position, long id)
                                 {
-                                    // по позиции получаем выбранный элемент
+
                                      usernameChat = post.get(position).getUsername();
-                                    // установка текста элемента TextView
-                                    //selection.setText(usernameChat);
+                                     userChat = post.get(position);
+
 
                                     FragmentTransaction fTrans;
 

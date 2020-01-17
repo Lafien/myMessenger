@@ -24,10 +24,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.view.View.VISIBLE;
+import static com.example.firstandroidapplication.FragmentChats.userChat;
 import static com.example.firstandroidapplication.FragmentUserAuthorization.token;
 import static com.example.firstandroidapplication.FragmentChats.usernameChat;
 
 public class FragmentMessages extends Fragment {
+
+    TextView nameUserDialog;
 
     @Nullable
     @Override
@@ -51,6 +54,10 @@ public class FragmentMessages extends Fragment {
 
                         if(response.isSuccessful()) {
                             List<Message> post = response.body();
+
+                            nameUserDialog = view.findViewById(R.id.nameUser);
+
+                            nameUserDialog.setText(userChat.getSurname() + " " + userChat.getFirstname());
 
                             ListView countriesList = view.findViewById(R.id.contactsList);
 
