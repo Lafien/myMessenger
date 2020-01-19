@@ -23,10 +23,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static android.view.View.VISIBLE;
 import static com.example.firstandroidapplication.FragmentChats.userChat;
-import static com.example.firstandroidapplication.FragmentUserAuthorization.token;
 import static com.example.firstandroidapplication.FragmentChats.usernameChat;
+import static com.example.firstandroidapplication.FragmentUserAuthorization.token;
 
 public class FragmentMessages extends Fragment {
 
@@ -46,7 +45,6 @@ public class FragmentMessages extends Fragment {
         final TextView problem = view.findViewById(R.id.problem);
 
         NetworkService.getInstance()
-                .getMessages()
                 .getMessages(token, usernameChat)
                 .enqueue(new Callback<List<Message>>() {
                     @Override
@@ -64,7 +62,6 @@ public class FragmentMessages extends Fragment {
                             ArrayAdapter<String> adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, post);
 
                             countriesList.setAdapter(adapter);
-                            adapter.setNotifyOnChange(true);
                         }
                         else {
 
@@ -100,7 +97,6 @@ public class FragmentMessages extends Fragment {
                     message1.setMsgTo(usernameChat);
 
                     NetworkService.getInstance()
-                            .sendMessage()
                             .sendMessage(token, message1)
                             .enqueue(new Callback<Object>() {
 

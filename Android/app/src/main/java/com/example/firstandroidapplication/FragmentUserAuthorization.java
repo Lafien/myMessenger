@@ -24,6 +24,7 @@ import retrofit2.Response;
 public class FragmentUserAuthorization extends Fragment {
 
     public static String token = "";
+    //shared preference
 
     @Nullable
     @Override
@@ -55,8 +56,7 @@ public class FragmentUserAuthorization extends Fragment {
 
 
                 NetworkService.getInstance()
-                        .authorizationUser()
-                        .authorization(userAuthentification)
+                        .authorizationUser(userAuthentification)
                         .enqueue(new Callback<UserSecurity>() {
                             @Override
                             public void onResponse(Call<UserSecurity> call, Response<UserSecurity> response) {

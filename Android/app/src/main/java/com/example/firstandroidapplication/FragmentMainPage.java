@@ -7,19 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
-import com.example.firstandroidapplication.model.UserAuthentification;
-import com.example.firstandroidapplication.model.UserSecurity;
-import com.example.firstandroidapplication.service.NetworkService;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class FragmentMainPage extends Fragment {
 

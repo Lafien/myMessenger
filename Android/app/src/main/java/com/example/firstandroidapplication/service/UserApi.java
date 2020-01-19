@@ -32,7 +32,7 @@ public interface UserApi {
     @GET("/users/chats/{username}")
     Call<List<Message>> getMessages(@Header("Authorization") String token, @Path("username") String username);
 
-    @POST("/users/chats/new-message")
+    @POST("/users/chats/messages")
     Call<Object> sendMessage(@Header("Authorization") String token, @Body Message message);
 
 

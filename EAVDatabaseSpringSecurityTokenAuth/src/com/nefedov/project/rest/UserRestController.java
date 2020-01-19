@@ -60,7 +60,7 @@ public class UserRestController {
     }
 
 
-    @PostMapping("contacts/new")
+    @PostMapping("contacts")
     @ResponseBody
     public String createUser(Authentication authentication, @RequestBody UserInfo userInfo) {
         userService.addContact(authentication.getName(), userInfo.getUsername());
@@ -91,29 +91,34 @@ public class UserRestController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @PostMapping(value = "chats/new-message")
+    @PostMapping(value = "chats/messages")
     public void createMessage(@RequestBody Message message, Authentication authentication) {
         messageService.createMessage(message.getText(), authentication.getName(), message.getMsgTo());
     }
 
-    @PutMapping(value = "myprofile/change-surname")
+    @PutMapping(value = "myprofile")
     public void changeSurname(@RequestBody UserInfo userInfo, Authentication authentication) {
-        userService.changeSurname(userInfo.getSurname(), authentication.getName());
+        if(userInfo.getSurname()!=null){
+            userService.changeSurname(userInfo.getSurname(), authentication.getName());
+        }
+        else
+        {
+            userService.changeFisrtname(userInfo.getFirstname(), authentication.getName());
+        }
     }
 
-    @PutMapping(value = "myprofile/change-firstname")
-    public void changeFirstname(@RequestBody UserInfo userInfo, Authentication authentication) {
-        userService.changeFisrtname(userInfo.getFirstname(), authentication.getName());
-    }
 
-    @PostMapping(value = "myprofile/add-surname")
+    @PostMapping(value = "myprofile")
     public void addSurname(@RequestBody UserInfo userInfo, Authentication authentication) {
-        userService.addSurname(userInfo.getSurname(), authentication.getName());
-    }
+        if (userInfo.getSurname()!=null) {
+            userService.addSurname(userInfo.getSurname(), authentication.getName());
+        }
+        else
+        {
+            userService.addFirstname(userInfo.getFirstname(), authentication.getName());
+        }
 
-    @PostMapping(value = "myprofile/add-firstname")
-    public void addFirstname(@RequestBody UserInfo userInfo, Authentication authentication) {
-        userService.addFirstname(userInfo.getFirstname(), authentication.getName());
+
     }
 
 }

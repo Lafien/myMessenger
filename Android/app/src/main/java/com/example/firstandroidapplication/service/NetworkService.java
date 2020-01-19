@@ -1,20 +1,32 @@
 package com.example.firstandroidapplication.service;
 
+import com.example.firstandroidapplication.model.Message;
+import com.example.firstandroidapplication.model.UserAuthentification;
+import com.example.firstandroidapplication.model.UserInfo;
+import com.example.firstandroidapplication.model.UserSecurity;
+
+import java.util.List;
+
+import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
+import retrofit2.http.Header;
+import retrofit2.http.Path;
 
 public class NetworkService {
 
     private static NetworkService mInstance;
     private static final String BASE_URL = "http://172.20.10.5:8080";
-    private Retrofit mRetrofit;
+    private UserApi mRetrofit;
 
 
     private NetworkService(){
         mRetrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
-                .build();
+                .build()
+                .create(UserApi.class);
     }
 
 
@@ -25,28 +37,28 @@ public class NetworkService {
         return mInstance;
     }
 
-    public UserApi authorizationUser(){
-        return mRetrofit.create(UserApi.class);
+    public Call<UserSecurity> authorizationUser(@Body UserAuthentification userAuthentification){
+        return mRetrofit.authorization(userAuthentification);
     }
 
-    public UserApi MyProfile(){
-        return mRetrofit.create(UserApi.class);
+    public Call<UserInfo> myProfile(@Header("Authorization") String token){
+        return mRetrofit.getMyProfile(token);
     }
 
-    public UserApi getContacts(){
-        return mRetrofit.create(UserApi.class);
+    public  Call<List<UserInfo>> getContacts(@Header("Authorization") String token){
+        return mRetrofit.getContacts(token);
     }
 
-    public UserApi getChats(){
-        return mRetrofit.create(UserApi.class);
+    public Call<List<UserInfo>> getChats(@Header("Authorization") String token){
+        return mRetrofit.getChats(token);
     }
 
-    public UserApi getMessages(){
-        return mRetrofit.create(UserApi.class);
+    public Call<List<Message>> getMessages(@Header("Authorization") String token, @Path("username") String username){
+        return mRetrofit.getMessages(token, username);
     }
 
-    public UserApi sendMessage(){
-        return mRetrofit.create(UserApi.class);
+    public Call<Object> sendMessage(@Header("Authorization") String token, @Body Message message){
+        return mRetrofit.sendMessage(token, message);
     }
 
 }

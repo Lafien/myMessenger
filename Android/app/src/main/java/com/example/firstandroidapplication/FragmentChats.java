@@ -16,7 +16,6 @@ import androidx.annotation.Nullable;
 
 import com.example.firstandroidapplication.model.UserInfo;
 import com.example.firstandroidapplication.service.NetworkService;
-import com.example.firstandroidapplication.service.UserApi;
 
 import java.util.List;
 
@@ -42,7 +41,6 @@ public class FragmentChats extends Fragment {
         final TextView problem = view.findViewById(R.id.problem);
 
         NetworkService.getInstance()
-                .getChats()
                 .getChats(token)
                 .enqueue(new Callback<List<UserInfo>>() {
                     @Override

@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -36,7 +35,6 @@ public class FragmentContacts extends Fragment {
         final TextView problem = view.findViewById(R.id.problem);
 
         NetworkService.getInstance()
-                .getContacts()
                 .getContacts(token)
                 .enqueue(new Callback<List<UserInfo>>() {
                     @Override
@@ -45,7 +43,7 @@ public class FragmentContacts extends Fragment {
                         if(response.isSuccessful()) {
                             List<UserInfo> post = response.body();
 
-
+            //recycle view 30000
                             ListView countriesList = view.findViewById(R.id.contactsList);
                             ArrayAdapter<String> adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, post);
                             countriesList.setAdapter(adapter);

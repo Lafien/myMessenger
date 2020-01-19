@@ -38,7 +38,7 @@ public class AdminRestController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @PostMapping("create/user")
+    @PostMapping("/users")
     @ResponseBody
     public String createUser(@RequestBody UserSecurity userSecurity) {
         String encrytedPassword = encrytePassword(userSecurity.getPassword());
