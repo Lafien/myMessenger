@@ -1,4 +1,4 @@
-package com.example.firstandroidapplication.model;
+package com.example.firstandroidapplication.users;
 
 import com.google.gson.annotations.SerializedName;
 

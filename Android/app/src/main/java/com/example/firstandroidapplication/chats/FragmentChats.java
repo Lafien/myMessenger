@@ -1,4 +1,4 @@
-package com.example.firstandroidapplication;
+package com.example.firstandroidapplication.chats;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
@@ -14,8 +14,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.firstandroidapplication.model.UserInfo;
-import com.example.firstandroidapplication.service.NetworkService;
+import com.example.firstandroidapplication.R;
+import com.example.firstandroidapplication.users.UserInfo;
+import com.example.firstandroidapplication.API.ConfigRetrofit;
 
 import java.util.List;
 
@@ -23,7 +24,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.example.firstandroidapplication.FragmentUserAuthorization.token;
+import static com.example.firstandroidapplication.authorization.FragmentUserAuthorization.token;
 
 public class FragmentChats extends Fragment {
 
@@ -40,7 +41,7 @@ public class FragmentChats extends Fragment {
 
         final TextView problem = view.findViewById(R.id.problem);
 
-        NetworkService.getInstance()
+        ConfigRetrofit.getInstance()
                 .getChats(token)
                 .enqueue(new Callback<List<UserInfo>>() {
                     @Override

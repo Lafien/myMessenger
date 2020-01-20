@@ -1,8 +1,8 @@
-package com.example.firstandroidapplication.model;
+package com.example.firstandroidapplication.authorization;
 
 import com.google.gson.annotations.SerializedName;
 
-public class UserAuthentification {
+public class UserAuthorization {
 
     @SerializedName("username")
     private String username;

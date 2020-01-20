@@ -11,6 +11,10 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.firstandroidapplication.chats.FragmentChats;
+import com.example.firstandroidapplication.users.FragmentContacts;
+import com.example.firstandroidapplication.users.FragmentUserMyProfile;
+
 public class FragmentMainPage extends Fragment {
 
 

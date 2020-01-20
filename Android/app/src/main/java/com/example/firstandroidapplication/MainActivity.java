@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.firstandroidapplication.authorization.FragmentUserAuthorization;
+
 
 public class MainActivity extends AppCompatActivity  {
 

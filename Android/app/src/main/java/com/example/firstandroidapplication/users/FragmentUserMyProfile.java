@@ -1,4 +1,4 @@
-package com.example.firstandroidapplication;
+package com.example.firstandroidapplication.users;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,14 +10,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import android.app.Fragment;
 
-import com.example.firstandroidapplication.model.UserInfo;
-import com.example.firstandroidapplication.service.NetworkService;
+import com.example.firstandroidapplication.R;
+import com.example.firstandroidapplication.API.ConfigRetrofit;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.example.firstandroidapplication.FragmentUserAuthorization.token;
+import static com.example.firstandroidapplication.authorization.FragmentUserAuthorization.token;
 
 public class FragmentUserMyProfile extends Fragment {
 
@@ -32,7 +32,7 @@ public class FragmentUserMyProfile extends Fragment {
         final TextView textView2 =  view.findViewById(R.id.firstname);
         final TextView problem = view.findViewById(R.id.problem);
 
-        NetworkService.getInstance()
+        ConfigRetrofit.getInstance()
                 .myProfile(token)
                 .enqueue(new Callback<UserInfo>() {
                     @Override

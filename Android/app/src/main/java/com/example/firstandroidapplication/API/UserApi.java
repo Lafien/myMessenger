@@ -1,9 +1,9 @@
-package com.example.firstandroidapplication.service;
+package com.example.firstandroidapplication.API;
 
-import com.example.firstandroidapplication.model.Message;
-import com.example.firstandroidapplication.model.UserInfo;
-import com.example.firstandroidapplication.model.UserSecurity;
-import com.example.firstandroidapplication.model.UserAuthentification;
+import com.example.firstandroidapplication.chats.Message;
+import com.example.firstandroidapplication.users.UserInfo;
+import com.example.firstandroidapplication.authorization.UserSecurity;
+import com.example.firstandroidapplication.authorization.UserAuthorization;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ import retrofit2.http.Path;
 public interface UserApi {
 
     @POST("/auth/login")
-    Call<UserSecurity> authorization(@Body UserAuthentification userAuthentification);
+    Call<UserSecurity> authorization(@Body UserAuthorization userAuthorization);
 
     @GET("users/myprofile")
     Call<UserInfo> getMyProfile(@Header("Authorization") String token);

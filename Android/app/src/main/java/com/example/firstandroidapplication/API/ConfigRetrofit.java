@@ -1,9 +1,9 @@
-package com.example.firstandroidapplication.service;
+package com.example.firstandroidapplication.API;
 
-import com.example.firstandroidapplication.model.Message;
-import com.example.firstandroidapplication.model.UserAuthentification;
-import com.example.firstandroidapplication.model.UserInfo;
-import com.example.firstandroidapplication.model.UserSecurity;
+import com.example.firstandroidapplication.chats.Message;
+import com.example.firstandroidapplication.authorization.UserAuthorization;
+import com.example.firstandroidapplication.users.UserInfo;
+import com.example.firstandroidapplication.authorization.UserSecurity;
 
 import java.util.List;
 
@@ -14,14 +14,14 @@ import retrofit2.http.Body;
 import retrofit2.http.Header;
 import retrofit2.http.Path;
 
-public class NetworkService {
+public class ConfigRetrofit {
 
-    private static NetworkService mInstance;
+    private static ConfigRetrofit mInstance;
     private static final String BASE_URL = "http://172.20.10.5:8080";
     private UserApi mRetrofit;
 
 
-    private NetworkService(){
+    private ConfigRetrofit(){
         mRetrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -30,15 +30,15 @@ public class NetworkService {
     }
 
 
-    public static NetworkService getInstance() {
+    public static ConfigRetrofit getInstance() {
         if(mInstance == null){
-            mInstance = new NetworkService();
+            mInstance = new ConfigRetrofit();
         }
         return mInstance;
     }
 
-    public Call<UserSecurity> authorizationUser(@Body UserAuthentification userAuthentification){
-        return mRetrofit.authorization(userAuthentification);
+    public Call<UserSecurity> authorizationUser(@Body UserAuthorization userAuthorization){
+        return mRetrofit.authorization(userAuthorization);
     }
 
     public Call<UserInfo> myProfile(@Header("Authorization") String token){

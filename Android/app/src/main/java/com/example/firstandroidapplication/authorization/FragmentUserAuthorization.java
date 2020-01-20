@@ -1,4 +1,4 @@
-package com.example.firstandroidapplication;
+package com.example.firstandroidapplication.authorization;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
@@ -13,9 +13,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.firstandroidapplication.model.UserAuthentification;
-import com.example.firstandroidapplication.model.UserSecurity;
-import com.example.firstandroidapplication.service.NetworkService;
+import com.example.firstandroidapplication.FragmentMainPage;
+import com.example.firstandroidapplication.R;
+import com.example.firstandroidapplication.API.ConfigRetrofit;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,7 +43,7 @@ public class FragmentUserAuthorization extends Fragment {
 
             @Override
             public void onClick(View view) {
-                UserAuthentification userAuthentification = new UserAuthentification();
+                UserAuthorization userAuthorization = new UserAuthorization();
 
 
                 String login = editText.getText().toString();
@@ -51,12 +51,12 @@ public class FragmentUserAuthorization extends Fragment {
 
                 String password = editText1.getText().toString();
 
-                userAuthentification.setUsername(login);
-                userAuthentification.setPassword(password);
+                userAuthorization.setUsername(login);
+                userAuthorization.setPassword(password);
 
 
-                NetworkService.getInstance()
-                        .authorizationUser(userAuthentification)
+                ConfigRetrofit.getInstance()
+                        .authorizationUser(userAuthorization)
                         .enqueue(new Callback<UserSecurity>() {
                             @Override
                             public void onResponse(Call<UserSecurity> call, Response<UserSecurity> response) {

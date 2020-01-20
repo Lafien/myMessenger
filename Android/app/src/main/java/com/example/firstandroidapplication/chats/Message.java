@@ -1,4 +1,4 @@
-package com.example.firstandroidapplication.model;
+package com.example.firstandroidapplication.chats;
 
 import com.google.gson.annotations.SerializedName;
 
