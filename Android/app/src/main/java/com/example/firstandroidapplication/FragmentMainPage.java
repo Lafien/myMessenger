@@ -4,12 +4,16 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.firstandroidapplication.chats.FragmentChats;
 import com.example.firstandroidapplication.users.FragmentContacts;
@@ -18,20 +22,23 @@ import com.example.firstandroidapplication.users.FragmentUserMyProfile;
 public class FragmentMainPage extends Fragment {
 
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.main_page_content, container, false);
 
-        Button myProfile = view.findViewById(R.id.openMyProfile);
+
+
+        //Button myProfile = view.findViewById(R.id.openMyProfile);
         Button myContacts = view.findViewById(R.id.openMyContacts);
         Button myChats = view.findViewById(R.id.openMyChats);
 
 
 
 
-        myProfile.setOnClickListener(new View.OnClickListener() {
+        /*myProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -44,7 +51,7 @@ public class FragmentMainPage extends Fragment {
                 fTrans.addToBackStack(null);
                 fTrans.commit();
             }
-        });
+        });*/
 
 
 

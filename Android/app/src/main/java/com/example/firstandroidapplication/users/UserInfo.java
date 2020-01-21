@@ -44,16 +44,6 @@ public class UserInfo {
     }
 
 
-
-    /*@Override
-    public String toString() {
-        return "UserInfo{" +
-                "username='" + username + '\'' +
-                ", firstName='" + surname + '\'' +
-                ", secondName='" + firstname + '\'' +
-                '}';
-    }*/
-
     @Override
     public String toString() {
         return   surname + " " + firstname + " (" + username + ")";

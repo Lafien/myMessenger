@@ -4,11 +4,14 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,6 +36,7 @@ public class FragmentUserAuthorization extends Fragment {
         View view = inflater.inflate(R.layout.authorization_content, container, false);
 
         Button authorization = view.findViewById(R.id.send);
+
 
         final EditText editText = view.findViewById(R.id.login);
         final EditText editText1 = view.findViewById(R.id.password);
@@ -64,7 +68,6 @@ public class FragmentUserAuthorization extends Fragment {
                                 if(response.isSuccessful()) {
                                     UserSecurity post = response.body();
 
-                                    //textView.setText("Авторизация успешна");
                                     token = "Bearer_" + post.getToken();
 
                                     FragmentTransaction fTrans;
@@ -78,13 +81,13 @@ public class FragmentUserAuthorization extends Fragment {
 
                                 }
                                 else {
-                                    textView.setText("Неверный логин или пароль");
+                                    textView.setText("Incorrect login or password");
                                 }
                             }
 
                             @Override
                             public void onFailure(Call<UserSecurity> call, Throwable t) {
-                                textView.setText("Error occurred while getting request!");
+                                textView.setText("No connection to server");
                                 t.printStackTrace();
                             }
                         });
@@ -98,11 +101,17 @@ public class FragmentUserAuthorization extends Fragment {
         });
 
 
-
+        setHasOptionsMenu(true);
 
         return  view;
     }
 
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_main, menu);
+        menu.clear();//например убрать все элементы меню.
 
+        super.onCreateOptionsMenu(menu, inflater);
+    }
 }

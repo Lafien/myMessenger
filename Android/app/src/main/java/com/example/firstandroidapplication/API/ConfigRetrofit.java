@@ -61,4 +61,8 @@ public class ConfigRetrofit {
         return mRetrofit.sendMessage(token, message);
     }
 
+    public Call<UserInfo> getContactInfo(@Header("Authorization") String token, @Path("chooseContact1") String username){
+        return mRetrofit.getContactInfo(token, username);
+    }
+
 }

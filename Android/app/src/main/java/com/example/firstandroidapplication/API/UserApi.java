@@ -35,6 +35,9 @@ public interface UserApi {
     @POST("/users/chats/messages")
     Call<Object> sendMessage(@Header("Authorization") String token, @Body Message message);
 
+    @GET("/users/contacts/{chooseContact1}")
+    Call<UserInfo> getContactInfo(@Header("Authorization") String token, @Path("chooseContact1") String username);
+
 
 
 }

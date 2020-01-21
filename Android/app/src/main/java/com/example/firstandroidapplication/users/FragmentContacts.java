@@ -5,12 +5,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.firstandroidapplication.R;
 import com.example.firstandroidapplication.API.ConfigRetrofit;
@@ -24,15 +23,15 @@ import retrofit2.Response;
 import static com.example.firstandroidapplication.authorization.FragmentUserAuthorization.token;
 
 public class FragmentContacts extends Fragment {
-
+    //List<UserInfo> contacts;
+    TextView problem;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         final View view = inflater.inflate(R.layout.contacts_content, container, false);
 
-
-        final TextView problem = view.findViewById(R.id.problem);
+        problem = view.findViewById(R.id.problem);
 
         ConfigRetrofit.getInstance()
                 .getContacts(token)
@@ -41,12 +40,13 @@ public class FragmentContacts extends Fragment {
                     public void onResponse(Call<List<UserInfo>> call, Response<List<UserInfo>> response) {
 
                         if(response.isSuccessful()) {
-                            List<UserInfo> post = response.body();
+                            List<UserInfo> contacts = response.body();
 
-            //recycle view 30000
-                            ListView countriesList = view.findViewById(R.id.contactsList);
-                            ArrayAdapter<String> adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, post);
-                            countriesList.setAdapter(adapter);
+                            RecyclerView recyclerView =  view.findViewById(R.id.list);
+                            DataAdapterContacts adapter = new DataAdapterContacts(getContext(), contacts);
+                            recyclerView.setAdapter(adapter);
+
+                            problem.setText("Все ок");
 
                         }
                         else {
@@ -58,11 +58,10 @@ public class FragmentContacts extends Fragment {
                     @Override
                     public void onFailure(Call<List<UserInfo>> call, Throwable t) {
 
-
+                        problem.setText("Проблемы с сервером");
                         t.printStackTrace();
                     }
                 });
-
 
         return  view;
     }
