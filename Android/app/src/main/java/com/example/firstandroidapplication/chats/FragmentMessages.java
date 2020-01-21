@@ -23,8 +23,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.example.firstandroidapplication.chats.FragmentChats.userChat;
-import static com.example.firstandroidapplication.chats.FragmentChats.usernameChat;
+import static com.example.firstandroidapplication.chats.DataAdapterChats.usernameChat;
 import static com.example.firstandroidapplication.authorization.FragmentUserAuthorization.token;
 
 public class FragmentMessages extends Fragment {
@@ -45,7 +44,7 @@ public class FragmentMessages extends Fragment {
         final TextView problem = view.findViewById(R.id.problem);
 
         ConfigRetrofit.getInstance()
-                .getMessages(token, usernameChat)
+                .getMessages(token, usernameChat.getUsername())
                 .enqueue(new Callback<List<Message>>() {
                     @Override
                     public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
@@ -55,7 +54,7 @@ public class FragmentMessages extends Fragment {
 
                             nameUserDialog = view.findViewById(R.id.nameUser);
 
-                            nameUserDialog.setText(userChat.getSurname() + " " + userChat.getFirstname());
+                            nameUserDialog.setText(usernameChat.getSurname() + " " + usernameChat.getFirstname());
 
                             ListView countriesList = view.findViewById(R.id.contactsList);
 
@@ -94,7 +93,7 @@ public class FragmentMessages extends Fragment {
                     Message message1 = new Message();
                     message1.setText(textMes);
 
-                    message1.setMsgTo(usernameChat);
+                    message1.setMsgTo(usernameChat.getUsername());
 
                     ConfigRetrofit.getInstance()
                             .sendMessage(token, message1)

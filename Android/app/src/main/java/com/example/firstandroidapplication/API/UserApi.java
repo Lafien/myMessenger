@@ -38,6 +38,9 @@ public interface UserApi {
     @GET("/users/contacts/{chooseContact1}")
     Call<UserInfo> getContactInfo(@Header("Authorization") String token, @Path("chooseContact1") String username);
 
+    @POST("/users/contacts")
+    Call<Object> addContact(@Header("Authorization") String token, @Body UserInfo userInfo);
+
 
 
 }

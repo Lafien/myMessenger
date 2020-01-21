@@ -13,6 +13,9 @@ public class UserInfo {
     @SerializedName("firstname")
     private String firstname;
 
+    public UserInfo() {
+    }
+
     public UserInfo(String username, String surname, String firstname) {
         this.username = username;
         this.surname = surname;

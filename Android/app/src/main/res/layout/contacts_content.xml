@@ -35,6 +35,14 @@
         android:layout_height="wrap_content"
         android:text="TextView" />-->
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="20dp"
+        app:srcCompat="@drawable/ic_action_user_add" />
+
     <TextView
         android:id="@+id/problem"
         android:layout_width="wrap_content"

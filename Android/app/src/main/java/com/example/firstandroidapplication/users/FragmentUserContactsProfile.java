@@ -20,7 +20,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.example.firstandroidapplication.authorization.FragmentUserAuthorization.token;
-import static com.example.firstandroidapplication.users.DataAdapterContacts.chooseContact1;
+import static com.example.firstandroidapplication.users.DataAdapterContacts.chooseContactFromContacts;
 
 public class FragmentUserContactsProfile extends Fragment {
 
@@ -35,7 +35,7 @@ public class FragmentUserContactsProfile extends Fragment {
         final TextView textView2 =  view.findViewById(R.id.firstname);
 
         ConfigRetrofit.getInstance()
-                .getContactInfo(token, chooseContact1)
+                .getContactInfo(token, chooseContactFromContacts)
                 .enqueue(new Callback<UserInfo>() {
                     @Override
                     public void onResponse(Call<UserInfo> call, Response<UserInfo> response) {

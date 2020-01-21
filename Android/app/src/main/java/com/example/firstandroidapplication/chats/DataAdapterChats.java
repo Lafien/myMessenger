@@ -1,4 +1,4 @@
-package com.example.firstandroidapplication.users;
+package com.example.firstandroidapplication.chats;
 
 
 import android.app.Fragment;
@@ -10,36 +10,37 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.firstandroidapplication.R;
+import com.example.firstandroidapplication.users.FragmentUserContactsProfile;
+import com.example.firstandroidapplication.users.UserInfo;
 
 import java.util.List;
 
-public class DataAdapterContacts extends RecyclerView.Adapter<DataAdapterContacts.ViewHolder>  {
+public class DataAdapterChats extends RecyclerView.Adapter<DataAdapterChats.ViewHolder>  {
 
     private LayoutInflater inflater;
     private List<UserInfo> contacts;
 
-    public static String chooseContactFromContacts;
+    public static UserInfo usernameChat;
 
 
-    public DataAdapterContacts(Context context, List<UserInfo> contacts) {
+    public DataAdapterChats(Context context, List<UserInfo> contacts) {
         this.contacts = contacts;
         this.inflater = LayoutInflater.from(context);
     }
 
 
     @Override
-    public DataAdapterContacts.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public DataAdapterChats.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = inflater.inflate(R.layout.list_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(DataAdapterContacts.ViewHolder holder, final int position) {
+    public void onBindViewHolder(DataAdapterChats.ViewHolder holder, final int position) {
         UserInfo contact = contacts.get(position);
         holder.imageView.setImageResource(R.drawable.ic_action_user);
         holder.surnameView.setText(contact.getSurname());
@@ -70,11 +71,11 @@ public class DataAdapterContacts extends RecyclerView.Adapter<DataAdapterContact
                 @Override
                 public void onClick(View v) {
 
-                    chooseContactFromContacts = contacts.get(getAdapterPosition()).getUsername();
+                    usernameChat = contacts.get(getAdapterPosition());
 
                     AppCompatActivity activity = (AppCompatActivity) view.getContext();
 
-                    Fragment myFragment = new FragmentUserContactsProfile();
+                    Fragment myFragment = new FragmentMessages();
 
                     activity.getFragmentManager().beginTransaction().replace(R.id.main, myFragment).addToBackStack(null).commit();
                 }

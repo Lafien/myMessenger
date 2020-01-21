@@ -65,4 +65,8 @@ public class ConfigRetrofit {
         return mRetrofit.getContactInfo(token, username);
     }
 
+    public Call<Object> addContact(@Header("Authorization") String token, @Body UserInfo userInfo){
+        return mRetrofit.addContact(token, userInfo);
+    }
+
 }

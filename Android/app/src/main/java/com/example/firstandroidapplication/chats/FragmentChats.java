@@ -13,8 +13,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.firstandroidapplication.R;
+import com.example.firstandroidapplication.users.DataAdapterContacts;
 import com.example.firstandroidapplication.users.UserInfo;
 import com.example.firstandroidapplication.API.ConfigRetrofit;
 
@@ -37,7 +39,6 @@ public class FragmentChats extends Fragment {
 
         final View view = inflater.inflate(R.layout.chats_content, container, false);
 
-        //final TextView selection = view.findViewById(R.id.selected);
 
         final TextView problem = view.findViewById(R.id.problem);
 
@@ -48,31 +49,12 @@ public class FragmentChats extends Fragment {
                     public void onResponse(Call<List<UserInfo>> call, Response<List<UserInfo>> response) {
 
                         if(response.isSuccessful()) {
-                            final List<UserInfo> post = response.body();
+                            final List<UserInfo> chats = response.body();
 
 
-                            ListView contactsList = view.findViewById(R.id.contactsList);
-                            ArrayAdapter<String> adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, post);
-                            contactsList.setAdapter(adapter);
-                            contactsList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-                                @Override
-                                public void onItemClick(AdapterView<?> parent, View v, int position, long id)
-                                {
-
-                                     usernameChat = post.get(position).getUsername();
-                                     userChat = post.get(position);
-
-
-                                    FragmentTransaction fTrans;
-
-                                    FragmentMessages fragmentMessages = new FragmentMessages();
-
-                                    fTrans = getFragmentManager().beginTransaction();
-                                    fTrans.replace(R.id.main, fragmentMessages);
-                                    fTrans.addToBackStack(null);
-                                    fTrans.commit();
-                                }
-                            });
+                            RecyclerView recyclerView =  view.findViewById(R.id.list);
+                            DataAdapterChats adapter = new DataAdapterChats(getContext(), chats);
+                            recyclerView.setAdapter(adapter);
 
                         }
                         else {
