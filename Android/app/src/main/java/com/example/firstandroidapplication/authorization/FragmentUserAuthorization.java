@@ -27,6 +27,7 @@ import retrofit2.Response;
 public class FragmentUserAuthorization extends Fragment {
 
     public static String token = "";
+    public static String authUser = "";
     //shared preference
 
     @Nullable
@@ -69,6 +70,7 @@ public class FragmentUserAuthorization extends Fragment {
                                     UserSecurity post = response.body();
 
                                     token = "Bearer_" + post.getToken();
+                                    authUser = post.getUsername();
 
                                     FragmentTransaction fTrans;
 

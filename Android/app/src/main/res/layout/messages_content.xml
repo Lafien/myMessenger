@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
 
     <TextView
@@ -12,14 +13,25 @@
         android:layout_gravity="center_horizontal"
         android:textSize="25dp"
         android:layout_marginBottom="8dp"
-        android:text="" />
+        android:text=""
+        android:textColor="@android:color/white"/>
 
-    <ListView
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="20dp"
+        android:id="@+id/listMessages"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layoutManager="LinearLayoutManager"
+        app:stackFromEnd = "true"
+        android:layout_weight="1"/>
+
+    <!--<ListView
         android:id="@+id/contactsList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:stackFromBottom="true"/>
+        android:stackFromBottom="true"/>-->
 
    <!-- <TextView
         android:id="@+id/textView"
@@ -36,16 +48,26 @@
 
 
     <EditText
-        android:id="@+id/messageText"
+        android:id="@+id/messageTextContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Текст сообщения" />
+        android:hint="Your text"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:paddingLeft="5dp"
+        android:padding="5dp"
+        android:background="@drawable/message_text_background_two"/>
 
     <Button
         android:id="@+id/sendMessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Отправить"/>
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="8dp"
+        android:text="Send"
+        android:background="@drawable/message_text_background_two"/>
         <!--android:visibility="invisible"-->
 
 
