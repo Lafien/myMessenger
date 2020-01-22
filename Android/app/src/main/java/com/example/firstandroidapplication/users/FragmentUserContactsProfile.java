@@ -2,6 +2,7 @@ package com.example.firstandroidapplication.users;
 
 
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,8 @@ import androidx.annotation.Nullable;
 
 import com.example.firstandroidapplication.API.ConfigRetrofit;
 import com.example.firstandroidapplication.R;
+import com.example.firstandroidapplication.chats.FragmentMessages;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -21,6 +24,7 @@ import retrofit2.Response;
 
 import static com.example.firstandroidapplication.authorization.FragmentUserAuthorization.token;
 import static com.example.firstandroidapplication.users.DataAdapterContacts.chooseContactFromContacts;
+import static com.example.firstandroidapplication.chats.DataAdapterChats.usernameChat;
 
 public class FragmentUserContactsProfile extends Fragment {
 
@@ -34,8 +38,28 @@ public class FragmentUserContactsProfile extends Fragment {
         final TextView textView1 =  view.findViewById(R.id.surname);
         final TextView textView2 =  view.findViewById(R.id.firstname);
 
+
+        FloatingActionButton fab = view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                usernameChat = chooseContactFromContacts;
+
+                FragmentTransaction fTrans;
+
+                FragmentMessages fragmentMessages = new FragmentMessages();
+
+                fTrans = getFragmentManager().beginTransaction();
+                fTrans.replace(R.id.main, fragmentMessages);
+                fTrans.addToBackStack(null);
+                fTrans.commit();
+            }
+        });
+
+
         ConfigRetrofit.getInstance()
-                .getContactInfo(token, chooseContactFromContacts)
+                .getContactInfo(token, chooseContactFromContacts.getUsername())
                 .enqueue(new Callback<UserInfo>() {
                     @Override
                     public void onResponse(Call<UserInfo> call, Response<UserInfo> response) {

@@ -7,6 +7,7 @@ import com.example.firstandroidapplication.authorization.UserAuthorization;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -39,7 +40,7 @@ public interface UserApi {
     Call<UserInfo> getContactInfo(@Header("Authorization") String token, @Path("chooseContact1") String username);
 
     @POST("/users/contacts")
-    Call<Object> addContact(@Header("Authorization") String token, @Body UserInfo userInfo);
+    Call<ResponseBody> addContact(@Header("Authorization") String token, @Body UserInfo userInfo);
 
 
 

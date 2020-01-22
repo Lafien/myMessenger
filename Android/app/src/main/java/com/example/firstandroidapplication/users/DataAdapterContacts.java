@@ -22,7 +22,7 @@ public class DataAdapterContacts extends RecyclerView.Adapter<DataAdapterContact
     private LayoutInflater inflater;
     private List<UserInfo> contacts;
 
-    public static String chooseContactFromContacts;
+    public static UserInfo chooseContactFromContacts;
 
 
     public DataAdapterContacts(Context context, List<UserInfo> contacts) {
@@ -70,7 +70,7 @@ public class DataAdapterContacts extends RecyclerView.Adapter<DataAdapterContact
                 @Override
                 public void onClick(View v) {
 
-                    chooseContactFromContacts = contacts.get(getAdapterPosition()).getUsername();
+                    chooseContactFromContacts = contacts.get(getAdapterPosition());
 
                     AppCompatActivity activity = (AppCompatActivity) view.getContext();
 

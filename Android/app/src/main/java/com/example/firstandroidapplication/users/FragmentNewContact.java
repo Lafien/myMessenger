@@ -1,6 +1,7 @@
 package com.example.firstandroidapplication.users;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ import com.example.firstandroidapplication.authorization.UserSecurity;
 
 import static com.example.firstandroidapplication.authorization.FragmentUserAuthorization.token;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -59,13 +61,11 @@ public class FragmentNewContact extends Fragment {
 
                 ConfigRetrofit.getInstance()
                         .addContact(token, userInfo)
-                        .enqueue(new Callback<Object>() {
+                        .enqueue(new Callback<ResponseBody>() {
                             @Override
-                            public void onResponse(Call<Object> call, Response<Object> response) {
+                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
                                 if (response.isSuccessful()) {
-
-                                    textView.setText("User was added");
 
                                     FragmentTransaction fTrans;
 
@@ -76,16 +76,18 @@ public class FragmentNewContact extends Fragment {
                                     fTrans.addToBackStack(null);
                                     fTrans.commit();
 
+
+
                                 }
                                 else
                                     {
-                                        textView.setText("Проблемы с авторизацией");
+                                        textView.setText("This user does not exist.");
                                 }
 
                             }
 
                             @Override
-                            public void onFailure(Call<Object> call, Throwable t) {
+                            public void onFailure(Call<ResponseBody> call, Throwable t) {
                                 t.printStackTrace();
                             }
                         });

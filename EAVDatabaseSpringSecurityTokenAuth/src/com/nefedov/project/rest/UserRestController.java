@@ -61,10 +61,9 @@ public class UserRestController {
 
 
     @PostMapping("contacts")
-    @ResponseBody
-    public String createUser(Authentication authentication, @RequestBody UserInfo userInfo) {
+    public ResponseEntity addContact(Authentication authentication, @RequestBody UserInfo userInfo) {
         userService.addContact(authentication.getName(), userInfo.getUsername());
-        return "success";
+        return  new ResponseEntity(HttpStatus.OK);
     }
 
 
