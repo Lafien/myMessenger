@@ -24,6 +24,13 @@ public class DataAdapterMessages extends RecyclerView.Adapter<DataAdapterMessage
     private LayoutInflater inflater;
     private List<Message> messagesList;
 
+    public void setMessagesList(List<Message> messagesList) {
+        this.messagesList = messagesList;
+    }
+
+    public DataAdapterMessages(LayoutInflater inflater) {
+        this.inflater = inflater;
+    }
 
     public DataAdapterMessages(Context context, List<Message> messagesList) {
         this.messagesList = messagesList;

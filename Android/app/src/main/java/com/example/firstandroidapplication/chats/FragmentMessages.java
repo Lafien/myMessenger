@@ -2,6 +2,7 @@ package com.example.firstandroidapplication.chats;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +14,14 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.firstandroidapplication.R;
 import com.example.firstandroidapplication.API.ConfigRetrofit;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -35,6 +38,7 @@ public class FragmentMessages extends Fragment {
     private RecyclerView listMessages;
     private DataAdapterMessages adapterMessages;
     private LinearLayoutManager linearLayoutManager;
+    List<Message> post;
 
     @Nullable
     @Override
@@ -48,79 +52,13 @@ public class FragmentMessages extends Fragment {
 
         final TextView problem = view.findViewById(R.id.problem);
 
+         post = new ArrayList<>();
+
+        adapterMessages = new DataAdapterMessages(getContext(), post);
+        //updateChat();
 
 
-
-
-        ConfigRetrofit.getInstance()
-                .getMessages(token, usernameChat.getUsername())
-                .enqueue(new Callback<List<Message>>() {
-                    @Override
-                    public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
-
-                        if(response.isSuccessful()) {
-                            List<Message> post = response.body();
-
-                            nameUserDialog = view.findViewById(R.id.nameUser);
-
-                            nameUserDialog.setText(usernameChat.getSurname() + " " + usernameChat.getFirstname());
-
-                            adapterMessages = new DataAdapterMessages(getContext(), post);
-
-                            listMessages.setAdapter(adapterMessages);
-
-                        }
-                        else {
-
-                            problem.setText("Проблемы с авторизацией");
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<List<Message>> call, Throwable t) {
-
-                        t.printStackTrace();
-                    }
-                });
-
-
-
-       /* ConfigRetrofit.getInstance()
-                .getMessages(token, usernameChat.getUsername())
-                .enqueue(new Callback<List<Message>>() {
-                    @Override
-                    public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
-
-                        if(response.isSuccessful()) {
-                            List<Message> post = response.body();
-
-                            nameUserDialog = view.findViewById(R.id.nameUser);
-
-                            nameUserDialog.setText(usernameChat.getSurname() + " " + usernameChat.getFirstname());
-
-                            ListView countriesList = view.findViewById(R.id.contactsList);
-
-                            ArrayAdapter<String> adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, post);
-
-                            countriesList.setAdapter(adapter);
-                        }
-                        else {
-
-                            problem.setText("Проблемы с авторизацией");
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<List<Message>> call, Throwable t) {
-
-                        t.printStackTrace();
-                    }
-                });*/
-
-
-
-
-
+        periodicUpdate.run();
 
 
 
@@ -130,8 +68,6 @@ public class FragmentMessages extends Fragment {
             public void onClick(View v) {
                 EditText textMessage = view.findViewById(R.id.messageTextContent);
                 String textMes = textMessage.getText().toString();
-
-
 
                 if (textMes.isEmpty()) {
                     textMessage.setHint("Empty message");
@@ -173,5 +109,54 @@ public class FragmentMessages extends Fragment {
         return  view;
     }
 
+
+    public void updateChat(){
+        ConfigRetrofit.getInstance()
+                .getMessages(token, usernameChat.getUsername())
+                .enqueue(new Callback<List<Message>>() {
+                    @Override
+                    public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
+
+                        if(response.isSuccessful()) {
+                             post = response.body();
+
+                            nameUserDialog = view.findViewById(R.id.nameUser);
+
+                            nameUserDialog.setText(usernameChat.getSurname() + " " + usernameChat.getFirstname());
+                            adapterMessages.setMessagesList(post);
+
+
+                            listMessages.setAdapter(adapterMessages);
+
+                        }
+                        else {
+
+                            //problem.setText("Проблемы с авторизацией");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Message>> call, Throwable t) {
+
+                        t.printStackTrace();
+                    }
+                });
+    }
+
+    Handler handler = new Handler();
+    private Runnable periodicUpdate = new Runnable () {
+        @Override
+        public void run() {
+            // scheduled another events to be in 10 seconds later
+            handler.postDelayed(periodicUpdate, 1000);
+                    // below is whatever you want to do
+
+            if(view.hasFocusable()){
+                updateChat();
+            }
+
+
+        }
+    };
 
 }
