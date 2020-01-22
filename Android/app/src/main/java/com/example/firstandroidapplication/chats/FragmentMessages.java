@@ -39,6 +39,7 @@ public class FragmentMessages extends Fragment {
     private DataAdapterMessages adapterMessages;
     private LinearLayoutManager linearLayoutManager;
     List<Message> post;
+    List<Message> postNew;
 
     @Nullable
     @Override
@@ -53,10 +54,42 @@ public class FragmentMessages extends Fragment {
         final TextView problem = view.findViewById(R.id.problem);
 
          post = new ArrayList<>();
+         postNew = new ArrayList<>();
 
         adapterMessages = new DataAdapterMessages(getContext(), post);
         //updateChat();
 
+
+        ConfigRetrofit.getInstance()
+                .getMessages(token, usernameChat.getUsername())
+                .enqueue(new Callback<List<Message>>() {
+                    @Override
+                    public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
+
+                        if(response.isSuccessful()) {
+                            post = response.body();
+
+                            nameUserDialog = view.findViewById(R.id.nameUser);
+
+                            nameUserDialog.setText(usernameChat.getSurname() + " " + usernameChat.getFirstname());
+                            adapterMessages.setMessagesList(post);
+
+
+                            listMessages.setAdapter(adapterMessages);
+
+                        }
+                        else {
+
+                            //problem.setText("Проблемы с авторизацией");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Message>> call, Throwable t) {
+
+                        t.printStackTrace();
+                    }
+                });
 
         periodicUpdate.run();
 
@@ -118,15 +151,22 @@ public class FragmentMessages extends Fragment {
                     public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
 
                         if(response.isSuccessful()) {
-                             post = response.body();
-
-                            nameUserDialog = view.findViewById(R.id.nameUser);
-
-                            nameUserDialog.setText(usernameChat.getSurname() + " " + usernameChat.getFirstname());
-                            adapterMessages.setMessagesList(post);
+                            postNew = response.body();
 
 
-                            listMessages.setAdapter(adapterMessages);
+                            if(postNew.size()>post.size()){
+                                Message buf = postNew.get(postNew.size()-1);
+                                post.add(buf);
+                                adapterMessages.notifyItemInserted(post.size());
+                            }
+
+                            //nameUserDialog = view.findViewById(R.id.nameUser);
+
+                            //nameUserDialog.setText(usernameChat.getSurname() + " " + usernameChat.getFirstname());
+
+
+
+                            //listMessages.setAdapter(adapterMessages);
 
                         }
                         else {
