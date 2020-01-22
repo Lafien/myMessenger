@@ -85,7 +85,7 @@ public class FragmentMessages extends Fragment {
                                 public void onResponse(Call<Object> call, Response<Object> response) {
 
                                     if (!response.isSuccessful()) {
-                                        problem.setText("Проблемы с авторизацией");
+                                        problem.setText("Problem with authorization");
                                     }
                                     else {
                                         adapterMessages.notifyDataSetChanged();
