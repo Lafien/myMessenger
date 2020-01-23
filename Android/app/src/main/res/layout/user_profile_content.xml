@@ -12,7 +12,7 @@
         android:layout_height="156dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:src="@drawable/ic_action_user" />
+        android:src="@drawable/pic1" />
 
     <LinearLayout
         android:orientation="vertical"

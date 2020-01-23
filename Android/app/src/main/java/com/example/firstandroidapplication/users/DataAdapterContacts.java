@@ -17,6 +17,8 @@ import com.example.firstandroidapplication.R;
 
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class DataAdapterContacts extends RecyclerView.Adapter<DataAdapterContacts.ViewHolder>  {
 
     private LayoutInflater inflater;
@@ -34,14 +36,14 @@ public class DataAdapterContacts extends RecyclerView.Adapter<DataAdapterContact
     @Override
     public DataAdapterContacts.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = inflater.inflate(R.layout.list_item, parent, false);
+        View view = inflater.inflate(R.layout.contacts_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(DataAdapterContacts.ViewHolder holder, final int position) {
         UserInfo contact = contacts.get(position);
-        holder.imageView.setImageResource(R.drawable.ic_action_user);
+        holder.imageView.setImageResource(R.drawable.pic1);
         holder.surnameView.setText(contact.getSurname());
         holder.firstnameView.setText(contact.getFirstname());
         holder.usernameView.setText(contact.getUsername());
@@ -56,12 +58,12 @@ public class DataAdapterContacts extends RecyclerView.Adapter<DataAdapterContact
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        final ImageView imageView;
+        final CircleImageView imageView;
         final TextView surnameView, firstnameView, usernameView;
 
         ViewHolder(final View view){
             super(view);
-            imageView = (ImageView)view.findViewById(R.id.image);
+            imageView = view.findViewById(R.id.image);
             surnameView = (TextView) view.findViewById(R.id.surname);
             firstnameView = (TextView) view.findViewById(R.id.firstname);
             usernameView = (TextView) view.findViewById(R.id.username);

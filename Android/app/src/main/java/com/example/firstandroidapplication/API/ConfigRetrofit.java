@@ -70,4 +70,9 @@ public class ConfigRetrofit {
         return mRetrofit.addContact(token, userInfo);
     }
 
+
+    public Call<ResponseBody> getImage(@Header("Authorization") String token){
+        return mRetrofit.getImage(token);
+    }
+
 }

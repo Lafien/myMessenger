@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.firstandroidapplication.R;
-import com.example.firstandroidapplication.users.FragmentUserContactsProfile;
 import com.example.firstandroidapplication.users.UserInfo;
 
 import java.util.List;
@@ -35,7 +34,7 @@ public class DataAdapterChats extends RecyclerView.Adapter<DataAdapterChats.View
     @Override
     public DataAdapterChats.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = inflater.inflate(R.layout.list_item, parent, false);
+        View view = inflater.inflate(R.layout.contacts_item, parent, false);
         return new ViewHolder(view);
     }
 
