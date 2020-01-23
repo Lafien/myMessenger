@@ -39,7 +39,7 @@ public class MessageDAO extends JdbcDaoSupport {
         Object[] params = new Object[]{textMessage, msgFrom, msgTo};
         assert this.getJdbcTemplate() != null;
         int rows = this.getJdbcTemplate().update(sql, params);
-        System.out.println(rows + " row(s) updated.");
+        System.out.println(rows + " message send");
     }
 
 

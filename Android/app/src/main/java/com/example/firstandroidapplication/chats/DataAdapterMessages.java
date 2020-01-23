@@ -49,6 +49,7 @@ public class DataAdapterMessages extends RecyclerView.Adapter<DataAdapterMessage
     @SuppressLint("ResourceType")
     @Override
     public void onBindViewHolder(DataAdapterMessages.ViewHolder holder, final int position) {
+
         Message message = messagesList.get(position);
         //holder.circleImageView.setImageResource(R.drawable.ic_action_user);
 
@@ -64,6 +65,11 @@ public class DataAdapterMessages extends RecyclerView.Adapter<DataAdapterMessage
 
             holder.messageText.setGravity(Gravity.RIGHT);
 
+            holder.mesDate.setBackgroundResource(R.drawable.message_text_background_two);
+            holder.mesDate.setTextColor(Color.BLACK);
+            holder.mesDate.setGravity(Gravity.RIGHT);
+            holder.mesDate.setPadding(0,0,20,0);
+
 
         }
         else
@@ -76,9 +82,16 @@ public class DataAdapterMessages extends RecyclerView.Adapter<DataAdapterMessage
 
             holder.messageText.setGravity(Gravity.LEFT);
 
+            holder.mesDate.setBackgroundResource(R.drawable.message_text_background);
+            holder.mesDate.setTextColor(Color.BLACK);
+            holder.mesDate.setGravity(Gravity.LEFT);
+            holder.mesDate.setPadding(20,0,0,0);
+
+
         }
 
         holder.messageText.setText(message.getText());
+        holder.mesDate.setText(message.getDateCreate());
 
     }
 
@@ -95,11 +108,13 @@ public class DataAdapterMessages extends RecyclerView.Adapter<DataAdapterMessage
 
         //public CircleImageView circleImageView;
         public TextView messageText;
+        public TextView mesDate;
 
         ViewHolder(final View view){
             super(view);
             //circleImageView = view.findViewById(R.id.messageImage);
             messageText =  view.findViewById(R.id.messageText);
+            mesDate = view.findViewById(R.id.mesDate);
         }
     }
 

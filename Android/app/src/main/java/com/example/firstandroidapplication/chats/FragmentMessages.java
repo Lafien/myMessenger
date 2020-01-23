@@ -6,20 +6,17 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.firstandroidapplication.R;
 import com.example.firstandroidapplication.API.ConfigRetrofit;
+import com.example.firstandroidapplication.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +25,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.example.firstandroidapplication.chats.DataAdapterChats.usernameChat;
 import static com.example.firstandroidapplication.authorization.FragmentUserAuthorization.token;
+import static com.example.firstandroidapplication.chats.DataAdapterChats.usernameChat;
 
 public class FragmentMessages extends Fragment {
 
@@ -37,7 +34,6 @@ public class FragmentMessages extends Fragment {
     private View view;
     private RecyclerView listMessages;
     private DataAdapterMessages adapterMessages;
-    private LinearLayoutManager linearLayoutManager;
     List<Message> post;
     List<Message> postNew;
 
@@ -57,7 +53,6 @@ public class FragmentMessages extends Fragment {
          postNew = new ArrayList<>();
 
         adapterMessages = new DataAdapterMessages(getContext(), post);
-        //updateChat();
 
 
         ConfigRetrofit.getInstance()
@@ -78,10 +73,7 @@ public class FragmentMessages extends Fragment {
                             listMessages.setAdapter(adapterMessages);
 
                         }
-                        else {
 
-                            //problem.setText("Проблемы с авторизацией");
-                        }
                     }
 
                     @Override
@@ -106,8 +98,8 @@ public class FragmentMessages extends Fragment {
                     textMessage.setHint("Empty message");
                 } else {
                     Message message1 = new Message();
-                    message1.setText(textMes);
 
+                    message1.setText(textMes);
                     message1.setMsgTo(usernameChat.getUsername());
 
                     ConfigRetrofit.getInstance()
@@ -121,7 +113,7 @@ public class FragmentMessages extends Fragment {
                                         problem.setText("Problem with authorization");
                                     }
                                     else {
-                                        adapterMessages.notifyDataSetChanged();
+                                        //adapterMessages.notifyDataSetChanged();
                                     }
                                 }
 
@@ -158,20 +150,18 @@ public class FragmentMessages extends Fragment {
                                 Message buf = postNew.get(postNew.size()-1);
                                 post.add(buf);
                                 adapterMessages.notifyItemInserted(post.size());
+
+
+                                LinearLayoutManager layoutManager = (LinearLayoutManager) listMessages.getLayoutManager();
+
+                                int totalItemCount = layoutManager.getItemCount();
+                                int lastVisible = layoutManager.findLastVisibleItemPosition();
+                                boolean endHasBeenReached = lastVisible + 2 >= totalItemCount;
+
+                                if (totalItemCount > 0 && endHasBeenReached) {
+                                    listMessages.smoothScrollToPosition(post.size());
+                                }
                             }
-
-                            //nameUserDialog = view.findViewById(R.id.nameUser);
-
-                            //nameUserDialog.setText(usernameChat.getSurname() + " " + usernameChat.getFirstname());
-
-
-
-                            //listMessages.setAdapter(adapterMessages);
-
-                        }
-                        else {
-
-                            //problem.setText("Проблемы с авторизацией");
                         }
                     }
 
@@ -187,14 +177,11 @@ public class FragmentMessages extends Fragment {
     private Runnable periodicUpdate = new Runnable () {
         @Override
         public void run() {
-            // scheduled another events to be in 10 seconds later
             handler.postDelayed(periodicUpdate, 1000);
-                    // below is whatever you want to do
 
             if(view.hasFocusable()){
                 updateChat();
             }
-
 
         }
     };
