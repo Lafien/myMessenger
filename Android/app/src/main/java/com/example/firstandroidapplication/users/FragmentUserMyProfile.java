@@ -27,9 +27,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.firstandroidapplication.authorization.FragmentUserAuthorization.authUser;
 import static com.example.firstandroidapplication.authorization.FragmentUserAuthorization.token;
 
 public class FragmentUserMyProfile extends Fragment {
+
 
     @Nullable
     @Override
@@ -76,40 +78,26 @@ public class FragmentUserMyProfile extends Fragment {
 
 
         ConfigRetrofit.getInstance()
-                .getImage(token)
+                .getImage(token, authUser)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
                         if(response.isSuccessful()) {
-                            //ResponseBody responseBody = response.body();
 
-                            //Picasso.get().load(responseBody).into(image);
+                            assert response.body() != null;
 
+                            InputStream  bytes = response.body().byteStream();
+                            Bitmap bitmap = null;
+                            bitmap = BitmapFactory.decodeStream(bytes);
 
-                               InputStream  bytes = response.body().byteStream();
-                                Bitmap bitmap = null;
-                                bitmap = BitmapFactory.decodeStream(bytes);
-
-                                image.setImageBitmap(bitmap);
-
-
-
+                            image.setImageBitmap(bitmap);
                         }
-                        else {
-                            //textView.setText("");
-                            //textView1.setText("");
-                            //textView2.setText("");
-                            problem.setText("Проблемы с авторизацией");
-                        }
+
                     }
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                        textView.setText("Error occurred while getting request!");
-                        textView1.setText("");
-                        textView2.setText("");
                         t.printStackTrace();
                     }
                 });

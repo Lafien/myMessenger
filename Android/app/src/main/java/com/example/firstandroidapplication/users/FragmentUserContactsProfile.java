@@ -3,6 +3,8 @@ package com.example.firstandroidapplication.users;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +20,10 @@ import com.example.firstandroidapplication.R;
 import com.example.firstandroidapplication.chats.FragmentMessages;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.InputStream;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -28,6 +34,8 @@ import static com.example.firstandroidapplication.chats.DataAdapterChats.usernam
 
 public class FragmentUserContactsProfile extends Fragment {
 
+    UserInfo post;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -37,6 +45,7 @@ public class FragmentUserContactsProfile extends Fragment {
         final TextView textView =  view.findViewById(R.id.username);
         final TextView textView1 =  view.findViewById(R.id.surname);
         final TextView textView2 =  view.findViewById(R.id.firstname);
+        final CircleImageView circleImageView = view.findViewById(R.id.imageContact);
 
 
         FloatingActionButton fab = view.findViewById(R.id.fab);
@@ -58,6 +67,8 @@ public class FragmentUserContactsProfile extends Fragment {
         });
 
 
+
+
         ConfigRetrofit.getInstance()
                 .getContactInfo(token, chooseContactFromContacts.getUsername())
                 .enqueue(new Callback<UserInfo>() {
@@ -65,7 +76,7 @@ public class FragmentUserContactsProfile extends Fragment {
                     public void onResponse(Call<UserInfo> call, Response<UserInfo> response) {
 
                         if(response.isSuccessful()) {
-                            UserInfo post = response.body();
+                            post = response.body();
 
                             textView.setText(post.getUsername());
                             textView1.setText(post.getSurname());
@@ -84,6 +95,31 @@ public class FragmentUserContactsProfile extends Fragment {
                         textView.setText("Error occurred while getting request!");
                         textView1.setText("");
                         textView2.setText("");
+                        t.printStackTrace();
+                    }
+                });
+
+        ConfigRetrofit.getInstance()
+                .getImage(token, chooseContactFromContacts.getUsername())
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                        if(response.isSuccessful()) {
+
+                            assert response.body() != null;
+
+                            InputStream bytes = response.body().byteStream();
+                            Bitmap bitmap = null;
+                            bitmap = BitmapFactory.decodeStream(bytes);
+
+                            circleImageView.setImageBitmap(bitmap);
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
                         t.printStackTrace();
                     }
                 });

@@ -3,6 +3,8 @@ package com.example.firstandroidapplication.users;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +15,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.firstandroidapplication.API.ConfigRetrofit;
 import com.example.firstandroidapplication.R;
 
+import java.io.InputStream;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static com.example.firstandroidapplication.authorization.FragmentUserAuthorization.token;
 
 public class DataAdapterContacts extends RecyclerView.Adapter<DataAdapterContacts.ViewHolder>  {
 
@@ -41,12 +51,37 @@ public class DataAdapterContacts extends RecyclerView.Adapter<DataAdapterContact
     }
 
     @Override
-    public void onBindViewHolder(DataAdapterContacts.ViewHolder holder, final int position) {
+    public void onBindViewHolder(final DataAdapterContacts.ViewHolder holder, final int position) {
         UserInfo contact = contacts.get(position);
-        holder.imageView.setImageResource(R.drawable.pic1);
+        //holder.imageView.setImageResource(R.drawable.pic1);
         holder.surnameView.setText(contact.getSurname());
         holder.firstnameView.setText(contact.getFirstname());
         holder.usernameView.setText(contact.getUsername());
+
+        ConfigRetrofit.getInstance()
+                .getImage(token, contact.getUsername())
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                        if(response.isSuccessful()) {
+
+                            assert response.body() != null;
+
+                            InputStream bytes = response.body().byteStream();
+                            Bitmap bitmap = null;
+                            bitmap = BitmapFactory.decodeStream(bytes);
+
+                            holder.imageView.setImageBitmap(bitmap);
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        t.printStackTrace();
+                    }
+                });
 
     }
 

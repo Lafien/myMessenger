@@ -71,8 +71,8 @@ public class ConfigRetrofit {
     }
 
 
-    public Call<ResponseBody> getImage(@Header("Authorization") String token){
-        return mRetrofit.getImage(token);
+    public Call<ResponseBody> getImage(@Header("Authorization") String token, @Path("username")String username){
+        return mRetrofit.getImage(token, username);
     }
 
 }

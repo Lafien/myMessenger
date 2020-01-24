@@ -66,19 +66,12 @@ public class FragmentContacts extends Fragment {
                             DataAdapterContacts adapter = new DataAdapterContacts(getContext(), contacts);
                             recyclerView.setAdapter(adapter);
 
-                            problem.setText("Все ок");
-
                         }
-                        else {
 
-                            problem.setText("Проблемы с авторизацией");
-                        }
                     }
 
                     @Override
                     public void onFailure(Call<List<UserInfo>> call, Throwable t) {
-
-                        problem.setText("Проблемы с сервером");
                         t.printStackTrace();
                     }
                 });

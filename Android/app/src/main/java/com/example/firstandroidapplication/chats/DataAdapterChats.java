@@ -3,6 +3,8 @@ package com.example.firstandroidapplication.chats;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +14,20 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.firstandroidapplication.API.ConfigRetrofit;
 import com.example.firstandroidapplication.R;
 import com.example.firstandroidapplication.users.UserInfo;
 
+import java.io.InputStream;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static com.example.firstandroidapplication.authorization.FragmentUserAuthorization.token;
 
 public class DataAdapterChats extends RecyclerView.Adapter<DataAdapterChats.ViewHolder>  {
 
@@ -39,12 +51,38 @@ public class DataAdapterChats extends RecyclerView.Adapter<DataAdapterChats.View
     }
 
     @Override
-    public void onBindViewHolder(DataAdapterChats.ViewHolder holder, final int position) {
+    public void onBindViewHolder(final DataAdapterChats.ViewHolder holder, final int position) {
         UserInfo contact = contacts.get(position);
         holder.imageView.setImageResource(R.drawable.ic_action_user);
         holder.surnameView.setText(contact.getSurname());
         holder.firstnameView.setText(contact.getFirstname());
         holder.usernameView.setText(contact.getUsername());
+
+        ConfigRetrofit.getInstance()
+                .getImage(token, contact.getUsername())
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                        if(response.isSuccessful()) {
+
+                            assert response.body() != null;
+
+                            InputStream bytes = response.body().byteStream();
+                            Bitmap bitmap = null;
+                            bitmap = BitmapFactory.decodeStream(bytes);
+
+                            holder.imageView.setImageBitmap(bitmap);
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        t.printStackTrace();
+                    }
+                });
+
 
     }
 
@@ -56,12 +94,12 @@ public class DataAdapterChats extends RecyclerView.Adapter<DataAdapterChats.View
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        final ImageView imageView;
+        final CircleImageView imageView;
         final TextView surnameView, firstnameView, usernameView;
 
         ViewHolder(final View view){
             super(view);
-            imageView = (ImageView)view.findViewById(R.id.image);
+            imageView = view.findViewById(R.id.image);
             surnameView = (TextView) view.findViewById(R.id.surname);
             firstnameView = (TextView) view.findViewById(R.id.firstname);
             usernameView = (TextView) view.findViewById(R.id.username);

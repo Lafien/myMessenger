@@ -44,8 +44,8 @@ public interface UserApi {
 
 
 
-    @GET("/users/image")
-    Call<ResponseBody> getImage(@Header("Authorization") String token);
+    @GET("/users/image/{username}")
+    Call<ResponseBody> getImage(@Header("Authorization") String token, @Path("username")String username);
 
 
 

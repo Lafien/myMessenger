@@ -127,13 +127,12 @@ public class UserRestController {
     }
 
 
-    @GetMapping(value = "/image", produces = MediaType.IMAGE_JPEG_VALUE)
-    public @ResponseBody byte[] getImageWithMediaType(Authentication authentication) throws IOException {
-        FileInputStream in = new FileInputStream("resources/images/" + authentication.getName() + ".jpg");
+    @GetMapping(value = "/image/{username}", produces = MediaType.IMAGE_JPEG_VALUE)
+    public @ResponseBody byte[] getImageWithMediaType( @PathVariable(name = "username")String username) throws IOException {
+        FileInputStream in = new FileInputStream("resources/images/" + username + ".jpg");
         byte[] result = IOUtils.toByteArray(in);
         in.close();
         return result;
-
     }
 
 }
