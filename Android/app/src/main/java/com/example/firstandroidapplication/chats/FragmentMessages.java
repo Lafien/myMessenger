@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.firstandroidapplication.API.ConfigRetrofit;
 import com.example.firstandroidapplication.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,9 +46,8 @@ public class FragmentMessages extends Fragment {
 
         listMessages = view.findViewById(R.id.listMessages);
 
-        final Button message = view.findViewById(R.id.sendMessage);
+         FloatingActionButton message = view.findViewById(R.id.sendMessage);
 
-        final TextView problem = view.findViewById(R.id.problem);
 
          post = new ArrayList<>();
          postNew = new ArrayList<>();
@@ -109,12 +109,6 @@ public class FragmentMessages extends Fragment {
                                 @Override
                                 public void onResponse(Call<Object> call, Response<Object> response) {
 
-                                    if (!response.isSuccessful()) {
-                                        problem.setText("Problem with authorization");
-                                    }
-                                    else {
-                                        //adapterMessages.notifyDataSetChanged();
-                                    }
                                 }
 
                                 @Override

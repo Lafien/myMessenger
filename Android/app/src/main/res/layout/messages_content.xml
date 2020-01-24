@@ -40,35 +40,47 @@
         android:layout_height="wrap_content"
         android:text="TextView" />-->
 
-    <TextView
-        android:id="@+id/problem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="" />
 
-
-    <EditText
-        android:id="@+id/messageTextContent"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Your text"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:paddingLeft="5dp"
-        android:padding="5dp"
-        android:background="@drawable/message_text_background_two"/>
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/sendMessage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginRight="8dp"
-        android:text="Send"
-        android:background="@drawable/message_text_background_two"/>
+        <EditText
+            android:id="@+id/messageTextContent"
+            android:layout_width="288dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/message_text_background_two"
+            android:hint="Your text"
+            android:padding="15dp"
+            android:layout_weight="1"
+            android:paddingLeft="5dp" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/sendMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginBottom="10dp"
+            app:srcCompat = "@drawable/ic_action_send"/>
+
+        <!--<Button
+            android:id="@+id/sendMessage"
+            android:layout_width="55dp"
+            android:layout_height="30dp"
+
+
+            android:layout_marginRight="8dp"
+
+            android:background="@color/colorPrimary"
+            android:drawableBottom="@drawable/ic_action_send"
+            android:text="" />-->
+
+    </LinearLayout>
+
         <!--android:visibility="invisible"-->
 
 
