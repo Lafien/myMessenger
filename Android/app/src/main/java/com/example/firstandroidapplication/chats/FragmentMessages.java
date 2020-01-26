@@ -145,7 +145,6 @@ public class FragmentMessages extends Fragment {
                                 post.add(buf);
                                 adapterMessages.notifyItemInserted(post.size());
 
-
                                 LinearLayoutManager layoutManager = (LinearLayoutManager) listMessages.getLayoutManager();
 
                                 int totalItemCount = layoutManager.getItemCount();
@@ -172,12 +171,15 @@ public class FragmentMessages extends Fragment {
         @Override
         public void run() {
             handler.postDelayed(periodicUpdate, 1000);
-
-            if(view.hasFocusable()){
                 updateChat();
-            }
-
         }
     };
+
+
+    @Override
+    public void onDestroy() {
+        periodicUpdate = null;
+        super.onDestroy();
+    }
 
 }
