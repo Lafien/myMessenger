@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity  {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
         FragmentTransaction tran = getFragmentManager().beginTransaction();
         tran.add(R.id.main, new FragmentUserAuthorization());
         tran.commit();
@@ -39,7 +40,6 @@ public class MainActivity extends AppCompatActivity  {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-
 
 
         if(id == android.R.id.home){

@@ -40,6 +40,8 @@ public class FragmentNewContact extends Fragment {
 
         View view = inflater.inflate(R.layout.new_contact_content, container, false);
 
+        getActivity().setTitle("New contact");
+
         Button addContact = view.findViewById(R.id.addContact);
 
 
@@ -104,6 +106,14 @@ public class FragmentNewContact extends Fragment {
         setHasOptionsMenu(true);
 
         return  view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_main, menu);
+        menu.clear();//например убрать все элементы меню.
+
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
 }

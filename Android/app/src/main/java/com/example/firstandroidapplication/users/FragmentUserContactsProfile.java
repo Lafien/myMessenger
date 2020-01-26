@@ -7,6 +7,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -41,6 +43,8 @@ public class FragmentUserContactsProfile extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.user_profile_content, container, false);
+
+        getActivity().setTitle(chooseContactFromContacts.getSurname() + " " + chooseContactFromContacts.getFirstname());
 
         final TextView textView =  view.findViewById(R.id.username);
         final TextView textView1 =  view.findViewById(R.id.surname);
@@ -124,7 +128,16 @@ public class FragmentUserContactsProfile extends Fragment {
                     }
                 });
 
+        setHasOptionsMenu(true);
         return  view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_main, menu);
+        menu.clear();//например убрать все элементы меню.
+
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
 

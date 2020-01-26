@@ -4,6 +4,8 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -43,6 +45,8 @@ public class FragmentMessages extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         view  = inflater.inflate(R.layout.messages_content, container, false);
+
+        getActivity().setTitle(usernameChat.getSurname() + " " + usernameChat.getFirstname());
 
         listMessages = view.findViewById(R.id.listMessages);
 
@@ -125,6 +129,7 @@ public class FragmentMessages extends Fragment {
 
         });
 
+        setHasOptionsMenu(true);
         return  view;
     }
 
@@ -180,6 +185,14 @@ public class FragmentMessages extends Fragment {
     public void onDestroy() {
         periodicUpdate = null;
         super.onDestroy();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_main, menu);
+        menu.clear();//например убрать все элементы меню.
+
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
 }

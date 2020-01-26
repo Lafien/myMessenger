@@ -36,6 +36,8 @@ public class FragmentUserAuthorization extends Fragment {
 
         View view = inflater.inflate(R.layout.authorization_content, container, false);
 
+        getActivity().setTitle("Messenger");
+
         Button authorization = view.findViewById(R.id.send);
 
 

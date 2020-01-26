@@ -4,6 +4,8 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -12,10 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.firstandroidapplication.R;
 import com.example.firstandroidapplication.API.ConfigRetrofit;
+import com.example.firstandroidapplication.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
@@ -36,6 +37,7 @@ public class FragmentContacts extends Fragment {
 
         problem = view.findViewById(R.id.problem);
 
+        getActivity().setTitle("Contacts");
 
         FloatingActionButton fab = view.findViewById(R.id.fab);
 
@@ -78,7 +80,16 @@ public class FragmentContacts extends Fragment {
                     }
                 });
 
+        setHasOptionsMenu(true);
         return  view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_main, menu);
+        menu.clear();//например убрать все элементы меню.
+
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
 

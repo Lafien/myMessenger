@@ -1,25 +1,23 @@
 package com.example.firstandroidapplication.users;
 
+import android.app.Fragment;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.app.Fragment;
 
-import com.example.firstandroidapplication.R;
 import com.example.firstandroidapplication.API.ConfigRetrofit;
-import com.squareup.picasso.Picasso;
+import com.example.firstandroidapplication.R;
 
-import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.ResponseBody;
@@ -38,6 +36,10 @@ public class FragmentUserMyProfile extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.my_profile_content, container, false);
+
+        getActivity().setTitle("My profile");
+
+
 
         final TextView textView =  view.findViewById(R.id.username);
         final TextView textView1 =  view.findViewById(R.id.surname);
@@ -102,7 +104,16 @@ public class FragmentUserMyProfile extends Fragment {
                     }
                 });
 
+        setHasOptionsMenu(true);
         return  view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_main, menu);
+        menu.clear();//например убрать все элементы меню.
+
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
 

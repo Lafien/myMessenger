@@ -1,24 +1,22 @@
 package com.example.firstandroidapplication.chats;
 
 import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.firstandroidapplication.R;
-import com.example.firstandroidapplication.users.DataAdapterContacts;
-import com.example.firstandroidapplication.users.UserInfo;
 import com.example.firstandroidapplication.API.ConfigRetrofit;
+import com.example.firstandroidapplication.R;
+import com.example.firstandroidapplication.users.UserInfo;
 
 import java.util.List;
 
@@ -38,6 +36,9 @@ public class FragmentChats extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         final View view = inflater.inflate(R.layout.chats_content, container, false);
+
+        getActivity().setTitle("Chats");
+
 
 
         final TextView problem = view.findViewById(R.id.problem);
@@ -69,9 +70,15 @@ public class FragmentChats extends Fragment {
                     }
                 });
 
-
+        setHasOptionsMenu(true);
         return  view;
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_main, menu);
+        menu.clear();//например убрать все элементы меню.
 
+        super.onCreateOptionsMenu(menu, inflater);
+    }
 }
