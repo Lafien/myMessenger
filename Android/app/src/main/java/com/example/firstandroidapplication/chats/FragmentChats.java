@@ -5,10 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,6 +22,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.firstandroidapplication.MainActivity.actionBar;
 import static com.example.firstandroidapplication.authorization.FragmentUserAuthorization.token;
 
 public class FragmentChats extends Fragment {
@@ -39,9 +38,11 @@ public class FragmentChats extends Fragment {
 
         getActivity().setTitle("Chats");
 
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
 
-        final TextView problem = view.findViewById(R.id.problem);
+        //final TextView problem = view.findViewById(R.id.problem);
 
         ConfigRetrofit.getInstance()
                 .getChats(token)
@@ -58,10 +59,6 @@ public class FragmentChats extends Fragment {
                             recyclerView.setAdapter(adapter);
 
                         }
-                        else {
-
-                            problem.setText("Проблемы с авторизацией");
-                        }
                     }
 
                     @Override
@@ -77,7 +74,7 @@ public class FragmentChats extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_main, menu);
-        menu.clear();//например убрать все элементы меню.
+        menu.clear();
 
         super.onCreateOptionsMenu(menu, inflater);
     }

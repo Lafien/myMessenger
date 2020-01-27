@@ -30,6 +30,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.firstandroidapplication.MainActivity.actionBar;
 import static com.example.firstandroidapplication.authorization.FragmentUserAuthorization.token;
 import static com.example.firstandroidapplication.users.DataAdapterContacts.chooseContactFromContacts;
 import static com.example.firstandroidapplication.chats.DataAdapterChats.usernameChat;
@@ -45,6 +46,9 @@ public class FragmentUserContactsProfile extends Fragment {
         View view = inflater.inflate(R.layout.user_profile_content, container, false);
 
         getActivity().setTitle(chooseContactFromContacts.getSurname() + " " + chooseContactFromContacts.getFirstname());
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
 
         final TextView textView =  view.findViewById(R.id.username);
         final TextView textView1 =  view.findViewById(R.id.surname);
@@ -135,8 +139,7 @@ public class FragmentUserContactsProfile extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_main, menu);
-        menu.clear();//например убрать все элементы меню.
-
+        menu.clear();
         super.onCreateOptionsMenu(menu, inflater);
     }
 

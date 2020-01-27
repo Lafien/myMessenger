@@ -1,12 +1,12 @@
 package com.example.firstandroidapplication;
 
-import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.firstandroidapplication.authorization.FragmentUserAuthorization;
@@ -14,17 +14,16 @@ import com.example.firstandroidapplication.users.FragmentUserMyProfile;
 
 
 public class MainActivity extends AppCompatActivity  {
-
+    public static ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //getSupportActionBar().setTitle("Back");
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        actionBar = getSupportActionBar();
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         FragmentTransaction tran = getFragmentManager().beginTransaction();
         tran.add(R.id.main, new FragmentUserAuthorization());
@@ -62,7 +61,8 @@ public class MainActivity extends AppCompatActivity  {
             fTrans.commit();
         }
 
-
         return super.onOptionsItemSelected(item);
     }
+
+
 }

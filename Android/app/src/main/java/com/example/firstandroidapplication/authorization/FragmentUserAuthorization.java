@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,6 +22,8 @@ import com.example.firstandroidapplication.API.ConfigRetrofit;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.example.firstandroidapplication.MainActivity.actionBar;
 
 public class FragmentUserAuthorization extends Fragment {
 
@@ -36,7 +37,10 @@ public class FragmentUserAuthorization extends Fragment {
 
         View view = inflater.inflate(R.layout.authorization_content, container, false);
 
-        getActivity().setTitle("Messenger");
+
+        //getActivity().setTitle("Messenger");
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(false);
 
         Button authorization = view.findViewById(R.id.send);
 
@@ -104,7 +108,6 @@ public class FragmentUserAuthorization extends Fragment {
 
         });
 
-
         setHasOptionsMenu(true);
 
         return  view;
@@ -114,7 +117,9 @@ public class FragmentUserAuthorization extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_main, menu);
-        menu.clear();//например убрать все элементы меню.
+
+        menu.clear();
+
 
         super.onCreateOptionsMenu(menu, inflater);
     }

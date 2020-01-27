@@ -8,9 +8,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,12 +26,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.firstandroidapplication.MainActivity.actionBar;
 import static com.example.firstandroidapplication.authorization.FragmentUserAuthorization.token;
 import static com.example.firstandroidapplication.chats.DataAdapterChats.usernameChat;
 
 public class FragmentMessages extends Fragment {
 
-    private TextView nameUserDialog;
+    //private TextView nameUserDialog;
     private View view;
     private RecyclerView listMessages;
     private DataAdapterMessages adapterMessages;
@@ -47,6 +46,9 @@ public class FragmentMessages extends Fragment {
         view  = inflater.inflate(R.layout.messages_content, container, false);
 
         getActivity().setTitle(usernameChat.getSurname() + " " + usernameChat.getFirstname());
+
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         listMessages = view.findViewById(R.id.listMessages);
 
@@ -68,9 +70,9 @@ public class FragmentMessages extends Fragment {
                         if(response.isSuccessful()) {
                             post = response.body();
 
-                            nameUserDialog = view.findViewById(R.id.nameUser);
+                            //nameUserDialog = view.findViewById(R.id.nameUser);
 
-                            nameUserDialog.setText(usernameChat.getSurname() + " " + usernameChat.getFirstname());
+                            //nameUserDialog.setText(usernameChat.getSurname() + " " + usernameChat.getFirstname());
                             adapterMessages.setMessagesList(post);
 
 
@@ -190,7 +192,7 @@ public class FragmentMessages extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_main, menu);
-        menu.clear();//например убрать все элементы меню.
+        menu.clear();
 
         super.onCreateOptionsMenu(menu, inflater);
     }

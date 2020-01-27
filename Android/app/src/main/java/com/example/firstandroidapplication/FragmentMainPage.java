@@ -14,6 +14,8 @@ import androidx.annotation.Nullable;
 import com.example.firstandroidapplication.chats.FragmentChats;
 import com.example.firstandroidapplication.users.FragmentContacts;
 
+import static com.example.firstandroidapplication.MainActivity.actionBar;
+
 public class FragmentMainPage extends Fragment {
 
 
@@ -26,8 +28,12 @@ public class FragmentMainPage extends Fragment {
 
         getActivity().setTitle("Messenger");
 
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(false);
+
         Button myContacts = view.findViewById(R.id.openMyContacts);
         Button myChats = view.findViewById(R.id.openMyChats);
+
 
 
         myContacts.setOnClickListener(new View.OnClickListener() {

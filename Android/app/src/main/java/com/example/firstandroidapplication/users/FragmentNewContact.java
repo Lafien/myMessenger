@@ -1,9 +1,10 @@
 package com.example.firstandroidapplication.users;
 
+import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,17 +12,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.firstandroidapplication.API.ConfigRetrofit;
-import com.example.firstandroidapplication.FragmentMainPage;
 import com.example.firstandroidapplication.R;
-import com.example.firstandroidapplication.authorization.UserAuthorization;
-import com.example.firstandroidapplication.authorization.UserSecurity;
 
+import static com.example.firstandroidapplication.MainActivity.actionBar;
 import static com.example.firstandroidapplication.authorization.FragmentUserAuthorization.token;
 
 import okhttp3.ResponseBody;
@@ -31,9 +32,6 @@ import retrofit2.Response;
 
 public class FragmentNewContact extends Fragment {
 
-
-    //shared preference
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -41,18 +39,20 @@ public class FragmentNewContact extends Fragment {
         View view = inflater.inflate(R.layout.new_contact_content, container, false);
 
         getActivity().setTitle("New contact");
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         Button addContact = view.findViewById(R.id.addContact);
 
 
         final EditText editText = view.findViewById(R.id.newContact);
-        final TextView textView = view.findViewById(R.id.textView3);
+        final Activity activity = getActivity();;
 
 
         addContact.setOnClickListener(new View.OnClickListener() {
 
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
 
                 final UserInfo userInfo = new UserInfo();
 
@@ -83,7 +83,14 @@ public class FragmentNewContact extends Fragment {
                                 }
                                 else
                                     {
-                                        textView.setText("This user does not exist.");
+
+                                        Toast toast = Toast.makeText(activity, Html.fromHtml("<span style=\"background-color:#0099cb;" +
+                                                " color:#ffffff\">This user does not exist</span>"),  Toast.LENGTH_LONG);
+
+                                        LinearLayout toastContainer = (LinearLayout) toast.getView();
+                                        toastContainer.setBackgroundResource(R.drawable.toast_style);
+
+                                        toast.show();
                                 }
 
                             }
@@ -93,13 +100,7 @@ public class FragmentNewContact extends Fragment {
                                 t.printStackTrace();
                             }
                         });
-
-
-
             }
-
-
-
         });
 
 
@@ -111,8 +112,7 @@ public class FragmentNewContact extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_main, menu);
-        menu.clear();//например убрать все элементы меню.
-
+        menu.clear();
         super.onCreateOptionsMenu(menu, inflater);
     }
 

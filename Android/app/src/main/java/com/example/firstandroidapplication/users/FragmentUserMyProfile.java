@@ -25,6 +25,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.firstandroidapplication.MainActivity.actionBar;
 import static com.example.firstandroidapplication.authorization.FragmentUserAuthorization.authUser;
 import static com.example.firstandroidapplication.authorization.FragmentUserAuthorization.token;
 
@@ -39,12 +40,13 @@ public class FragmentUserMyProfile extends Fragment {
 
         getActivity().setTitle("My profile");
 
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
 
         final TextView textView =  view.findViewById(R.id.username);
         final TextView textView1 =  view.findViewById(R.id.surname);
         final TextView textView2 =  view.findViewById(R.id.firstname);
-        final TextView problem = view.findViewById(R.id.problem);
         final CircleImageView image = view.findViewById(R.id.images);
 
         ConfigRetrofit.getInstance()
@@ -64,7 +66,7 @@ public class FragmentUserMyProfile extends Fragment {
                             textView.setText("");
                             textView1.setText("");
                             textView2.setText("");
-                            problem.setText("Проблемы с авторизацией");
+                            //problem.setText("Проблемы с авторизацией");
                         }
                     }
 
@@ -111,8 +113,7 @@ public class FragmentUserMyProfile extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_main, menu);
-        menu.clear();//например убрать все элементы меню.
-
+        menu.clear();
         super.onCreateOptionsMenu(menu, inflater);
     }
 
