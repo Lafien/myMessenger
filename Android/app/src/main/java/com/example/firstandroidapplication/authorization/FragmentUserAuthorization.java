@@ -87,6 +87,7 @@ public class FragmentUserAuthorization extends Fragment {
                         token = "Bearer_" + userSecurity.getToken();
                         authUser = userSecurity.getUsername();
                         textView.setText(userSecurity.getToken());
+
                     }
                 });
 
