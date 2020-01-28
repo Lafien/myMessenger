@@ -14,6 +14,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.example.firstandroidapplication.FragmentMainPage;
 import com.example.firstandroidapplication.R;
@@ -29,7 +33,12 @@ public class FragmentUserAuthorization extends Fragment {
 
     public static String token = "";
     public static String authUser = "";
+    AuthorisationViewModel model;
     //shared preference
+
+    EditText editText;
+    EditText editText1;
+    TextView textView;
 
     @Nullable
     @Override
@@ -45,16 +54,18 @@ public class FragmentUserAuthorization extends Fragment {
         Button authorization = view.findViewById(R.id.send);
 
 
-        final EditText editText = view.findViewById(R.id.login);
-        final EditText editText1 = view.findViewById(R.id.password);
-        final TextView textView = view.findViewById(R.id.textView2);
+
+
+        editText = view.findViewById(R.id.login);
+        editText1 = view.findViewById(R.id.password);
+        textView = view.findViewById(R.id.textView2);
 
 
         authorization.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                UserAuthorization userAuthorization = new UserAuthorization();
+
 
 
                 String login = editText.getText().toString();
@@ -62,11 +73,25 @@ public class FragmentUserAuthorization extends Fragment {
 
                 String password = editText1.getText().toString();
 
-                userAuthorization.setUsername(login);
-                userAuthorization.setPassword(password);
+                UserAuthorization userAuthorization = new UserAuthorization(login, password);
 
 
-                ConfigRetrofit.getInstance()
+
+                model = ViewModelProviders.of((FragmentActivity) getActivity(), new ModelFactoryAuthorization(userAuthorization)).get(AuthorisationViewModel.class);
+
+                LiveData<UserSecurity> data = model.getData();
+                data.observe((FragmentActivity) getActivity(), new Observer<UserSecurity>() {
+
+                    @Override
+                    public void onChanged(UserSecurity userSecurity) {
+                        token = "Bearer_" + userSecurity.getToken();
+                        authUser = userSecurity.getUsername();
+                        textView.setText(userSecurity.getToken());
+                    }
+                });
+
+
+                /*ConfigRetrofit.getInstance()
                         .authorizationUser(userAuthorization)
                         .enqueue(new Callback<UserSecurity>() {
                             @Override
@@ -98,7 +123,7 @@ public class FragmentUserAuthorization extends Fragment {
                                 textView.setText("No connection to server");
                                 t.printStackTrace();
                             }
-                        });
+                        });*/
 
 
 
