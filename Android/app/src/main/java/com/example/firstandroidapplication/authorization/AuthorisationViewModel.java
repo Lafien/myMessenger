@@ -13,21 +13,20 @@ import retrofit2.Response;
 public class AuthorisationViewModel extends ViewModel {
 
 
-    UserAuthorization userAuthorization;
+    private UserAuthorization userAuthorization;
 
-    MutableLiveData<UserSecurity> data;
-
-    public AuthorisationViewModel(UserAuthorization userAuthorization) {
-        this.userAuthorization = userAuthorization;
-    }
+    private MutableLiveData<UserSecurity> data;
 
 
     public LiveData<UserSecurity> getData() {
-            data = new MutableLiveData<>();
-            loadData();
+        data = new MutableLiveData<>();
+        loadData();
         return data;
     }
 
+    public void setUserAuthorization(UserAuthorization userAuthorization) {
+        this.userAuthorization = userAuthorization;
+    }
 
     private void loadData(){
         ConfigRetrofit.getInstance()
@@ -39,6 +38,10 @@ public class AuthorisationViewModel extends ViewModel {
                         if(response.isSuccessful()) {
                             UserSecurity post = response.body();
                             data.postValue(post);
+                        }
+                        else
+                        {
+                            data.postValue(null);
                         }
                     }
 

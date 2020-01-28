@@ -21,11 +21,6 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.firstandroidapplication.FragmentMainPage;
 import com.example.firstandroidapplication.R;
-import com.example.firstandroidapplication.API.ConfigRetrofit;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import static com.example.firstandroidapplication.MainActivity.actionBar;
 
@@ -40,6 +35,8 @@ public class FragmentUserAuthorization extends Fragment {
     EditText editText1;
     TextView textView;
 
+    LiveData<UserSecurity> data;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -47,13 +44,13 @@ public class FragmentUserAuthorization extends Fragment {
         View view = inflater.inflate(R.layout.authorization_content, container, false);
 
 
-        //getActivity().setTitle("Messenger");
+        getActivity().setTitle("Messenger");
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setDisplayHomeAsUpEnabled(false);
 
         Button authorization = view.findViewById(R.id.send);
 
-
+        model = ViewModelProviders.of((FragmentActivity) getActivity()).get(AuthorisationViewModel.class);
 
 
         editText = view.findViewById(R.id.login);
@@ -76,20 +73,39 @@ public class FragmentUserAuthorization extends Fragment {
                 UserAuthorization userAuthorization = new UserAuthorization(login, password);
 
 
+                model.setUserAuthorization(userAuthorization);
 
-                model = ViewModelProviders.of((FragmentActivity) getActivity(), new ModelFactoryAuthorization(userAuthorization)).get(AuthorisationViewModel.class);
 
-                LiveData<UserSecurity> data = model.getData();
+                data = model.getData();
+
+
                 data.observe((FragmentActivity) getActivity(), new Observer<UserSecurity>() {
 
                     @Override
                     public void onChanged(UserSecurity userSecurity) {
-                        token = "Bearer_" + userSecurity.getToken();
-                        authUser = userSecurity.getUsername();
-                        textView.setText(userSecurity.getToken());
+                        if(userSecurity!=null){
+                            token = "Bearer_" + userSecurity.getToken();
+                            authUser = userSecurity.getUsername();
+
+                            FragmentTransaction fTrans;
+
+                            FragmentMainPage fragmentMainPage = new FragmentMainPage();
+
+                            fTrans = getFragmentManager().beginTransaction();
+                            fTrans.replace(R.id.main, fragmentMainPage);
+                            fTrans.addToBackStack(null);
+                            fTrans.commit();
+
+                        }
+                        else
+                        {
+                            textView.setText("Login or password incorrect");
+                        }
+
 
                     }
                 });
+
 
 
                 /*ConfigRetrofit.getInstance()
@@ -134,6 +150,8 @@ public class FragmentUserAuthorization extends Fragment {
 
         });
 
+
+
         setHasOptionsMenu(true);
 
         return  view;
@@ -149,4 +167,5 @@ public class FragmentUserAuthorization extends Fragment {
 
         super.onCreateOptionsMenu(menu, inflater);
     }
+
 }
