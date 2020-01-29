@@ -1,6 +1,5 @@
 package com.example.firstandroidapplication.authorization;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -15,20 +14,24 @@ public class AuthorisationViewModel extends ViewModel {
 
     private UserAuthorization userAuthorization;
 
-    private MutableLiveData<UserSecurity> data;
+    private MutableLiveData<UserSecurity> data ;
 
 
-    public LiveData<UserSecurity> getData() {
-        data = new MutableLiveData<>();
-        loadData();
+    public MutableLiveData<UserSecurity> getData() {
+        System.out.println("зашло в getData");
+            data = new MutableLiveData<>();
+            loadData();
+
         return data;
     }
 
     public void setUserAuthorization(UserAuthorization userAuthorization) {
+        System.out.println("Зашло в setUserAuthorization");
         this.userAuthorization = userAuthorization;
     }
 
-    private void loadData(){
+    public void loadData(){
+        System.out.println("зашло в loadData");
         ConfigRetrofit.getInstance()
                 .authorizationUser(userAuthorization)
                 .enqueue(new Callback<UserSecurity>() {

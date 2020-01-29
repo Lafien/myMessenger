@@ -1,6 +1,6 @@
 package com.example.firstandroidapplication;
 
-import android.app.FragmentTransaction;
+
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -8,9 +8,9 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.firstandroidapplication.authorization.FragmentUserAuthorization;
-import com.example.firstandroidapplication.users.FragmentUserMyProfile;
 
 
 public class MainActivity extends AppCompatActivity  {
@@ -25,9 +25,12 @@ public class MainActivity extends AppCompatActivity  {
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        FragmentTransaction tran = getFragmentManager().beginTransaction();
-        tran.add(R.id.main, new FragmentUserAuthorization());
-        tran.commit();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction().add(R.id.main, new FragmentUserAuthorization());
+        fragmentTransaction.commit();
+
+        /*FragmentTransaction tran = getFragmentManager().beginTransaction();
+        tran.add(R.id.main, new FragmentUserAuthorization());*/
+        /*tran.commit();*/
     }
 
     @Override
@@ -50,7 +53,7 @@ public class MainActivity extends AppCompatActivity  {
             }
         }
 
-        if(id == R.id.action_search){
+        /*if(id == R.id.action_search){
             FragmentTransaction fTrans;
 
             FragmentUserMyProfile fragmentUserMyProfile = new FragmentUserMyProfile();
@@ -59,7 +62,7 @@ public class MainActivity extends AppCompatActivity  {
             fTrans.replace(R.id.main, fragmentUserMyProfile);
             fTrans.addToBackStack(null);
             fTrans.commit();
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
     }
