@@ -1,6 +1,6 @@
 package com.example.firstandroidapplication.users;
 
-import android.app.Fragment;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.example.firstandroidapplication.API.ConfigRetrofit;
 import com.example.firstandroidapplication.R;
@@ -39,6 +40,7 @@ public class FragmentUserMyProfile extends Fragment {
         View view = inflater.inflate(R.layout.my_profile_content, container, false);
 
         getActivity().setTitle("My profile");
+
 
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);

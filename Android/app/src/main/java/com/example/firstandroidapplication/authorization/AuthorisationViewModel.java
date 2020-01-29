@@ -11,27 +11,23 @@ import retrofit2.Response;
 
 public class AuthorisationViewModel extends ViewModel {
 
-
     private UserAuthorization userAuthorization;
 
     private MutableLiveData<UserSecurity> data ;
 
 
     public MutableLiveData<UserSecurity> getData() {
-        System.out.println("зашло в getData");
-            data = new MutableLiveData<>();
-            loadData();
+
+        data = new MutableLiveData<>();
 
         return data;
     }
 
     public void setUserAuthorization(UserAuthorization userAuthorization) {
-        System.out.println("Зашло в setUserAuthorization");
         this.userAuthorization = userAuthorization;
     }
 
     public void loadData(){
-        System.out.println("зашло в loadData");
         ConfigRetrofit.getInstance()
                 .authorizationUser(userAuthorization)
                 .enqueue(new Callback<UserSecurity>() {

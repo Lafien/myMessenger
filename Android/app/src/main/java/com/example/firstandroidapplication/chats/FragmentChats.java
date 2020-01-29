@@ -1,6 +1,6 @@
 package com.example.firstandroidapplication.chats;
 
-import android.app.Fragment;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.firstandroidapplication.API.ConfigRetrofit;
@@ -26,7 +28,6 @@ import static com.example.firstandroidapplication.MainActivity.actionBar;
 import static com.example.firstandroidapplication.authorization.FragmentUserAuthorization.token;
 
 public class FragmentChats extends Fragment {
-
     public static String usernameChat = "";
     public static UserInfo userChat;
 
@@ -36,13 +37,11 @@ public class FragmentChats extends Fragment {
 
         final View view = inflater.inflate(R.layout.chats_content, container, false);
 
-        getActivity().setTitle("Chats");
 
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
 
-        //final TextView problem = view.findViewById(R.id.problem);
 
         ConfigRetrofit.getInstance()
                 .getChats(token)
@@ -71,11 +70,13 @@ public class FragmentChats extends Fragment {
         return  view;
     }
 
+
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_main, menu);
-        menu.clear();
-
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        activity.setTitle("Chats");
         super.onCreateOptionsMenu(menu, inflater);
     }
+
 }

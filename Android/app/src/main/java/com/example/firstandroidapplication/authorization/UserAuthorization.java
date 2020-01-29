@@ -15,6 +15,9 @@ public class UserAuthorization {
         this.password = password;
     }
 
+    public UserAuthorization() {
+    }
+
     public String getUsername() {
         return username;
     }

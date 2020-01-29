@@ -1,20 +1,26 @@
 package com.example.firstandroidapplication;
 
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.firstandroidapplication.authorization.FragmentUserAuthorization;
+import com.example.firstandroidapplication.users.FragmentUserMyProfile;
 
 
 public class MainActivity extends AppCompatActivity  {
     public static ActionBar actionBar;
+    AlertDialog.Builder ad;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,12 +31,26 @@ public class MainActivity extends AppCompatActivity  {
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction().add(R.id.main, new FragmentUserAuthorization());
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction().replace(R.id.main, new FragmentUserAuthorization());
         fragmentTransaction.commit();
 
-        /*FragmentTransaction tran = getFragmentManager().beginTransaction();
-        tran.add(R.id.main, new FragmentUserAuthorization());*/
-        /*tran.commit();*/
+
+        ad = new AlertDialog.Builder(this);
+        ad.setTitle("Warning");
+        ad.setMessage("Do you want to close the app?");
+        ad.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int arg1) {
+                finish();
+            }
+        });
+
+        ad.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int arg1) {
+            }
+        });
+
+
+
     }
 
     @Override
@@ -46,26 +66,36 @@ public class MainActivity extends AppCompatActivity  {
 
         if(id == android.R.id.home){
             if(getSupportFragmentManager().getBackStackEntryCount() == 0){
-                super.onBackPressed();
+
+                ad.show();
             }
             else {
-                getFragmentManager().popBackStackImmediate();
+                onBackPressed();
             }
         }
 
-        /*if(id == R.id.action_search){
+        if(id == R.id.action_search){
             FragmentTransaction fTrans;
 
             FragmentUserMyProfile fragmentUserMyProfile = new FragmentUserMyProfile();
 
-            fTrans = getFragmentManager().beginTransaction();
+            fTrans = getSupportFragmentManager().beginTransaction();
             fTrans.replace(R.id.main, fragmentUserMyProfile);
             fTrans.addToBackStack(null);
             fTrans.commit();
-        }*/
+        }
+
 
         return super.onOptionsItemSelected(item);
     }
 
-
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            if(getSupportFragmentManager().getBackStackEntryCount() == 0){
+                ad.show();
+            }
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }

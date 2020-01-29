@@ -7,5 +7,4 @@
         android:id="@+id/action_search"
         android:title="My profile"
         app:showAsAction="always" />
-    <!-- Settings, should always be in the overflow -->
 </menu>

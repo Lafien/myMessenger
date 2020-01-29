@@ -1,24 +1,28 @@
 package com.example.firstandroidapplication;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.firstandroidapplication.chats.FragmentChats;
 import com.example.firstandroidapplication.users.FragmentContacts;
+import com.google.android.material.tabs.TabLayout;
 
 import static com.example.firstandroidapplication.MainActivity.actionBar;
 
 public class FragmentMainPage extends Fragment {
 
-
+    SectionsPagerAdapter adapter;
 
     @Nullable
     @Override
@@ -26,51 +30,40 @@ public class FragmentMainPage extends Fragment {
 
         View view = inflater.inflate(R.layout.main_page_content, container, false);
 
-        getActivity().setTitle("Messenger");
+        AppCompatActivity activity = (AppCompatActivity) view.getContext();
 
-        actionBar.setDisplayShowHomeEnabled(false);
-        actionBar.setDisplayHomeAsUpEnabled(false);
+        activity.setTitle("Messenger");
 
-        Button myContacts = view.findViewById(R.id.openMyContacts);
-        Button myChats = view.findViewById(R.id.openMyChats);
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
+        ViewPager viewPager = view.findViewById(R.id.view_pager);
+        setupViewPager(viewPager);
 
-
-        myContacts.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                FragmentTransaction fTrans;
-
-                FragmentContacts fragmentContacts = new FragmentContacts();
-
-                fTrans = getFragmentManager().beginTransaction();
-                fTrans.replace(R.id.main, fragmentContacts);
-                fTrans.addToBackStack(null);
-                fTrans.commit();
-
-            }
-        });
-
-
-        myChats.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction fTrans;
-
-                FragmentChats fragmentChats = new FragmentChats();
-
-                fTrans = getFragmentManager().beginTransaction();
-                fTrans.replace(R.id.main, fragmentChats);
-                fTrans.addToBackStack(null);
-                fTrans.commit();
-            }
-        });
-
+        TabLayout tabs = view.findViewById(R.id.tabs);
+        tabs.setupWithViewPager(viewPager);
 
         return  view;
     }
 
+    private void setupViewPager(ViewPager viewPager) {
+
+
+        adapter = new SectionsPagerAdapter(getChildFragmentManager());
+        adapter.addFragment(new FragmentChats(), "Chats");
+        adapter.addFragment(new FragmentContacts(), "Contacts");
+        viewPager.setAdapter(adapter);
+
+
+
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_main, menu);
+        menu.clear();
+        super.onCreateOptionsMenu(menu, inflater);
+    }
 
 
 }

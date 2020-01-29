@@ -1,8 +1,6 @@
 package com.example.firstandroidapplication.users;
 
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -15,7 +13,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.firstandroidapplication.API.ConfigRetrofit;
 import com.example.firstandroidapplication.R;
@@ -32,8 +31,8 @@ import retrofit2.Response;
 
 import static com.example.firstandroidapplication.MainActivity.actionBar;
 import static com.example.firstandroidapplication.authorization.FragmentUserAuthorization.token;
-import static com.example.firstandroidapplication.users.DataAdapterContacts.chooseContactFromContacts;
 import static com.example.firstandroidapplication.chats.DataAdapterChats.usernameChat;
+import static com.example.firstandroidapplication.users.DataAdapterContacts.chooseContactFromContacts;
 
 public class FragmentUserContactsProfile extends Fragment {
 

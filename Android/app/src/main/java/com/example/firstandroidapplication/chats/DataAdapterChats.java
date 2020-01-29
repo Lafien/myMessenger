@@ -1,17 +1,16 @@
 package com.example.firstandroidapplication.chats;
 
 
-import android.app.Fragment;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.firstandroidapplication.API.ConfigRetrofit;
@@ -112,9 +111,11 @@ public class DataAdapterChats extends RecyclerView.Adapter<DataAdapterChats.View
 
                     AppCompatActivity activity = (AppCompatActivity) view.getContext();
 
-                    Fragment myFragment = new FragmentMessages();
+                    FragmentMessages fragmentMessages = new FragmentMessages();
+                    FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction().replace(R.id.main, fragmentMessages);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
 
-                    activity.getFragmentManager().beginTransaction().replace(R.id.main, myFragment).addToBackStack(null).commit();
                 }
             });
         }

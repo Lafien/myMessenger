@@ -14,10 +14,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.firstandroidapplication.FragmentMainPage;
 import com.example.firstandroidapplication.R;
 
 import static com.example.firstandroidapplication.MainActivity.actionBar;
@@ -40,7 +42,8 @@ public class FragmentUserAuthorization extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.authorization_content, container, false);
+        final View view = inflater.inflate(R.layout.authorization_content, container, false);
+
 
 
         getActivity().setTitle("Messenger");
@@ -55,25 +58,18 @@ public class FragmentUserAuthorization extends Fragment {
         editText1 = view.findViewById(R.id.password);
         textView = view.findViewById(R.id.textView2);
 
+
         model.getData().observe(this, new Observer<UserSecurity>() {
 
             @Override
             public void onChanged(UserSecurity userSecurity) {
-                System.out.println("Зашло в OnChanged");
                 if(userSecurity!=null){
                     token = "Bearer_" + userSecurity.getToken();
                     authUser = userSecurity.getUsername();
-
-                    textView.setText(userSecurity.getToken());
-
-                    /*FragmentTransaction fTrans;
-
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
                     FragmentMainPage fragmentMainPage = new FragmentMainPage();
-
-                    fTrans = getFragmentManager().beginTransaction();
-                    fTrans.replace(R.id.main, fragmentMainPage);
-                    fTrans.addToBackStack(null);
-                    fTrans.commit();*/
+                    transaction.replace(R.id.main, fragmentMainPage);
+                    transaction.commit();
 
                 }
                 else
@@ -91,8 +87,6 @@ public class FragmentUserAuthorization extends Fragment {
             @Override
             public void onClick(View view) {
 
-                System.out.println("сработал OnClick");
-
                 String login = editText.getText().toString();
 
                 String password = editText1.getText().toString();
@@ -100,9 +94,7 @@ public class FragmentUserAuthorization extends Fragment {
                 UserAuthorization userAuthorization = new UserAuthorization(login, password);
 
                 model.setUserAuthorization(userAuthorization);
-
-                //data = model.getData();
-
+                model.loadData();
 
             }
 

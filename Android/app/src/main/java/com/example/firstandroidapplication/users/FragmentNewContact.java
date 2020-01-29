@@ -1,8 +1,6 @@
 package com.example.firstandroidapplication.users;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -13,22 +11,23 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.firstandroidapplication.API.ConfigRetrofit;
 import com.example.firstandroidapplication.R;
-
-import static com.example.firstandroidapplication.MainActivity.actionBar;
-import static com.example.firstandroidapplication.authorization.FragmentUserAuthorization.token;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.example.firstandroidapplication.MainActivity.actionBar;
+import static com.example.firstandroidapplication.authorization.FragmentUserAuthorization.token;
 
 public class FragmentNewContact extends Fragment {
 
@@ -60,46 +59,55 @@ public class FragmentNewContact extends Fragment {
 
                 userInfo.setUsername(login);
 
+                if(login.isEmpty()){
+                    Toast toast = Toast.makeText(activity, Html.fromHtml("<span style=\"background-color:#0099cb;" +
+                            " color:#ffffff\">Enter username</span>"),  Toast.LENGTH_LONG);
 
-                ConfigRetrofit.getInstance()
-                        .addContact(token, userInfo)
-                        .enqueue(new Callback<ResponseBody>() {
-                            @Override
-                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    LinearLayout toastContainer = (LinearLayout) toast.getView();
+                    toastContainer.setBackgroundResource(R.drawable.toast_style);
 
-                                if (response.isSuccessful()) {
-
-                                    FragmentTransaction fTrans;
-
-                                    FragmentContacts fragmentContacts = new FragmentContacts();
-
-                                    fTrans = getFragmentManager().beginTransaction();
-                                    fTrans.replace(R.id.main, fragmentContacts);
-                                    fTrans.addToBackStack(null);
-                                    fTrans.commit();
+                    toast.show();
+                }
+                else {
 
 
+                    ConfigRetrofit.getInstance()
+                            .addContact(token, userInfo)
+                            .enqueue(new Callback<ResponseBody>() {
+                                @Override
+                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
-                                }
-                                else
-                                    {
+                                    if (response.isSuccessful()) {
+
+                                        FragmentTransaction fTrans;
+
+                                        FragmentContacts fragmentContacts = new FragmentContacts();
+
+                                        fTrans = getFragmentManager().beginTransaction();
+                                        fTrans.replace(R.id.main, fragmentContacts);
+                                        fTrans.addToBackStack(null);
+                                        fTrans.commit();
+
+
+                                    } else {
 
                                         Toast toast = Toast.makeText(activity, Html.fromHtml("<span style=\"background-color:#0099cb;" +
-                                                " color:#ffffff\">This user does not exist</span>"),  Toast.LENGTH_LONG);
+                                                " color:#ffffff\">This user does not exist</span>"), Toast.LENGTH_LONG);
 
                                         LinearLayout toastContainer = (LinearLayout) toast.getView();
                                         toastContainer.setBackgroundResource(R.drawable.toast_style);
 
                                         toast.show();
+                                    }
+
                                 }
 
-                            }
-
-                            @Override
-                            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                                t.printStackTrace();
-                            }
-                        });
+                                @Override
+                                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                    t.printStackTrace();
+                                }
+                            });
+                }
             }
         });
 
