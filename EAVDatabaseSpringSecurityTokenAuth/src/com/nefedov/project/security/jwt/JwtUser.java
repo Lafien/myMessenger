@@ -21,7 +21,6 @@ public class JwtUser implements UserDetails {
             Collection<? extends GrantedAuthority> authorities
 
     ) {
-
         this.username = username;
         this.password = password;
         this.authorities = authorities;
@@ -31,6 +30,17 @@ public class JwtUser implements UserDetails {
     @Override
     public String getUsername() {
         return username;
+    }
+
+    @JsonIgnore
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities;
     }
 
     @JsonIgnore
@@ -57,16 +67,7 @@ public class JwtUser implements UserDetails {
     }
 
 
-    @JsonIgnore
-    @Override
-    public String getPassword() {
-        return password;
-    }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
-    }
 
 
 }
