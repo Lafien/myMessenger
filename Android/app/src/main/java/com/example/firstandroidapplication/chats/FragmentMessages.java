@@ -33,7 +33,6 @@ import static com.example.firstandroidapplication.chats.DataAdapterChats.usernam
 
 public class FragmentMessages extends Fragment {
 
-    //private TextView nameUserDialog;
     private View view;
     private RecyclerView listMessages;
     private DataAdapterMessages adapterMessages;
@@ -71,9 +70,6 @@ public class FragmentMessages extends Fragment {
                         if(response.isSuccessful()) {
                             post = response.body();
 
-                            //nameUserDialog = view.findViewById(R.id.nameUser);
-
-                            //nameUserDialog.setText(usernameChat.getSurname() + " " + usernameChat.getFirstname());
                             adapterMessages.setMessagesList(post);
 
 

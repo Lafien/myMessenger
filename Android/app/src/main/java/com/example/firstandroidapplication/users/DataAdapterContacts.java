@@ -51,7 +51,6 @@ public class DataAdapterContacts extends RecyclerView.Adapter<DataAdapterContact
     @Override
     public void onBindViewHolder(final DataAdapterContacts.ViewHolder holder, final int position) {
         UserInfo contact = contacts.get(position);
-        //holder.imageView.setImageResource(R.drawable.pic1);
         holder.surnameView.setText(contact.getSurname());
         holder.firstnameView.setText(contact.getFirstname());
         holder.usernameView.setText(contact.getUsername());
@@ -114,7 +113,6 @@ public class DataAdapterContacts extends RecyclerView.Adapter<DataAdapterContact
                     FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction().replace(R.id.main, fragmentUserContactsProfile);
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
-                    //activity.getFragmentManager().beginTransaction().replace(R.id.main, myFragment).addToBackStack(null).commit();
                 }
             });
         }

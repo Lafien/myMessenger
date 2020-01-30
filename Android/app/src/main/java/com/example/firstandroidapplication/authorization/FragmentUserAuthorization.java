@@ -29,7 +29,6 @@ public class FragmentUserAuthorization extends Fragment {
     public static String token = "";
     public static String authUser = "";
 
-    //shared preference
 
     EditText editText;
     EditText editText1;

@@ -149,7 +149,39 @@ public class UserMapper {
             "and (id_attribute = 1 or id_attribute = 2 or id_attribute = 3)) main\n" +
             "where id_attribute = 3) username\n" +
             "where surname.id_object = firstname.id_object\n" +
-            "and firstname.id_object = username.id_object and username.username != ?";
+            "and firstname.id_object = username.id_object and username.username != ?" +
+            "union\n" +
+            "select username.username, surname.surname, firstname.firstname\n" +
+            "from\n" +
+            "(select value as username, id_object from \n" +
+            "(select id_object, id_attribute, value from value where CAST(id_object as text) in \n" +
+            "(select value from value where id_object in (\n" +
+            "select id_object from mesowner\n" +
+            "where CAST(value AS integer) in (select id_object from value where value = ?)\n" +
+            "and id_attribute = 8 )\n" +
+            "and id_attribute = 7 )\n" +
+            "and id_attribute in (1,2,3)) allvalue\n" +
+            "where allvalue.id_attribute = 3) username,\n" +
+            "(select value as surname, id_object from \n" +
+            "(select id_object, id_attribute, value from value where CAST(id_object as text) in \n" +
+            "(select value from value where id_object in (\n" +
+            "select id_object from mesowner\n" +
+            "where CAST(value AS integer) in (select id_object from value where value = ?)\n" +
+            "and id_attribute = 8 )\n" +
+            "and id_attribute = 7 )\n" +
+            "and id_attribute in (1,2,3)) allvalue\n" +
+            "where allvalue.id_attribute = 1) surname,\n" +
+            "(select value as firstname, id_object from \n" +
+            "(select id_object, id_attribute, value from value where CAST(id_object as text) in \n" +
+            "(select value from value where id_object in (\n" +
+            "select id_object from mesowner\n" +
+            "where CAST(value AS integer) in (select id_object from value where value = ?)\n" +
+            "and id_attribute = 8 )\n" +
+            "and id_attribute = 7 )\n" +
+            "and id_attribute in (1,2,3)) allvalue\n" +
+            "where allvalue.id_attribute = 2) firstname\n" +
+            "where surname.id_object = firstname.id_object\n" +
+            "and firstname.id_object = username.id_object";
 
     public static String CHANGE_SURNAME = "UPDATE value SET value = ? WHERE id_object in (select id_object from value\n" +
             "where value = ?) and id_attribute = 1;";
