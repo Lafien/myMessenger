@@ -25,7 +25,8 @@
         android:textColor="@android:color/white"
         android:hint="Username"
         android:textColorHint="@android:color/white"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        android:inputType="text"/>
 
 
     <Button

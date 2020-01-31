@@ -19,6 +19,7 @@ import com.example.firstandroidapplication.users.FragmentContacts;
 import com.google.android.material.tabs.TabLayout;
 
 import static com.example.firstandroidapplication.MainActivity.actionBar;
+import static com.example.firstandroidapplication.users.FragmentNewContact.addedNewContact;
 
 public class FragmentMainPage extends Fragment {
 
@@ -34,11 +35,16 @@ public class FragmentMainPage extends Fragment {
 
         activity.setTitle("Messenger");
 
-        actionBar.setDisplayShowHomeEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(false);
 
         ViewPager viewPager = view.findViewById(R.id.view_pager);
         setupViewPager(viewPager);
+
+        if(addedNewContact) {
+            viewPager.setCurrentItem(1, true);
+            addedNewContact = false;
+        }
 
         TabLayout tabs = view.findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);

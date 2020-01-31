@@ -13,14 +13,12 @@ import java.util.List;
 @Slf4j
 public class MessageServiceImpl implements MessageService {
 
-
     private final MessageDAO messageDAO;
 
     @Autowired
     public MessageServiceImpl(MessageDAO messageDAO) {
         this.messageDAO = messageDAO;
     }
-
 
     @Override
     public List<Message> getMessagesInChat(String msgOwner, String msgTo) {

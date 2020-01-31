@@ -9,7 +9,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AuthorisationViewModel extends ViewModel {
+public class AuthorizationViewModel extends ViewModel {
 
     private UserAuthorization userAuthorization;
 

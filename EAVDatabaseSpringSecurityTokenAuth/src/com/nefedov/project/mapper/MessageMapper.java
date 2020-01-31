@@ -8,11 +8,11 @@ public class MessageMapper {
             "insert into value (id_object, id_attribute, value) values\n" +
             "((select id_object from object ORDER BY id_object DESC LIMIT 1),6, ?);\n" +
             "insert into value (id_object, id_attribute, value) values ((select id_object from object ORDER BY id_object DESC \n" +
-            "LIMIT 1),7, (select cast(id_object as text) -- ид пользователя, которому добавляется контакт\n" +
+            "LIMIT 1),7, (select cast(id_object as text) \n" +
             "from value where value = ?));\n" +
             "insert into value (id_object, id_attribute, value)\n" +
             "values ((select id_object from object ORDER BY id_object DESC \n" +
-            "LIMIT 1),8, (select cast(id_object as text) -- ид пользователя, которому добавляется контакт\n" +
+            "LIMIT 1),8, (select cast(id_object as text)\n" +
             "from value where value = ?));";
 
 
@@ -28,18 +28,18 @@ public static String GET_MESSAGE_IN_CHAT = "select date_trunc('second', " +
         "select id_object from value where id_object in\n" +
         "(select id_object from mesOwner\n" +
         "where value in (select cast(id_object as text) from value\n" +
-        "where value = ?))      --от 6-го пользователя \n" +
+        "where value = ?))      --from \n" +
         "and id_attribute = 8 \n" +
         "and value in (select cast(id_object as text) from value\n" +
-        "where value = ?)  -- седьмому\n" +
+        "where value = ?)  -- to\n" +
         "union\n" +
         "select id_object from value where id_object in\n" +
         "(select id_object from mesOwner\n" +
         "where value in (select cast(id_object as text) from value\n" +
-        "where value = ?))   --от 7-го пользователя\n" +
+        "where value = ?))   --from\n" +
         "and id_attribute = 8 \n" +
         "and value in (select cast(id_object as text) from value\n" +
-        "where value = ?)) --шестому \n" +
+        "where value = ?)) --to \n" +
         "and (id_attribute = 6 or id_attribute = 7 or id_attribute = 5)) main\n" +
         "where id_attribute = 5 ) datecreate,\n" +
         "--\n" +
@@ -51,18 +51,18 @@ public static String GET_MESSAGE_IN_CHAT = "select date_trunc('second', " +
         "select id_object from value where id_object in\n" +
         "(select id_object from mesOwner\n" +
         "where value in (select cast(id_object as text) from value\n" +
-        "where value = ?))      --от 6-го пользователя \n" +
+        "where value = ?))      --from \n" +
         "and id_attribute = 8 \n" +
         "and value in (select cast(id_object as text) from value\n" +
-        "where value = ?)  -- седьмому\n" +
+        "where value = ?)  -- to\n" +
         "union\n" +
         "select id_object from value where id_object in\n" +
         "(select id_object from mesOwner\n" +
         "where value in (select cast(id_object as text) from value\n" +
-        "where value = ?))   --от 7-го пользователя\n" +
+        "where value = ?))   --from\n" +
         "and id_attribute = 8 \n" +
         "and value in (select cast(id_object as text) from value\n" +
-        "where value = ?)) --шестому \n" +
+        "where value = ?)) --to \n" +
         "and (id_attribute = 6 or id_attribute = 7 or id_attribute = 5)) main\n" +
         "where id_attribute = 6 ) textmessage,\n" +
         "--\n" +
@@ -75,18 +75,18 @@ public static String GET_MESSAGE_IN_CHAT = "select date_trunc('second', " +
         "select id_object from value where id_object in\n" +
         "(select id_object from mesOwner\n" +
         "where value in (select cast(id_object as text) from value\n" +
-        "where value = ?))      --от 6-го пользователя \n" +
+        "where value = ?))      --from \n" +
         "and id_attribute = 8 \n" +
         "and value in (select cast(id_object as text) from value\n" +
-        "where value = ?)  -- седьмому\n" +
+        "where value = ?)  -- to\n" +
         "union\n" +
         "select id_object from value where id_object in\n" +
         "(select id_object from mesOwner\n" +
         "where value in (select cast(id_object as text) from value\n" +
-        "where value = ?))   --от 7-го пользователя\n" +
+        "where value = ?))   --from\n" +
         "and id_attribute = 8 \n" +
         "and value in (select cast(id_object as text) from value\n" +
-        "where value = ?)) --шестому \n" +
+        "where value = ?)) --to \n" +
         "and (id_attribute = 6 or id_attribute = 7 or id_attribute = 5)) main\n" +
         "where id_attribute = 7 ) msgowner\n" +
         "where value.id_object = cast(msgowner.msgowner as integer)\n" +
@@ -101,18 +101,18 @@ public static String GET_MESSAGE_IN_CHAT = "select date_trunc('second', " +
         "select id_object from value where id_object in\n" +
         "(select id_object from mesOwner\n" +
         "where value in (select cast(id_object as text) from value\n" +
-        "where value = ?))      --от 6-го пользователя \n" +
+        "where value = ?))      --from\n" +
         "and id_attribute = 8 \n" +
         "and value in (select cast(id_object as text) from value\n" +
-        "where value = ?)  -- седьмому\n" +
+        "where value = ?)  -- to\n" +
         "union\n" +
         "select id_object from value where id_object in\n" +
         "(select id_object from mesOwner\n" +
         "where value in (select cast(id_object as text) from value\n" +
-        "where value = ?))   --от 7-го пользователя\n" +
+        "where value = ?))   --from\n" +
         "and id_attribute = 8 \n" +
         "and value in (select cast(id_object as text) from value\n" +
-        "where value = ?)) --шестому \n" +
+        "where value = ?)) --to \n" +
         "and (id_attribute = 6 or id_attribute = 7 or id_attribute = 5 or id_attribute = 8)) main\n" +
         "where id_attribute = 8 ) msgowner\n" +
         "where value.id_object = cast(msgowner.msgowner as integer)\n" +

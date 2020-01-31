@@ -34,7 +34,7 @@ public class FragmentUserAuthorization extends Fragment {
     EditText editText1;
     TextView textView;
 
-    AuthorisationViewModel model;
+    AuthorizationViewModel model;
     LiveData<UserSecurity> data;
 
     @Nullable
@@ -44,14 +44,13 @@ public class FragmentUserAuthorization extends Fragment {
         final View view = inflater.inflate(R.layout.authorization_content, container, false);
 
 
-
         getActivity().setTitle("Messenger");
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setDisplayHomeAsUpEnabled(false);
 
         Button authorization = view.findViewById(R.id.send);
 
-        model = ViewModelProviders.of(this).get(AuthorisationViewModel.class);
+        model = ViewModelProviders.of(this).get(AuthorizationViewModel.class);
 
         editText = view.findViewById(R.id.login);
         editText1 = view.findViewById(R.id.password);

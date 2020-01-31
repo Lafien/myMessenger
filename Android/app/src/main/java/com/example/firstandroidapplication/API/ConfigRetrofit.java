@@ -21,7 +21,6 @@ public class ConfigRetrofit {
     private static final String BASE_URL = "http://172.20.10.5:8080";
     private UserApi mRetrofit;
 
-
     private ConfigRetrofit(){
         mRetrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)

@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
@@ -45,12 +46,16 @@ public class FragmentMessages extends Fragment {
 
         view  = inflater.inflate(R.layout.messages_content, container, false);
 
+
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
         getActivity().setTitle(usernameChat.getSurname() + " " + usernameChat.getFirstname());
 
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         listMessages = view.findViewById(R.id.listMessages);
+
 
          FloatingActionButton message = view.findViewById(R.id.sendMessage);
 
@@ -71,8 +76,6 @@ public class FragmentMessages extends Fragment {
                             post = response.body();
 
                             adapterMessages.setMessagesList(post);
-
-
                             listMessages.setAdapter(adapterMessages);
 
                         }
@@ -190,7 +193,6 @@ public class FragmentMessages extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_main, menu);
         menu.clear();
-
         super.onCreateOptionsMenu(menu, inflater);
     }
 

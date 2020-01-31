@@ -32,26 +32,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserSecurity> getAll() {
-        List<UserSecurity> result = userDAO.getAllUserSecurity();
-        return result;
+        return userDAO.getAllUserSecurity();
     }
 
     @Override
     public UserSecurity  findByUsername(String username) {
-        UserSecurity result = userDAO.userForSecurity(username);
-        return result;
+        return userDAO.userForSecurity(username);
     }
 
     @Override
     public UserInfo findByUsernameInfo(String username) {
-        UserInfo result = userDAO.findInfoAboutUser(username);
-        return result;
+        return userDAO.findInfoAboutUser(username);
     }
 
     @Override
     public List<UserInfo> findFriendContact(String username) {
-        List<UserInfo> result = userDAO.getFriendContact(username);
-        return result;
+        return userDAO.getFriendContact(username);
     }
 
     @Override

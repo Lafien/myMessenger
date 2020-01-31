@@ -89,7 +89,7 @@ public class UserMapper {
             "(select CAST(value AS integer) from value\n" +
             "where id_attribute = 9    \n" +
             "and id_object in (select id_object from value\n" +
-            "where value = ?))      --друзья 6-го пользователя\n" +
+            "where value = ?))      --username\n" +
             "and (id_attribute = 1 or id_attribute = 2 or id_attribute = 3)) main\n" +
             "where id_attribute = 1 ) surname,\n" +
             "(select value as firstname, id_object from\n" +
@@ -97,7 +97,7 @@ public class UserMapper {
             "(select CAST(value AS integer) from value\n" +
             "where id_attribute = 9    \n" +
             "and id_object in (select id_object from value\n" +
-            "where value = ?))      --друзья 6-го пользователя\n" +
+            "where value = ?))      --username\n" +
             "and (id_attribute = 1 or id_attribute = 2 or id_attribute = 3)) main\n" +
             "where id_attribute = 2 ) firstname,\n" +
             "(select value as username, id_object from\n" +
@@ -105,7 +105,7 @@ public class UserMapper {
             "(select CAST(value AS integer) from value\n" +
             "where id_attribute = 9    \n" +
             "and id_object in (select id_object from value\n" +
-            "where value = ?))      --друзья 6-го пользователя\n" +
+            "where value = ?))      --username\n" +
             "and (id_attribute = 1 or id_attribute = 2 or id_attribute = 3)) main\n" +
             "where id_attribute = 3 ) username\n" +
             "where surname.id_object = firstname.id_object\n" +
@@ -113,9 +113,9 @@ public class UserMapper {
 
     public static String ADD_CONTACT = "insert into value (id_object, id_attribute, value)\n" +
             "values ((select id_object from value\n" +
-            "where value = ?),9, (select cast(id_object as text) -- username пользователя, которому добавляется контакт\n" +
+            "where value = ?),9, (select cast(id_object as text) -- username \n" +
             "from value\n" +
-            "where value = ?)) -- логин добавляемого пользователя";
+            "where value = ?)) -- username contacts";
 
 
 
@@ -126,7 +126,7 @@ public class UserMapper {
             "select cast(value as integer) from value where id_object in (\n" +
             "select id_object from mesowner\n" +
             "where cast(value as integer) in (select id_object from value\n" +
-            "where value = ?))  -- чаты 6-го пользователя\n" +
+            "where value = ?))  --username\n" +
             "and id_attribute = 8 )\n" +
             "and (id_attribute = 1 or id_attribute = 2 or id_attribute = 3)) main\n" +
             "where id_attribute = 1) surname,\n" +
@@ -135,7 +135,7 @@ public class UserMapper {
             "select cast(value as integer) from value where id_object in (\n" +
             "select id_object from mesowner\n" +
             "where cast(value as integer) in (select id_object from value\n" +
-            "where value = ?))  -- чаты 6-го пользователя\n" +
+            "where value = ?))  -- username\n" +
             "and id_attribute = 8 )\n" +
             "and (id_attribute = 1 or id_attribute = 2 or id_attribute = 3)) main\n" +
             "where id_attribute = 2) firstname,\n" +
@@ -144,7 +144,7 @@ public class UserMapper {
             "select cast(value as integer) from value where id_object in (\n" +
             "select id_object from mesowner\n" +
             "where cast(value as integer) in (select id_object from value\n" +
-            "where value = ?))  -- чаты 6-го пользователя\n" +
+            "where value = ?))  -- username\n" +
             "and id_attribute = 8 )\n" +
             "and (id_attribute = 1 or id_attribute = 2 or id_attribute = 3)) main\n" +
             "where id_attribute = 3) username\n" +

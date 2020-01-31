@@ -38,8 +38,8 @@ public class FragmentChats extends Fragment {
         final View view = inflater.inflate(R.layout.chats_content, container, false);
 
 
-        actionBar.setDisplayShowHomeEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(false);
 
 
 

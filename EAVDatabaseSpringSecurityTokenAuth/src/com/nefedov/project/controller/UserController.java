@@ -33,7 +33,6 @@ public class UserController {
     @ResponseBody
     public String aboutUser(@RequestParam(name = "login") String login) {
         UserInfo user = userDAO.findInfoAboutUser(login);
-
         return user.toString();
     }
 
@@ -78,8 +77,6 @@ public class UserController {
         String encrytedPassword = encrytePassword(createUser.getPassword());
         userDAO.createUser(createUser.getUsername(), encrytedPassword, createUser.getRole());
             return "redirect:/createUser";
-
-
     }
 
 }

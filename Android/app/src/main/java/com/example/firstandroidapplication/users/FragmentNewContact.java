@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.firstandroidapplication.API.ConfigRetrofit;
+import com.example.firstandroidapplication.FragmentMainPage;
 import com.example.firstandroidapplication.R;
 
 import okhttp3.ResponseBody;
@@ -30,6 +31,8 @@ import static com.example.firstandroidapplication.MainActivity.actionBar;
 import static com.example.firstandroidapplication.authorization.FragmentUserAuthorization.token;
 
 public class FragmentNewContact extends Fragment {
+
+    public static boolean addedNewContact = false;
 
     @Nullable
     @Override
@@ -68,9 +71,8 @@ public class FragmentNewContact extends Fragment {
 
                     toast.show();
                 }
-                else {
-
-
+                else
+                {
                     ConfigRetrofit.getInstance()
                             .addContact(token, userInfo)
                             .enqueue(new Callback<ResponseBody>() {
@@ -81,12 +83,20 @@ public class FragmentNewContact extends Fragment {
 
                                         FragmentTransaction fTrans;
 
-                                        FragmentContacts fragmentContacts = new FragmentContacts();
+                                        FragmentMainPage fragmentMainPage = new FragmentMainPage();
 
                                         fTrans = getFragmentManager().beginTransaction();
-                                        fTrans.replace(R.id.main, fragmentContacts);
+                                        fTrans.replace(R.id.main, fragmentMainPage);
                                         fTrans.addToBackStack(null);
                                         fTrans.commit();
+                                        addedNewContact = true;
+
+                                        Toast toast = Toast.makeText(activity, Html.fromHtml("<span style=\"background-color:#0099cb;" +
+                                                " color:#ffffff\">" + "User " + userInfo.getUsername() + " was added" + "</span>"), Toast.LENGTH_LONG);
+
+                                        LinearLayout toastContainer = (LinearLayout) toast.getView();
+                                        toastContainer.setBackgroundResource(R.drawable.toast_style);
+                                        toast.show();
 
 
                                     } else {
@@ -99,7 +109,6 @@ public class FragmentNewContact extends Fragment {
 
                                         toast.show();
                                     }
-
                                 }
 
                                 @Override

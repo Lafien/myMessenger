@@ -22,8 +22,9 @@ public class MessageDAO extends JdbcDaoSupport {
 
     public List<Message> getMessagesInChat(String msgOwner, String msgTo){
         String sql = MessageMapper.GET_MESSAGE_IN_CHAT;
-        Object[] params = new Object[]{msgOwner, msgTo, msgTo, msgOwner, msgOwner, msgTo, msgTo, msgOwner,
-                msgOwner, msgTo, msgTo, msgOwner, msgOwner, msgTo, msgTo, msgOwner,};
+        Object[] params = new Object[]{msgOwner, msgTo, msgTo, msgOwner,
+                msgOwner, msgTo, msgTo, msgOwner, msgOwner, msgTo, msgTo,
+                msgOwner, msgOwner, msgTo, msgTo, msgOwner,};
         assert this.getJdbcTemplate() != null;
         return this.getJdbcTemplate().query(sql,params,(resultSet, i) -> {
             String dateCreate = resultSet.getString("datecreate");

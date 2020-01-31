@@ -39,8 +39,8 @@ public class FragmentContacts extends Fragment {
         final View view = inflater.inflate(R.layout.contacts_content, container, false);
 
 
-        actionBar.setDisplayShowHomeEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(false);
 
         fab = view.findViewById(R.id.fab);
 

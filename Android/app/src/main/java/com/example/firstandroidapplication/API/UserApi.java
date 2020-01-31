@@ -29,7 +29,6 @@ public interface UserApi {
     @GET("/users/chats")
     Call<List<UserInfo>> getChats(@Header("Authorization") String token);
 
-
     @GET("/users/chats/{username}")
     Call<List<Message>> getMessages(@Header("Authorization") String token, @Path("username") String username);
 
@@ -41,8 +40,6 @@ public interface UserApi {
 
     @POST("/users/contacts")
     Call<ResponseBody> addContact(@Header("Authorization") String token, @Body UserInfo userInfo);
-
-
 
     @GET("/users/image/{username}")
     Call<ResponseBody> getImage(@Header("Authorization") String token, @Path("username")String username);

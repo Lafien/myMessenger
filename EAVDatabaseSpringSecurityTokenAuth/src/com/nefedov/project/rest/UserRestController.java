@@ -35,11 +35,9 @@ public class UserRestController {
     @GetMapping(value = "contacts")
     public ResponseEntity<List<UserInfo>> getFriendsContact(Authentication authentication) {
         List<UserInfo> user = userService.findFriendContact(authentication.getName());
-
         if (user == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
@@ -67,9 +65,22 @@ public class UserRestController {
 
 
     @PostMapping("contacts")
-    public ResponseEntity addContact(Authentication authentication, @RequestBody UserInfo userInfo) {
-        userService.addContact(authentication.getName(), userInfo.getUsername());
-        return  new ResponseEntity(HttpStatus.OK);
+    public ResponseEntity<String> addContact(Authentication authentication, @RequestBody UserInfo userInfo) {
+
+        if(userInfo.getUsername().isEmpty()){
+            System.out.println(userInfo.getUsername());
+            return  new ResponseEntity<>("Request in empty", HttpStatus.BAD_REQUEST);
+        }
+
+        UserInfo user = userService.findByUsernameInfo(userInfo.getUsername());
+
+        if(user==null) {
+            return new ResponseEntity<>("This user does not exist.", HttpStatus.BAD_REQUEST);
+        } else
+        {
+            userService.addContact(authentication.getName(), userInfo.getUsername());
+            return new ResponseEntity<>("User " + userInfo.getUsername() + " was added", HttpStatus.OK);
+        }
     }
 
 
