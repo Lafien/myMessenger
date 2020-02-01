@@ -28,7 +28,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         mFragmentTitleList.add(title);
     }
 
-
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
@@ -39,5 +38,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     public int getCount() {
         return mFragmentList.size();
     }
+
+
 
 }

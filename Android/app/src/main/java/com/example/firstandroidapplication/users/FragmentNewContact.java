@@ -48,7 +48,7 @@ public class FragmentNewContact extends Fragment {
 
 
         final EditText editText = view.findViewById(R.id.newContact);
-        final Activity activity = getActivity();;
+        final Activity activity = getActivity();
 
 
         addContact.setOnClickListener(new View.OnClickListener() {

@@ -24,6 +24,8 @@ import static com.example.firstandroidapplication.users.FragmentNewContact.added
 public class FragmentMainPage extends Fragment {
 
     SectionsPagerAdapter adapter;
+    TabLayout tabs;
+    ViewPager viewPager;
 
     @Nullable
     @Override
@@ -38,7 +40,7 @@ public class FragmentMainPage extends Fragment {
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setDisplayHomeAsUpEnabled(false);
 
-        ViewPager viewPager = view.findViewById(R.id.view_pager);
+        viewPager = view.findViewById(R.id.view_pager);
         setupViewPager(viewPager);
 
         if(addedNewContact) {
@@ -46,11 +48,13 @@ public class FragmentMainPage extends Fragment {
             addedNewContact = false;
         }
 
-        TabLayout tabs = view.findViewById(R.id.tabs);
+        tabs = view.findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
+
 
         return  view;
     }
+
 
     private void setupViewPager(ViewPager viewPager) {
 
@@ -61,7 +65,6 @@ public class FragmentMainPage extends Fragment {
         viewPager.setAdapter(adapter);
 
 
-
     }
 
     @Override
@@ -70,6 +73,8 @@ public class FragmentMainPage extends Fragment {
         menu.clear();
         super.onCreateOptionsMenu(menu, inflater);
     }
+
+
 
 
 }

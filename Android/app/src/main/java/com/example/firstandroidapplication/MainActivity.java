@@ -2,6 +2,8 @@ package com.example.firstandroidapplication;
 
 
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -27,9 +29,11 @@ public class MainActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0099c")));
         actionBar = getSupportActionBar();
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.rgb(0,153,203)));
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction().replace(R.id.main, new FragmentUserAuthorization());
         fragmentTransaction.commit();

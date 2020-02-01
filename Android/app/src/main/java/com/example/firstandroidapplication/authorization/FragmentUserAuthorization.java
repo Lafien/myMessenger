@@ -44,6 +44,7 @@ public class FragmentUserAuthorization extends Fragment {
         final View view = inflater.inflate(R.layout.authorization_content, container, false);
 
 
+
         getActivity().setTitle("Messenger");
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setDisplayHomeAsUpEnabled(false);
@@ -109,7 +110,6 @@ public class FragmentUserAuthorization extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_main, menu);
-
         menu.clear();
 
 
