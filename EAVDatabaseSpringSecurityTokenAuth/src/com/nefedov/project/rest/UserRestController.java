@@ -72,6 +72,10 @@ public class UserRestController {
             return  new ResponseEntity<>("Request in empty", HttpStatus.BAD_REQUEST);
         }
 
+        if(userInfo.getUsername().equals(authentication.getName())){
+            return new ResponseEntity<>("You cannot add yourself to friends", HttpStatus.BAD_REQUEST);
+        }
+
         UserInfo user = userService.findByUsernameInfo(userInfo.getUsername());
 
         if(user==null) {
@@ -108,8 +112,23 @@ public class UserRestController {
     }
 
     @PostMapping(value = "chats/messages")
-    public void createMessage(@RequestBody Message message, Authentication authentication) {
-        messageService.createMessage(message.getText(), authentication.getName(), message.getMsgTo());
+    public ResponseEntity<String> createMessage(@RequestBody Message message, Authentication authentication) {
+        if(message.getText().isEmpty()){
+            return new ResponseEntity<>("Message is empty", HttpStatus.BAD_REQUEST);
+        }
+
+        if(message.getMsgTo().equals(authentication.getName())){
+            return new ResponseEntity<>("You cannot send a message to yourself", HttpStatus.BAD_REQUEST);
+        }
+
+        UserInfo user = userService.findByUsernameInfo(message.getMsgTo());
+
+        if(user==null) {
+            return new ResponseEntity<>("This user does not exist", HttpStatus.BAD_REQUEST);
+        } else {
+            messageService.createMessage(message.getText(), authentication.getName(), message.getMsgTo());
+            return new ResponseEntity<>("Message was send", HttpStatus.OK);
+        }
     }
 
     @PutMapping(value = "myprofile")
@@ -136,7 +155,6 @@ public class UserRestController {
 
 
     }
-
 
     @GetMapping(value = "/image/{username}", produces = MediaType.IMAGE_JPEG_VALUE)
     public @ResponseBody byte[] getImageWithMediaType( @PathVariable(name = "username")String username) throws IOException {

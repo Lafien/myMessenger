@@ -37,8 +37,8 @@ public class FragmentMessages extends Fragment {
     private View view;
     private RecyclerView listMessages;
     private DataAdapterMessages adapterMessages;
-    List<Message> post;
-    List<Message> postNew;
+    private List<Message> post;
+    private List<Message> postNew;
 
     @Nullable
     @Override
@@ -58,7 +58,6 @@ public class FragmentMessages extends Fragment {
 
 
          FloatingActionButton message = view.findViewById(R.id.sendMessage);
-
 
          post = new ArrayList<>();
          postNew = new ArrayList<>();
