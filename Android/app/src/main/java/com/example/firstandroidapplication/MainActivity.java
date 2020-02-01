@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0099c")));
         actionBar = getSupportActionBar();
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -102,4 +101,6 @@ public class MainActivity extends AppCompatActivity  {
         }
         return super.onKeyDown(keyCode, event);
     }
+
+
 }

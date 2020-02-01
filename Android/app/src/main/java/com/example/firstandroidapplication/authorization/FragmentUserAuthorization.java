@@ -1,6 +1,9 @@
 package com.example.firstandroidapplication.authorization;
 
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -76,7 +79,6 @@ public class FragmentUserAuthorization extends Fragment {
                     textView.setText("Login or password incorrect");
                 }
 
-
             }
         });
 
@@ -86,14 +88,20 @@ public class FragmentUserAuthorization extends Fragment {
             @Override
             public void onClick(View view) {
 
-                String login = editText.getText().toString();
+                if(isOnline()){
+                    String login = editText.getText().toString();
 
-                String password = editText1.getText().toString();
+                    String password = editText1.getText().toString();
 
-                UserAuthorization userAuthorization = new UserAuthorization(login, password);
+                    UserAuthorization userAuthorization = new UserAuthorization(login, password);
 
-                model.setUserAuthorization(userAuthorization);
-                model.loadData();
+                    model.setUserAuthorization(userAuthorization);
+                    model.loadData();
+                }
+                else
+                {
+                    textView.setText("No internet connection");
+                }
 
             }
 
@@ -111,9 +119,15 @@ public class FragmentUserAuthorization extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_main, menu);
         menu.clear();
-
-
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
 }
