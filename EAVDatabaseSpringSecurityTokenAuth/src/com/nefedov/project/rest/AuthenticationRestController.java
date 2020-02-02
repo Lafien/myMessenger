@@ -45,6 +45,7 @@ public class AuthenticationRestController {
             UserSecurity user = userService.findByUsername(username);
 
             if (user == null) {
+                System.out.println("User with username: " + username + " not found");
                 throw new UsernameNotFoundException("User with username: " + username + " not found");
             }
 

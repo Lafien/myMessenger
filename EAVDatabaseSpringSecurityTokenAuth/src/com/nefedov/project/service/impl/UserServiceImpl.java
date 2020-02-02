@@ -31,11 +31,6 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public List<UserSecurity> getAll() {
-        return userDAO.getAllUserSecurity();
-    }
-
-    @Override
     public UserSecurity  findByUsername(String username) {
         return userDAO.userForSecurity(username);
     }

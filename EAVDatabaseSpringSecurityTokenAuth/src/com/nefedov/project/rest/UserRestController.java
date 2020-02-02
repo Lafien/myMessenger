@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -36,7 +37,7 @@ public class UserRestController {
     public ResponseEntity<List<UserInfo>> getFriendsContact(Authentication authentication) {
         List<UserInfo> user = userService.findFriendContact(authentication.getName());
         if (user == null) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
@@ -46,7 +47,7 @@ public class UserRestController {
         UserInfo user = userService.findByUsernameInfo(authentication.getName());
 
         if (user == null) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "This user does not exist");
         }
 
         return new ResponseEntity<>(user, HttpStatus.OK);
@@ -57,7 +58,7 @@ public class UserRestController {
         UserInfo user = userService.findByUsernameInfo(username);
 
         if (user == null) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "This user does not exist");
         }
 
         return new ResponseEntity<>(user, HttpStatus.OK);
@@ -69,17 +70,17 @@ public class UserRestController {
 
         if(userInfo.getUsername().isEmpty()){
             System.out.println(userInfo.getUsername());
-            return  new ResponseEntity<>("Request in empty", HttpStatus.BAD_REQUEST);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Request in empty");
         }
 
         if(userInfo.getUsername().equals(authentication.getName())){
-            return new ResponseEntity<>("You cannot add yourself to friends", HttpStatus.BAD_REQUEST);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "You cannot add yourself to friends");
         }
 
         UserInfo user = userService.findByUsernameInfo(userInfo.getUsername());
 
         if(user==null) {
-            return new ResponseEntity<>("This user does not exist.", HttpStatus.BAD_REQUEST);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "This user does not exist");
         } else
         {
             userService.addContact(authentication.getName(), userInfo.getUsername());
@@ -93,7 +94,7 @@ public class UserRestController {
         List<UserInfo> user = userService.getChats(authentication.getName());
 
         if (user == null) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT);
         }
 
         return new ResponseEntity<>(user, HttpStatus.OK);
@@ -102,29 +103,35 @@ public class UserRestController {
 
     @GetMapping(value = "chats/{username}")
     public ResponseEntity<List<Message>> getMessagesInChat(Authentication authentication, @PathVariable(name = "username") String username) {
-        List<Message> user = messageService.getMessagesInChat(authentication.getName(), username);
+        List<Message> response = messageService.getMessagesInChat(authentication.getName(), username);
 
-        if (user == null) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        UserInfo user = userService.findByUsernameInfo(username);
+
+        if(user==null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "This user does not exist");
         }
 
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        if (response == null) {
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT);
+        }
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping(value = "chats/messages")
     public ResponseEntity<String> createMessage(@RequestBody Message message, Authentication authentication) {
         if(message.getText().isEmpty()){
-            return new ResponseEntity<>("Message is empty", HttpStatus.BAD_REQUEST);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Message is empty");
         }
 
         if(message.getMsgTo().equals(authentication.getName())){
-            return new ResponseEntity<>("You cannot send a message to yourself", HttpStatus.BAD_REQUEST);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "You cannot send a message to yourself");
         }
 
         UserInfo user = userService.findByUsernameInfo(message.getMsgTo());
 
         if(user==null) {
-            return new ResponseEntity<>("This user does not exist", HttpStatus.BAD_REQUEST);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "This user does not exist");
         } else {
             messageService.createMessage(message.getText(), authentication.getName(), message.getMsgTo());
             return new ResponseEntity<>("Message was send", HttpStatus.OK);
@@ -152,7 +159,6 @@ public class UserRestController {
         {
             userService.addFirstname(userInfo.getFirstname(), authentication.getName());
         }
-
 
     }
 

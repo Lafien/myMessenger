@@ -9,8 +9,6 @@ import java.util.List;
 public interface UserService {
 
 
-    List<UserSecurity> getAll();
-
     UserSecurity findByUsername(String username);
 
     UserInfo findByUsernameInfo(String username);
