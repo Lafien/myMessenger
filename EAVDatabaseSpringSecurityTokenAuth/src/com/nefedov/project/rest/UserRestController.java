@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -164,10 +165,19 @@ public class UserRestController {
 
     @GetMapping(value = "/image/{username}", produces = MediaType.IMAGE_JPEG_VALUE)
     public @ResponseBody byte[] getImageWithMediaType( @PathVariable(name = "username")String username) throws IOException {
+        try{
         FileInputStream in = new FileInputStream("resources/images/" + username + ".jpg");
         byte[] result = IOUtils.toByteArray(in);
         in.close();
         return result;
+        }
+        catch (FileNotFoundException e){
+            FileInputStream in = new FileInputStream("resources/images/default_user.png");
+            byte[] result = IOUtils.toByteArray(in);
+            in.close();
+            return result;
+        }
+
     }
 
 }
