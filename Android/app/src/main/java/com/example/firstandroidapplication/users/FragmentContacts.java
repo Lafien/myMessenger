@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,6 +32,8 @@ import static com.example.firstandroidapplication.authorization.FragmentUserAuth
 public class FragmentContacts extends Fragment {
 
     public static FloatingActionButton fab;
+    RecyclerView recyclerView;
+    TextView emptyView;
 
     @Nullable
     @Override
@@ -38,6 +41,7 @@ public class FragmentContacts extends Fragment {
 
         final View view = inflater.inflate(R.layout.contacts_content, container, false);
 
+        emptyView =  view.findViewById(R.id.empty_view);
 
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setDisplayHomeAsUpEnabled(false);
@@ -68,7 +72,7 @@ public class FragmentContacts extends Fragment {
                         if(response.isSuccessful()) {
                             List<UserInfo> contacts = response.body();
 
-                            RecyclerView recyclerView =  view.findViewById(R.id.list);
+                            recyclerView =  view.findViewById(R.id.list);
                             DataAdapterContacts adapter = new DataAdapterContacts(getContext(), contacts);
                             recyclerView.setAdapter(adapter);
                         }
@@ -76,6 +80,8 @@ public class FragmentContacts extends Fragment {
 
                     @Override
                     public void onFailure(Call<List<UserInfo>> call, Throwable t) {
+                        recyclerView.setVisibility(View.VISIBLE);
+                        emptyView.setVisibility(View.GONE);
                         t.printStackTrace();
                     }
                 });

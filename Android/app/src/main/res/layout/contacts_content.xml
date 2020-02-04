@@ -23,12 +23,19 @@
         android:layout_weight="1"/>-->
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginTop="20dp"
         android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layoutManager="LinearLayoutManager"
-        android:layout_weight="1"/>
+        android:layout_height="717dp"
+        android:layout_marginTop="20dp"
+        android:layout_weight="1"
+        app:layoutManager="LinearLayoutManager" />
+    <TextView
+        android:id="@+id/empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:visibility="gone"
+        android:text="no_data_available" />
 
    <!-- <TextView
         android:id="@+id/textView"
