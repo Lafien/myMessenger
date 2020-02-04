@@ -12,13 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -32,21 +31,18 @@ public class FragmentUserAuthorization extends Fragment {
     public static String token = "";
     public static String authUser = "";
 
-
     EditText editText;
     EditText editText1;
-    TextView textView;
 
     AuthorizationViewModel model;
-    LiveData<UserSecurity> data;
+
+    public static View view;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        final View view = inflater.inflate(R.layout.authorization_content, container, false);
-
-
+        view = inflater.inflate(R.layout.authorization_content, container, false);
 
         getActivity().setTitle("Messenger");
         actionBar.setDisplayShowHomeEnabled(false);
@@ -58,8 +54,6 @@ public class FragmentUserAuthorization extends Fragment {
 
         editText = view.findViewById(R.id.login);
         editText1 = view.findViewById(R.id.password);
-        textView = view.findViewById(R.id.textView2);
-
 
         model.getData().observe(this, new Observer<UserSecurity>() {
 
@@ -76,9 +70,9 @@ public class FragmentUserAuthorization extends Fragment {
                 }
                 else
                 {
-                    textView.setText("Login or password incorrect");
+                    Toast toast = Toast.makeText(getActivity(), "Login or password incorrect",  Toast.LENGTH_LONG);
+                    toast.show();
                 }
-
             }
         });
 
@@ -100,14 +94,13 @@ public class FragmentUserAuthorization extends Fragment {
                 }
                 else
                 {
-                    textView.setText("No internet connection");
+                    Toast toast = Toast.makeText(getActivity(), "No internet connection",  Toast.LENGTH_LONG);
+                    toast.show();
                 }
 
             }
 
         });
-
-
 
         setHasOptionsMenu(true);
 

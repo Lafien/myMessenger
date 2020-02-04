@@ -68,12 +68,11 @@ public class DataAdapterChats extends RecyclerView.Adapter<DataAdapterChats.View
                             assert response.body() != null;
 
                             InputStream bytes = response.body().byteStream();
-                            Bitmap bitmap = null;
+                            Bitmap bitmap;
                             bitmap = BitmapFactory.decodeStream(bytes);
 
                             holder.imageView.setImageBitmap(bitmap);
                         }
-
                     }
 
                     @Override
@@ -84,7 +83,6 @@ public class DataAdapterChats extends RecyclerView.Adapter<DataAdapterChats.View
 
 
     }
-
 
 
     @Override
@@ -99,9 +97,9 @@ public class DataAdapterChats extends RecyclerView.Adapter<DataAdapterChats.View
         ViewHolder(final View view){
             super(view);
             imageView = view.findViewById(R.id.image);
-            surnameView = (TextView) view.findViewById(R.id.surname);
-            firstnameView = (TextView) view.findViewById(R.id.firstname);
-            usernameView = (TextView) view.findViewById(R.id.username);
+            surnameView = view.findViewById(R.id.surname);
+            firstnameView = view.findViewById(R.id.firstname);
+            usernameView = view.findViewById(R.id.username);
 
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -120,6 +118,5 @@ public class DataAdapterChats extends RecyclerView.Adapter<DataAdapterChats.View
             });
         }
     }
-
 
 }

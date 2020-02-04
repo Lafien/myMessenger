@@ -98,7 +98,6 @@ public class FragmentNewContact extends Fragment {
                                         toastContainer.setBackgroundResource(R.drawable.toast_style);
                                         toast.show();
 
-
                                     } else {
 
                                         Toast toast = Toast.makeText(activity, Html.fromHtml("<span style=\"background-color:#0099cb;" +
@@ -113,13 +112,14 @@ public class FragmentNewContact extends Fragment {
 
                                 @Override
                                 public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                    Toast toast = Toast.makeText(getActivity(), "No response from server",  Toast.LENGTH_LONG);
+                                    toast.show();
                                     t.printStackTrace();
                                 }
                             });
                 }
             }
         });
-
 
         setHasOptionsMenu(true);
 

@@ -79,9 +79,7 @@ public class DataAdapterContacts extends RecyclerView.Adapter<DataAdapterContact
                         t.printStackTrace();
                     }
                 });
-
     }
-
 
 
     @Override

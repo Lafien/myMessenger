@@ -10,13 +10,17 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.firstandroidapplication.API.ConfigRetrofit;
 import com.example.firstandroidapplication.R;
+import com.example.firstandroidapplication.authorization.FragmentUserAuthorization;
 
 import java.io.InputStream;
 
@@ -37,7 +41,7 @@ public class FragmentUserMyProfile extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.my_profile_content, container, false);
+        final View view = inflater.inflate(R.layout.my_profile_content, container, false);
 
         getActivity().setTitle("My profile");
 
@@ -65,19 +69,23 @@ public class FragmentUserMyProfile extends Fragment {
                             textView2.setText(post.getFirstname());
                         }
                         else {
-                            textView.setText("");
-                            textView1.setText("");
-                            textView2.setText("");
-                            //problem.setText("Проблемы с авторизацией");
+                            Toast toast = Toast.makeText(getActivity(), "JWT token is expired or invalid",  Toast.LENGTH_LONG);
+                            toast.show();
+
+                            AppCompatActivity activity = (AppCompatActivity) view.getContext();
+
+                            FragmentUserAuthorization fragmentUserAuthorization = new FragmentUserAuthorization();
+
+                            FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction().replace(R.id.main, fragmentUserAuthorization);
+                            fragmentTransaction.addToBackStack(null);
+                            fragmentTransaction.commit();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<UserInfo> call, Throwable t) {
-
-                        textView.setText("Error occurred while getting request!");
-                        textView1.setText("");
-                        textView2.setText("");
+                        Toast toast = Toast.makeText(getActivity(), "No response from server",  Toast.LENGTH_LONG);
+                        toast.show();
                         t.printStackTrace();
                     }
                 });

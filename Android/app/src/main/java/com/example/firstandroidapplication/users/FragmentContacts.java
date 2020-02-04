@@ -47,8 +47,6 @@ public class FragmentContacts extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 AppCompatActivity activity = (AppCompatActivity) view.getContext();
 
                 FragmentNewContact fragmentNewContact = new FragmentNewContact();
@@ -73,9 +71,7 @@ public class FragmentContacts extends Fragment {
                             RecyclerView recyclerView =  view.findViewById(R.id.list);
                             DataAdapterContacts adapter = new DataAdapterContacts(getContext(), contacts);
                             recyclerView.setAdapter(adapter);
-
                         }
-
                     }
 
                     @Override
@@ -94,10 +90,5 @@ public class FragmentContacts extends Fragment {
         activity.setTitle("Contacts");
         super.onCreateOptionsMenu(menu, inflater);
     }
-
-
-
-
-
 
 }

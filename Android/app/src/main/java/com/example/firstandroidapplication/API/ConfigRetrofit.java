@@ -1,12 +1,14 @@
 package com.example.firstandroidapplication.API;
 
-import com.example.firstandroidapplication.chats.Message;
 import com.example.firstandroidapplication.authorization.UserAuthorization;
-import com.example.firstandroidapplication.users.UserInfo;
 import com.example.firstandroidapplication.authorization.UserSecurity;
+import com.example.firstandroidapplication.chats.Message;
+import com.example.firstandroidapplication.users.UserInfo;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
+import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -22,8 +24,13 @@ public class ConfigRetrofit {
     private UserApi mRetrofit;
 
     private ConfigRetrofit(){
+        final OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .readTimeout(2, TimeUnit.SECONDS)
+                .connectTimeout(2, TimeUnit.SECONDS)
+                .build();
         mRetrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
+                .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(UserApi.class);

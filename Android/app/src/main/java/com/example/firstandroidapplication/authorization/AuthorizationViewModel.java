@@ -1,5 +1,8 @@
 package com.example.firstandroidapplication.authorization;
 
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -8,6 +11,7 @@ import com.example.firstandroidapplication.API.ConfigRetrofit;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import static com.example.firstandroidapplication.authorization.FragmentUserAuthorization.view;
 
 public class AuthorizationViewModel extends ViewModel {
 
@@ -19,7 +23,6 @@ public class AuthorizationViewModel extends ViewModel {
     public MutableLiveData<UserSecurity> getData() {
 
         data = new MutableLiveData<>();
-
         return data;
     }
 
@@ -46,8 +49,12 @@ public class AuthorizationViewModel extends ViewModel {
 
                     @Override
                     public void onFailure(Call<UserSecurity> call, Throwable t) {
+                        AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                        Toast toast = Toast.makeText(activity, "No response from server",  Toast.LENGTH_LONG);
+                        toast.show();
                         t.printStackTrace();
                     }
+
                 });
     }
 

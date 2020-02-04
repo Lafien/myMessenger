@@ -57,14 +57,10 @@ public class FragmentMainPage extends Fragment {
 
 
     private void setupViewPager(ViewPager viewPager) {
-
-
         adapter = new SectionsPagerAdapter(getChildFragmentManager());
         adapter.addFragment(new FragmentChats(), "Chats");
         adapter.addFragment(new FragmentContacts(), "Contacts");
         viewPager.setAdapter(adapter);
-
-
     }
 
     @Override
@@ -73,8 +69,5 @@ public class FragmentMainPage extends Fragment {
         menu.clear();
         super.onCreateOptionsMenu(menu, inflater);
     }
-
-
-
 
 }

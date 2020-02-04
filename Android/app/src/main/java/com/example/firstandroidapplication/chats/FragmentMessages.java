@@ -10,15 +10,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.firstandroidapplication.API.ConfigRetrofit;
 import com.example.firstandroidapplication.R;
+import com.example.firstandroidapplication.authorization.FragmentUserAuthorization;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -39,13 +43,13 @@ public class FragmentMessages extends Fragment {
     private DataAdapterMessages adapterMessages;
     private List<Message> post;
     private List<Message> postNew;
+    Toast toast;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         view  = inflater.inflate(R.layout.messages_content, container, false);
-
 
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
@@ -56,14 +60,14 @@ public class FragmentMessages extends Fragment {
 
         listMessages = view.findViewById(R.id.listMessages);
 
+        toast = Toast.makeText(getActivity(), "No response from server",  Toast.LENGTH_LONG);
 
-         FloatingActionButton message = view.findViewById(R.id.sendMessage);
+        FloatingActionButton message = view.findViewById(R.id.sendMessage);
 
-         post = new ArrayList<>();
-         postNew = new ArrayList<>();
+        post = new ArrayList<>();
+        postNew = new ArrayList<>();
 
         adapterMessages = new DataAdapterMessages(getContext(), post);
-
 
         ConfigRetrofit.getInstance()
                 .getMessages(token, usernameChat.getUsername())
@@ -76,21 +80,18 @@ public class FragmentMessages extends Fragment {
 
                             adapterMessages.setMessagesList(post);
                             listMessages.setAdapter(adapterMessages);
-
                         }
-
                     }
 
                     @Override
                     public void onFailure(Call<List<Message>> call, Throwable t) {
-
+                        Toast toastNew = Toast.makeText(getActivity(), "No response from server",  Toast.LENGTH_LONG);
+                        toastNew.show();
                         t.printStackTrace();
                     }
                 });
 
         periodicUpdate.run();
-
-
 
 
         message.setOnClickListener(new View.OnClickListener() {
@@ -113,7 +114,6 @@ public class FragmentMessages extends Fragment {
 
                                 @Override
                                 public void onResponse(Call<Object> call, Response<Object> response) {
-
                                 }
 
                                 @Override
@@ -162,11 +162,26 @@ public class FragmentMessages extends Fragment {
                                 }
                             }
                         }
+                        else
+                        {
+                            periodicUpdate = null;
+
+                            Toast toast = Toast.makeText(getActivity(), "JWT token is expired or invalid",  Toast.LENGTH_LONG);
+                            toast.show();
+
+                            AppCompatActivity activity = (AppCompatActivity) view.getContext();
+
+                            FragmentUserAuthorization fragmentUserAuthorization = new FragmentUserAuthorization();
+
+                            FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction().replace(R.id.main, fragmentUserAuthorization);
+                            fragmentTransaction.addToBackStack(null);
+                            fragmentTransaction.commit();
+                        }
                     }
 
                     @Override
                     public void onFailure(Call<List<Message>> call, Throwable t) {
-
+                        toast.show();
                         t.printStackTrace();
                     }
                 });

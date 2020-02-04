@@ -8,8 +8,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewManager;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.firstandroidapplication.R;
 
 import java.util.List;
+
 import static com.example.firstandroidapplication.authorization.FragmentUserAuthorization.authUser;
 
 public class DataAdapterMessages extends RecyclerView.Adapter<DataAdapterMessages.ViewHolder>  {
@@ -51,11 +50,8 @@ public class DataAdapterMessages extends RecyclerView.Adapter<DataAdapterMessage
     public void onBindViewHolder(DataAdapterMessages.ViewHolder holder, final int position) {
 
         Message message = messagesList.get(position);
-        //holder.circleImageView.setImageResource(R.drawable.ic_action_user);
-
 
         String msgFrom = message.getMsgFrom();
-        String msgTo = message.getMsgTo();
 
         if(msgFrom.equals(authUser)){
 
@@ -70,12 +66,9 @@ public class DataAdapterMessages extends RecyclerView.Adapter<DataAdapterMessage
             holder.mesDate.setGravity(Gravity.RIGHT);
             holder.mesDate.setPadding(0,0,20,0);
 
-
         }
         else
         {
-
-
             holder.messageText.setBackgroundResource(R.drawable.message_text_background);
 
             holder.messageText.setTextColor(Color.BLACK);
@@ -86,13 +79,10 @@ public class DataAdapterMessages extends RecyclerView.Adapter<DataAdapterMessage
             holder.mesDate.setTextColor(Color.BLACK);
             holder.mesDate.setGravity(Gravity.LEFT);
             holder.mesDate.setPadding(20,0,0,0);
-
-
         }
 
         holder.messageText.setText(message.getText());
         holder.mesDate.setText(message.getDateCreate());
-
     }
 
 
@@ -103,16 +93,12 @@ public class DataAdapterMessages extends RecyclerView.Adapter<DataAdapterMessage
     }
 
 
-
-    public class ViewHolder extends RecyclerView.ViewHolder {
-
-        //public CircleImageView circleImageView;
-        public TextView messageText;
-        public TextView mesDate;
+    class ViewHolder extends RecyclerView.ViewHolder {
+        TextView messageText;
+        TextView mesDate;
 
         ViewHolder(final View view){
             super(view);
-            //circleImageView = view.findViewById(R.id.messageImage);
             messageText =  view.findViewById(R.id.messageText);
             mesDate = view.findViewById(R.id.mesDate);
         }

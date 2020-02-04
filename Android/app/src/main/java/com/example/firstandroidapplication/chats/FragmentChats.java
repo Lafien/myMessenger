@@ -7,15 +7,18 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.firstandroidapplication.API.ConfigRetrofit;
 import com.example.firstandroidapplication.R;
+import com.example.firstandroidapplication.authorization.FragmentUserAuthorization;
 import com.example.firstandroidapplication.users.UserInfo;
 
 import java.util.List;
@@ -28,8 +31,6 @@ import static com.example.firstandroidapplication.MainActivity.actionBar;
 import static com.example.firstandroidapplication.authorization.FragmentUserAuthorization.token;
 
 public class FragmentChats extends Fragment {
-    public static String usernameChat = "";
-    public static UserInfo userChat;
 
     @Nullable
     @Override
@@ -40,7 +41,6 @@ public class FragmentChats extends Fragment {
 
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setDisplayHomeAsUpEnabled(false);
-
 
 
         ConfigRetrofit.getInstance()
@@ -58,10 +58,26 @@ public class FragmentChats extends Fragment {
                             recyclerView.setAdapter(adapter);
 
                         }
+                        else
+                        {
+                            Toast toast = Toast.makeText(getActivity(), "JWT token is expired or invalid",  Toast.LENGTH_LONG);
+                            toast.show();
+
+                            AppCompatActivity activity = (AppCompatActivity) view.getContext();
+
+                            FragmentUserAuthorization fragmentUserAuthorization = new FragmentUserAuthorization();
+
+                            FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction().replace(R.id.main, fragmentUserAuthorization);
+                            fragmentTransaction.addToBackStack(null);
+                            fragmentTransaction.commit();
+                        }
                     }
 
                     @Override
                     public void onFailure(Call<List<UserInfo>> call, Throwable t) {
+                        Toast toast = Toast.makeText(getActivity(), "No response from server",  Toast.LENGTH_LONG);
+                        toast.show();
+
                         t.printStackTrace();
                     }
                 });
@@ -69,7 +85,6 @@ public class FragmentChats extends Fragment {
         setHasOptionsMenu(true);
         return  view;
     }
-
 
 
     @Override

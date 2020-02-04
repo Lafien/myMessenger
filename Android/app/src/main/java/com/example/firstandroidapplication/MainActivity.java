@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity  {
     public static ActionBar actionBar;
     AlertDialog.Builder ad;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,8 +50,6 @@ public class MainActivity extends AppCompatActivity  {
             public void onClick(DialogInterface dialog, int arg1) {
             }
         });
-
-
 
     }
 
