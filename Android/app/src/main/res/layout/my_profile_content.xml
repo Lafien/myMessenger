@@ -4,14 +4,6 @@
     android:padding="16dp"
     android:background="@android:color/holo_blue_dark">
 
-   <!-- <ImageView
-        android:id="@+id/images"
-        android:layout_width="149dp"
-        android:layout_height="156dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:src="@drawable/ic_action_user" />-->
-
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/images"
         android:layout_width="150dp"

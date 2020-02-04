@@ -6,18 +6,6 @@
     android:orientation="vertical"
     android:background="@android:color/holo_blue_dark">
 
-
-    <!--<TextView
-        android:id="@+id/nameUser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:textSize="25dp"
-        android:layout_marginBottom="5dp"
-        android:text=""
-        android:layout_marginTop="10dp"
-        android:textColor="@android:color/white"/>-->
-
     <androidx.recyclerview.widget.RecyclerView
         android:layout_marginTop="15dp"
         android:id="@+id/listMessages"
@@ -27,20 +15,6 @@
         app:stackFromEnd = "true"
         android:layout_weight="1"
         />
-
-    <!--<ListView
-        android:id="@+id/contactsList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:stackFromBottom="true"/>-->
-
-   <!-- <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />-->
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -68,24 +42,6 @@
             android:layout_marginBottom="10dp"
             app:srcCompat = "@drawable/ic_action_send"/>
 
-        <!--<Button
-            android:id="@+id/sendMessage"
-            android:layout_width="55dp"
-            android:layout_height="30dp"
-
-
-            android:layout_marginRight="8dp"
-
-            android:background="@color/colorPrimary"
-            android:drawableBottom="@drawable/ic_action_send"
-            android:text="" />-->
-
     </LinearLayout>
-
-        <!--android:visibility="invisible"-->
-
-
-
-
 
 </LinearLayout>

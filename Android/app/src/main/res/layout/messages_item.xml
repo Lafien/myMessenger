@@ -4,12 +4,6 @@
     android:padding="16dp"
     android:id="@+id/relLay">
 
-    <!--<de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/messageImage"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:src="@drawable/ic_action_user" />-->
-
     <TextView
         android:id="@+id/messageText"
         android:layout_width="match_parent"
