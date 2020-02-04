@@ -63,9 +63,9 @@ public class UserDAO extends JdbcDaoSupport {
     }
 
 
-    public void createUser(String username, String password, String role) {
+    public void createUser(String username, String password, String role, String surname, String firstname) {
         String sql = UserMapper.CREATE_USER;
-        Object[] params = new Object[]{username, password, role};
+        Object[] params = new Object[]{username, password, role, surname, firstname};
         assert this.getJdbcTemplate() != null;
         int rows = this.getJdbcTemplate().update(sql, params);
         System.out.println(rows + " row(s) updated.");

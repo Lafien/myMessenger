@@ -27,7 +27,7 @@ public interface UserService {
 
     void addFirstname(String firstname, String username);
 
-    void createUser(String username, String password, String role);
+    void createUser(String username, String password, String role, String surname, String firstname);
 
 
 }

@@ -76,8 +76,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void createUser(String username, String password, String role) {
-        userDAO.createUser(username, password, role);
+    public void createUser(String username, String password, String role, String surname, String firstname) {
+        userDAO.createUser(username, password, role, surname, firstname);
     }
 
 

@@ -57,7 +57,15 @@ public class UserMapper {
             "LIMIT 1),4, ?);" + "insert into value (id_object, id_attribute, value)\n" +
             "values ((select id_object from object\n" +
             "    ORDER BY id_object DESC \n" +
-            "LIMIT 1),10, ?);";
+            "LIMIT 1),10, ?);" +
+            "insert into value (id_object, id_attribute, value)\n" +
+            "values ((select id_object from object\n" +
+            "ORDER BY id_object DESC\n" +
+            "LIMIT 1),1, ?);" +
+            "insert into value (id_object, id_attribute, value)\n" +
+            "values ((select id_object from object\n" +
+            "ORDER BY id_object DESC\n" +
+            "LIMIT 1),2, ?)";
 
     public static String FIND_ALL_USER = "select login.login, passwords.password, roles.role from\n" +
             "(select test.value as login, id_object from\n" +
