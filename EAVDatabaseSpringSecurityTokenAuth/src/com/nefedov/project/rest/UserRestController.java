@@ -79,14 +79,20 @@ public class UserRestController {
         }
 
         UserInfo user = userService.findByUsernameInfo(userInfo.getUsername());
+        UserInfo user1 = userService.checkContact(authentication.getName(), userInfo.getUsername());
 
         if(user==null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "This user does not exist");
-        } else
-        {
-            userService.addContact(authentication.getName(), userInfo.getUsername());
-            return new ResponseEntity<>("User " + userInfo.getUsername() + " was added", HttpStatus.OK);
         }
+        else
+            if(user1==null){
+                userService.addContact(authentication.getName(), userInfo.getUsername());
+                return new ResponseEntity<>("User " + userInfo.getUsername() + " was added", HttpStatus.OK);
+            }
+            else {
+                throw new ResponseStatusException(HttpStatus.CONFLICT, "This user has already been added to contacts.");
+            }
+
     }
 
 

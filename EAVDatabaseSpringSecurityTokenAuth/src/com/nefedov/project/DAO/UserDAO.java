@@ -152,6 +152,23 @@ public class UserDAO extends JdbcDaoSupport {
         System.out.println("Firstname was added");
     }
 
+    public UserInfo checkContact(String login, String contact){
+        String sql = UserMapper.CHECK_CONTACT;
+        Object[] params = new Object[] {login, contact, login, contact, login, contact};
+        try {
+            assert this.getJdbcTemplate() != null;
+            return this.getJdbcTemplate().queryForObject(sql, params, (resultSet, i) -> {
+                String username = resultSet.getString("username");
+                String surname = resultSet.getString("surname");
+                String firstname = resultSet.getString("firstname");
+                return new UserInfo(username, surname, firstname);
+            });
+        }
+        catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+
 
 
 }

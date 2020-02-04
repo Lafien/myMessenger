@@ -29,5 +29,7 @@ public interface UserService {
 
     void createUser(String username, String password, String role, String surname, String firstname);
 
+    UserInfo checkContact(String username, String contact);
+
 
 }

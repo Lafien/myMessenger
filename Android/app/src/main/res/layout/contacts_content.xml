@@ -7,21 +7,6 @@
     android:background="@android:color/holo_blue_dark">
 
 
-    <!--<TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:textSize="30sp"
-        android:textColor="@android:color/white"
-        android:text="Contacts" />-->
-
-    <!--<ListView
-        android:id="@+id/contactsList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"/>-->
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list"
         android:layout_width="match_parent"
@@ -37,11 +22,6 @@
         android:visibility="gone"
         android:text="no_data_available" />
 
-   <!-- <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />-->
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
@@ -50,14 +30,6 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="20dp"
         app:srcCompat="@drawable/ic_action_user_add" />
-
-    <!--<TextView
-        android:id="@+id/problem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="" />-->
-
 
 
 </LinearLayout>

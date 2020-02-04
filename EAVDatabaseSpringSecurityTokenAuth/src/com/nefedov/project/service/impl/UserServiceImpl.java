@@ -80,5 +80,8 @@ public class UserServiceImpl implements UserService {
         userDAO.createUser(username, password, role, surname, firstname);
     }
 
-
+    @Override
+    public UserInfo checkContact(String username, String contact) {
+        return userDAO.checkContact(username, contact);
+    }
 }
