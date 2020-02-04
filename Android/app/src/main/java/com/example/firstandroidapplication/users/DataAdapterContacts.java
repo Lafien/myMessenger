@@ -51,6 +51,7 @@ public class DataAdapterContacts extends RecyclerView.Adapter<DataAdapterContact
     @Override
     public void onBindViewHolder(final DataAdapterContacts.ViewHolder holder, final int position) {
         UserInfo contact = contacts.get(position);
+        holder.imageView.setImageResource(R.drawable.ic_action_user);
         holder.surnameView.setText(contact.getSurname());
         holder.firstnameView.setText(contact.getFirstname());
         holder.usernameView.setText(contact.getUsername());
