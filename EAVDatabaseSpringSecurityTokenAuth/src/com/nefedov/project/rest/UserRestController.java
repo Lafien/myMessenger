@@ -7,6 +7,7 @@ import com.nefedov.project.service.UserService;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +15,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import javax.print.attribute.standard.Media;
+import java.io.*;
 import java.util.List;
 
 @RestController
@@ -170,7 +169,7 @@ public class UserRestController {
     }
 
     @GetMapping(value = "/image/{username}", produces = MediaType.IMAGE_JPEG_VALUE)
-    public @ResponseBody byte[] getImageWithMediaType( @PathVariable(name = "username")String username) throws IOException {
+    public @ResponseBody byte[] getImageWithMediaType( @PathVariable(name = "username") String username) throws IOException {
         try{
         FileInputStream in = new FileInputStream("resources/images/" + username + ".jpg");
         byte[] result = IOUtils.toByteArray(in);
@@ -185,5 +184,4 @@ public class UserRestController {
         }
 
     }
-
 }

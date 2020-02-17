@@ -14,6 +14,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
 
 import com.example.firstandroidapplication.authorization.FragmentUserAuthorization;
 import com.example.firstandroidapplication.users.FragmentUserMyProfile;
@@ -22,6 +23,7 @@ import com.example.firstandroidapplication.users.FragmentUserMyProfile;
 public class MainActivity extends AppCompatActivity  {
     public static ActionBar actionBar;
     AlertDialog.Builder ad;
+    NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,8 @@ public class MainActivity extends AppCompatActivity  {
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.rgb(0,153,203)));
+
+        //navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction().replace(R.id.main, new FragmentUserAuthorization());
         fragmentTransaction.commit();
