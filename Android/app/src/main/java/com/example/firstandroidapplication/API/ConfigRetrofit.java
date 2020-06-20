@@ -13,14 +13,12 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Body;
-import retrofit2.http.Header;
-import retrofit2.http.Path;
+import retrofit2.http.*;
 
 public class ConfigRetrofit {
 
     private static ConfigRetrofit mInstance;
-    private static final String BASE_URL = "http://172.20.10.5:8080";
+    private static final String BASE_URL = "http://172.20.10.2:8080";
     private UserApi mRetrofit;
 
     private ConfigRetrofit(){
